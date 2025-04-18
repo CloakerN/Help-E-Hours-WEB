@@ -190,41 +190,54 @@
         }
 
         async function saveStudent() {
-            try {
-                const id = document.getElementById('aluno_ID').value;
-                const student = {
-                    nome_completo: document.getElementById('nome_completo').value || null,
-                    idade: document.getElementById('idade').value ? parseInt(document.getElementById('idade').value) : null,
-                    CPF: document.getElementById('CPF').value || null,
-                    numero_telefone: formatPhoneNumber(document.getElementById('numero_telefone').value),
-                    email: document.getElementById('email').value || null,
-                    endereco: document.getElementById('endereco').value || null,
-                    cidade: document.getElementById('cidade').value || null,
-                    nome_instituicao: document.getElementById('nome_instituicao').value || null,
-                    curso: document.getElementById('curso').value || null,
-                    periodo: document.getElementById('periodo').value || null,
-                    ganho_horas: document.getElementById('ganho_horas').value ? parseInt(document.getElementById('ganho_horas').value) : null,
-                };
-                if (id) {
-                    // Update: Não incluir aluno_ID no objeto student, pois é gerenciado pelo Supabase
-                    const { error } = await supabaseClient.from('alunos').update(student).eq('aluno_ID', id).select();
-                    if (error) {
-                        throw error;
-                    }
-                } else {
-                    // Insert: Não incluir aluno_ID no objeto student, permitindo que o Supabase gere automaticamente
-                    const { error } = await supabaseClient.from('alunos').insert([student]).select();
-                    if (error) {
-                        throw error;
-                    }
-                }
-                document.getElementById('studentForm').style.display = 'none';
-                fetchStudents(); // Atualiza a tabela após salvar
-            } catch (error) {
-                console.error('Erro ao salvar aluno:', error);
-                document.getElementById('errorMessage').textContent = `Erro ao salvar aluno: ${error.message}`;
-            }
+    try {
+        const id = document.getElementById('aluno_ID').value.trim();
+
+        const student = {
+            nome_completo: document.getElementById('nome_completo').value || null,
+            idade: document.getElementById('idade').value ? parseInt(document.getElementById('idade').value) : null,
+            CPF: document.getElementById('CPF').value || null,
+            numero_telefone: formatPhoneNumber(document.getElementById('numero_telefone').value),
+            email: document.getElementById('email').value || null,
+            endereco: document.getElementById('endereco').value || null,
+            cidade: document.getElementById('cidade').value || null,
+            nome_instituicao: document.getElementById('nome_instituicao').value || null,
+            curso: document.getElementById('curso').value || null,
+            periodo: document.getElementById('periodo').value || null,
+            ganho_horas: document.getElementById('ganho_horas').value ? parseInt(document.getElementById('ganho_horas').value) : null,
+        };
+
+        let error = null;
+
+        if (id) {
+            // Atualiza se tiver ID
+            ({ error } = await supabaseClient
+                .from('alunos')
+                .update(student)
+                .eq('aluno_ID', id));
+        } else {
+            // Insere sem enviar o aluno_ID
+            ({ error } = await supabaseClient
+                .from('alunos')
+                .insert([student]));
         }
+
+        if (error) throw error;
+
+        document.getElementById('studentForm').style.display = 'none';
+        document.getElementById('successMessage').textContent = 'Aluno salvo com sucesso!';
+        document.getElementById('errorMessage').textContent = '';
+
+        // Limpa o campo ID para evitar confusão no próximo cadastro
+        document.getElementById('aluno_ID').value = '';
+
+        fetchStudents();
+    } catch (error) {
+        console.error('Erro ao salvar aluno:', error);
+        document.getElementById('errorMessage').textContent = `Erro ao salvar aluno: ${error.message}`;
+    }
+}
+
 
         function initApp() {
             // Adicionar event listeners
