@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento de ONGs</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        table, th, td { border: 1px solid black; border-collapse: collapse; padding: 8px; }
+        th { background-color: #f2f2f2; }
+        button { padding: 5px 10px; margin: 5px; }
+        #ongsForm { margin-top: 20px; padding: 10px; border: 1px solid #ccc; }
+        #ongsForm label { display: block; margin: 5px 0; }
+        #errorMessage { color: red; margin: 10px 0; }
+        #successMessage { color: green; margin: 10px 0; }
+        #loadingMessage { color: blue; }
+    </style>
+</head>
+<body>
+    <h1>ONGs</h1>
+    <button id="addNewButton">Adicionar Nova ONG</button>
+    <div id="successMessage"></div>
+    <div id="errorMessage"></div>
+    <div id="loadingMessage">Carregando...</div>
+    <table id="ongsTable">
+        <thead>
+            <tr>
+                <th>Nome da ONG</th>
+                <th>Email</th>
+                <th>Telefone</th>
+                <th>Endereço</th>
+                <th>Cidade</th>
+                <th>Área de Atuação</th>
+                <th>Responsável</th>
+                <th>Descrição</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+    <div id="ongsForm" style="display: none;">
+        <form>
+            <label>Nome da ONG: <input type="text" id="nome_ong" required></label>
+            <label>Email: <input type="email" id="email_ong"></label>
+            <label>Telefone: <input type="text" id="telefone_ong"></label>
+            <label>Endereço: <input type="text" id="endereco_ong"></label>
+            <label>Cidade: <input type="text" id="cidade_ong"></label>
+            <label>Área de Atuação: <input type="text" id="area_atuacao"></label>
+            <label>Responsável: <input type="text" id="responsavel"></label>
+            <label>Descrição: <textarea id="descricao"></textarea></label>
+            <button type="button" id="saveButton">Salvar</button>
+            <button type="button" id="cancelButton">Cancelar</button>
+        </form>
+    </div>
+    <script>
+        const supabaseUrl = 'https://eygsxxhjxeugfhaysfjm.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5Z3N4eGhqeGV1Z2ZoYXlzZmptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ3NDU5NDUsImV4cCI6MjA2MDMyMTk0NX0.s9gvt1cvo6fYtFNvj2o77-TGlRS2rIx6zoz-310cBhE';
+        const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+        function formatPhoneNumber(phone) {
+            if (!phone) return null;
+            return phone.replace(/\D/g, '');
+        }
+
+        async function fetchOngs() {
+            try {
+                document.getElementById('loadingMessage').style.display = 'block';
+                const { data, error } = await supabaseClient.from('ongs').select('*');
+                if (error) throw error;
+
+                const tbody = document.querySelector('#ongsTable tbody');
+                tbody.innerHTML = '';
+
+                data.forEach(ongs => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${ongs.nome_ong}</td>
+                        <td>${ongs.email_ong || ''}</td>
+                        <td>${ongs.telefone_ong || ''}</td>
+                        <td>${ongs.endereco_ong || ''}</td>
+                        <td>${ongs.cidade_ong || ''}</td>
+                        <td>${ongs.area_atuacao || ''}</td>
+                        <td>${ongs.responsavel || ''}</td>
+                        <td>${ongs.descricao || ''}</td>
+                        <td>
+                            <button onclick="editOngs('${ongs.nome_ong}')">Editar</button>
+                            <button onclick="deleteOngs('${ongs.nome_ong}')">Excluir</button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+
+            } catch (error) {
+                document.getElementById('errorMessage').textContent = `Erro: ${error.message}`;
+            } finally {
+                document.getElementById('loadingMessage').style.display = 'none';
+            }
+        }
+
+        function showForm(ongs = null) {
+            document.getElementById('ongsForm').style.display = 'block';
+            const fields = ['nome_ong', 'email_ong', 'telefone_ong', 'endereco_ong', 'cidade_ong', 'area_atuacao', 'responsavel', 'descricao'];
+            fields.forEach(field => {
+                document.getElementById(field).value = ongs ? ongs[field] || '' : '';
+            });
+            document.getElementById('nome_ong').readOnly = !!ongs;
+        }
+
+        async function editOngs(nome) {
+            const { data, error } = await supabaseClient.from('ongs').select('*').eq('nome_ong', nome);
+            if (error || !data.length) {
+                document.getElementById('errorMessage').textContent = 'Erro ao buscar ONG para edição.';
+                return;
+            }
+            showForm(data[0]);
+        }
+
+        async function deleteOngs(nome) {
+            if (!confirm(`Deseja realmente excluir a ONG "${nome}"?`)) return;
+            const { error } = await supabaseClient.from('ongs').delete().eq('nome_ong', nome);
+            if (error) {
+                document.getElementById('errorMessage').textContent = `Erro ao excluir: ${error.message}`;
+            } else {
+                fetchOngs();
+            }
+        }
+
+        async function saveOngs() {
+            const ongs = {
+                nome_ong: document.getElementById('nome_ong').value,
+                email_ong: document.getElementById('email_ong').value,
+                telefone_ong: formatPhoneNumber(document.getElementById('telefone_ong').value),
+                endereco_ong: document.getElementById('endereco_ong').value,
+                cidade_ong: document.getElementById('cidade_ong').value,
+                area_atuacao: document.getElementById('area_atuacao').value,
+                responsavel: document.getElementById('responsavel').value,
+                descricao: document.getElementById('descricao').value,
+            };
+
+            const isUpdate = document.getElementById('nome_ong').readOnly;
+
+            try {
+                let response;
+                if (isUpdate) {
+                    response = await supabaseClient.from('ongs').update(ongs).eq('nome_ong', ongs.nome_ong);
+                } else {
+                    response = await supabaseClient.from('ongs').insert([ongs]);
+                }
+                if (response.error) throw response.error;
+                document.getElementById('ongsForm').style.display = 'none';
+                fetchOngs();
+            } catch (error) {
+                document.getElementById('errorMessage').textContent = `Erro ao salvar: ${error.message}`;
+            }
+        }
+
+        function init() {
+            document.getElementById('addNewButton').addEventListener('click', () => showForm());
+            document.getElementById('saveButton').addEventListener('click', saveOngs);
+            document.getElementById('cancelButton').addEventListener('click', () => {
+                document.getElementById('ongsForm').style.display = 'none';
+            });
+
+            supabaseClient.channel('ongs-channel')
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'ongs' }, payload => {
+                    console.log('Mudança detectada:', payload);
+                    fetchOngs();
+                })
+                .subscribe(status => {
+                    if (status === 'SUBSCRIBED') {
+                        document.getElementById('successMessage').textContent = 'Conectado em tempo real!';
+                    }
+                });
+
+            fetchOngs();
+        }
+
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
