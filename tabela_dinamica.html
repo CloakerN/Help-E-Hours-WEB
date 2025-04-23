@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento Dinâmico de Tabelas</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <!-- Estilização CSS para a página -->
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; position: relative; }
+        table, th, td { border: 1px solid black; border-collapse: collapse; padding: 8px; }
+        th { background-color: #f2f2f2; cursor: pointer; }
+        button { padding: 5px 10px; margin: 5px; }
+        #dynamicForm { margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; display: none; }
+        #dynamicForm label { display: block; margin: 5px 0; }
+        #errorMessage { color: red; margin: 10px 0; }
+        #successMessage { color: green; margin: 10px 0; }
+        #loadingMessage { color: blue; }
+        #tableSelection { position: absolute; top: 20px; right: 20px; }
+        #tableUtilities { margin-top: 10px; display: none; }
+        #columnSelection { 
+            margin-top: 10px; 
+            display: none; 
+            padding: 10px; 
+            border: 1px solid black; 
+            background-color: white;
+        }
+        #columnSelection label { display: block; margin: 5px 0; }
+        #tableContainer { margin-top: 80px; }
+        #pkSelection { margin: 10px 0; display: none; }
+        #paginationControls { margin-top: 10px; text-align: center; }
+        .pagination-btn { padding: 5px 10px; margin: 0 2px; }
+        .edit-row input { width: 95%; }
+    </style>
+</head>
+<body>
+    <h1>Gerenciamento Dinâmico de Tabelas</h1>
+    <!-- Seção para seleção de tabela e utilitários -->
+    <div id="tableSelection">
+        <!-- Botão que permite selecionar uma tabela para carregar -->
+        <button id="selectTableButton">Selecionar Tabela</button>
+        <!-- Botão que abre/fecha o modo de seleção de colunas -->
+        <button id="columnSelectionButton">Modo de Seleção</button>
+        <!-- Área onde os checkboxes de seleção de colunas serão exibidos -->
+        <div id="columnSelection"></div>
+        <!-- Seção com barra de busca e botão de restauração -->
+        <div id="tableUtilities">
+            <!-- Campo de texto para busca global na tabela -->
+            <input type="text" id="globalSearchInput" placeholder="Buscar em qualquer coluna..." />
+            <!-- Botão que restaura a visualização inicial da tabela -->
+            <button id="restoreViewButton">Restaurar</button>
+        </div>
+    </div>
+    <!-- Área para exibir mensagens de sucesso -->
+    <div id="successMessage"></div>
+    <!-- Área para exibir mensagens de erro -->
+    <div id="errorMessage"></div>
+    <!-- Mensagem exibida durante o carregamento -->
+    <div id="loadingMessage">Carregando...</div>
+    <!-- Seção para seleção da chave primária -->
+    <div id="pkSelection">
+        <label>Selecione a chave primária: 
+            <!-- Dropdown para escolher a chave primária -->
+            <select id="pkSelect"></select>
+        </label>
+        <!-- Botão que confirma a seleção da chave primária -->
+        <button id="confirmPkButton-famous">Confirmar</button>
+    </div>
+    <!-- Container principal da tabela -->
+    <div id="tableContainer" style="display: none;">
+        <!-- Formulário para adicionar/editar registros -->
+        <div id="dynamicForm">
+            <!-- Área onde os campos do formulário serão gerados dinamicamente -->
+            <form id="dynamicFormFields"></form>
+            <!-- Botão que salva o novo registro ou a edição -->
+            <button type="button" id="saveButton">Salvar</button>
+            <!-- Botão que cancela a adição/edição -->
+            <button type="button" id="cancelButton">Cancelar</button>
+        </div>
+        <!-- Botão que abre o formulário para adicionar um novo registro -->
+        <button id="addNewButton">Adicionar Novo Registro</button>
+        <!-- Tabela que exibe os dados -->
+        <table id="dynamicTable">
+            <!-- Cabeçalho da tabela -->
+            <thead id="dynamicTableHead"></thead>
+            <!-- Corpo da tabela -->
+            <tbody id="dynamicTableBody"></tbody>
+        </table>
+        <!-- Controles de paginação -->
+        <div id="paginationControls"></div>
+    </div>
+    <script>
+        const supabaseUrl = 'https://eygsxxhjxeugfhaysfjm.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5Z3N4eGhqeGV1Z2ZoYXlzZmptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ3NDU5NDUsImV4cCI6MjA2MDMyMTk0NX0.s9gvt1cvo6fYtFNvj2o77-TGlRS2rIx6zoz-310cBhE';
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+        let currentTable = null;
+        let columns = [];
+        let originalColumnOrder = [];
+        let visibleColumns = [];
+        let primaryKey = null;
+        let isPkInteger = false;
+        let lastPkValue = 0;
+        let originalPkValue = null;
+        let allData = [];
+        let filteredData = [];
+        let currentPage = 1;
+        const rowsPerPage = 20;
+        let currentSort = { column: null, order: 'asc' };
+        let initialSort = { column: null, order: 'asc' };
+        let subscriptionChannel = null;
+        let isRealtimeConnected = false;
+
+        // Limpa as mensagens de erro e sucesso exibidas na página
+        function clearMessages() {
+            document.getElementById('successMessage').textContent = '';
+            document.getElementById('errorMessage').textContent = '';
+        }
+
+        // Verifica o status da conexão em tempo real e atualiza as mensagens
+        function checkRealtimeConnection() {
+            if (isRealtimeConnected) {
+                document.getElementById('successMessage').textContent = 'Conectado em tempo real!';
+                document.getElementById('errorMessage').textContent = '';
+            } else {
+                document.getElementById('successMessage').textContent = '';
+                document.getElementById('errorMessage').textContent = 'Desconectado do tempo real. Tentando reconectar...';
+            }
+        }
+
+        // Configura a verificação periódica do status da conexão em tempo real a cada 10 segundos
+        setInterval(checkRealtimeConnection, 10000);
+
+        // Ação do botão "Selecionar Tabela": solicita o nome da tabela e inicia o processo de carregamento
+        document.getElementById('selectTableButton').onclick = async () => {
+            clearMessages();
+            const tableName = prompt('Digite o nome da tabela (exemplo: alunos, ongs):');
+            if (!tableName) {
+                document.getElementById('errorMessage').textContent = 'Nome da tabela não pode ser vazio.';
+                return;
+            }
+            currentTable = tableName;
+            const { data, error } = await supabase.from(tableName).select('*').limit(1);
+            if (error) {
+                document.getElementById('errorMessage').textContent = `Erro ao acessar a tabela: ${error.message}`;
+                return;
+            }
+            if (!data || !data.length) {
+                document.getElementById('errorMessage').textContent = 'Tabela vazia. Adicione um registro para começar.';
+                return;
+            }
+            columns = Object.keys(data[0]);
+            originalColumnOrder = [...columns];
+            visibleColumns = [...columns];
+            populatePkSelector(columns);
+            populateColumnSelection();
+            document.getElementById('pkSelection').style.display = 'block';
+        };
+
+        // Popula o dropdown de seleção de chave primária com as colunas disponíveis
+        function populatePkSelector(columns) {
+            const select = document.getElementById('pkSelect');
+            select.innerHTML = '';
+            columns.forEach(c => {
+                const option = document.createElement('option');
+                option.value = c;
+                option.textContent = c;
+                select.appendChild(option);
+            });
+        }
+
+        // Popula a seção de seleção de colunas com checkboxes para escolher quais colunas exibir
+        function populateColumnSelection() {
+            const container = document.getElementById('columnSelection');
+            container.innerHTML = '<h4>Selecione as colunas a visualizar:</h4>';
+            originalColumnOrder.forEach(col => {
+                const label = document.createElement('label');
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.checked = visibleColumns.includes(col);
+                checkbox.onchange = () => {
+                    if (checkbox.checked) {
+                        const newVisibleColumns = originalColumnOrder.filter(c => 
+                            visibleColumns.includes(c) || c === col
+                        );
+                        visibleColumns = newVisibleColumns;
+                    } else {
+                        visibleColumns = visibleColumns.filter(c => c !== col);
+                    }
+                    generateTableHeader();
+                    renderTablePage();
+                };
+                label.appendChild(checkbox);
+                label.append(` ${col}`);
+                container.appendChild(label);
+            });
+        }
+
+        // Ação do botão "Modo de Seleção": alterna a visibilidade da seção de seleção de colunas
+        document.getElementById('columnSelectionButton').onclick = () => {
+            if (!currentTable) {
+                document.getElementById('errorMessage').textContent = 'Selecione uma tabela primeiro.';
+                return;
+            }
+            const container = document.getElementById('columnSelection');
+            container.style.display = container.style.display === 'block' ? 'none' : 'block';
+        };
+
+        // Ação do botão "Confirmar": confirma a seleção da chave primária e carrega a tabela
+        document.getElementById('confirmPkButton-famous').onclick = async () => {
+            primaryKey = document.getElementById('pkSelect').value;
+            if (!primaryKey) {
+                document.getElementById('errorMessage').textContent = 'Selecione uma chave primária.';
+                return;
+            }
+            await loadTable();
+        };
+
+        // Verifica se um valor de chave primária já existe na tabela, exceto para o registro original (se especificado)
+        async function checkForDuplicatePk(pkValue, excludeOriginal = null) {
+            try {
+                let query = supabase.from(currentTable).select(primaryKey).eq(primaryKey, pkValue);
+                if (excludeOriginal !== null) {
+                    query = query.neq(primaryKey, excludeOriginal);
+                }
+                const { data, error } = await query;
+                if (error) throw error;
+                return data.length > 0;
+            } catch (error) {
+                document.getElementById('errorMessage').textContent = `Erro ao verificar duplicatas: ${error.message}`;
+                return true;
+            }
+        }
+
+        // Carrega os dados da tabela do Supabase, define a ordenação inicial e configura a conexão em tempo real
+        async function loadTable() {
+            clearMessages();
+            document.getElementById('pkSelection').style.display = 'none';
+            document.getElementById('tableContainer').style.display = 'block';
+            document.getElementById('tableUtilities').style.display = 'block';
+            document.getElementById('loadingMessage').style.display = 'block';
+
+            if (subscriptionChannel) {
+                supabase.removeChannel(subscriptionChannel);
+                isRealtimeConnected = false;
+            }
+
+            try {
+                const { data, error } = await supabase.from(currentTable).select('*');
+                if (error) {
+                    document.getElementById('errorMessage').textContent = `Erro ao carregar dados: ${error.message}`;
+                    return;
+                }
+                allData = data;
+                filteredData = [...data];
+                const pkValues = data.map(r => r[primaryKey]);
+                isPkInteger = pkValues.every(v => Number.isInteger(Number(v)));
+                lastPkValue = isPkInteger ? Math.max(...pkValues.map(Number).filter(v => !isNaN(v))) : 0;
+
+                if (isPkInteger) {
+                    currentSort = { column: primaryKey, order: 'desc' };
+                } else {
+                    currentSort = { column: primaryKey, order: 'asc' };
+                }
+                initialSort = { ...currentSort };
+
+                generateTableHeader();
+                sortAndRender();
+
+                subscriptionChannel = supabase.channel(`${currentTable}-channel`)
+                    .on('postgres_changes', { event: '*', schema: 'public', table: currentTable }, payload => {
+                        console.log('Mudança detectada:', payload);
+                        loadTable();
+                    })
+                    .subscribe(status => {
+                        if (status === 'SUBSCRIBED') {
+                            isRealtimeConnected = true;
+                            checkRealtimeConnection();
+                        } else {
+                            isRealtimeConnected = false;
+                            checkRealtimeConnection();
+                        }
+                    });
+            } catch (error) {
+                document.getElementById('errorMessage').textContent = `Erro ao carregar tabela: ${error.message}`;
+            } finally {
+                document.getElementById('loadingMessage').style.display = 'none';
+            }
+        }
+
+        // Gera o cabeçalho da tabela com as colunas visíveis e adiciona a coluna de ações
+        function generateTableHeader() {
+            const thead = document.getElementById('dynamicTableHead');
+            thead.innerHTML = '';
+            const tr = document.createElement('tr');
+            visibleColumns.forEach(col => {
+                const th = document.createElement('th');
+                th.textContent = col;
+                th.onclick = () => {
+                    currentSort = {
+                        column: col,
+                        order: currentSort.column === col && currentSort.order === 'asc' ? 'desc' : 'asc'
+                    };
+                    sortAndRender();
+                };
+                tr.appendChild(th);
+            });
+            const thAction = document.createElement('th');
+            thAction.textContent = 'Ações';
+            tr.appendChild(thAction);
+            thead.appendChild(tr);
+        }
+
+        // Ordena os dados com base na coluna e ordem atuais e renderiza a página
+        function sortAndRender() {
+            const { column, order } = currentSort;
+            if (!visibleColumns.includes(column) && currentSort !== initialSort) {
+                currentSort.column = primaryKey;
+                currentSort.order = isPkInteger ? 'desc' : 'asc';
+            }
+            filteredData.sort((a, b) => {
+                let valA = a[currentSort.column], valB = b[currentSort.column];
+                valA = valA !== null ? valA.toString().toLowerCase() : '';
+                valB = valB !== null ? valB.toString().toLowerCase() : '';
+                if (!isNaN(valA) && !isNaN(valB)) {
+                    valA = Number(valA);
+                    valB = Number(valB);
+                }
+                return (valA > valB ? 1 : valA < valB ? -1 : 0) * (order === 'asc' ? 1 : -1);
+            });
+            renderTablePage();
+        }
+
+        // Renderiza a página atual da tabela com os dados filtrados e ordenados
+        function renderTablePage() {
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = start + rowsPerPage;
+            const pageData = filteredData.slice(start, end);
+            const tbody = document.getElementById('dynamicTableBody');
+            tbody.innerHTML = '';
+            pageData.forEach(record => {
+                const tr = document.createElement('tr');
+                visibleColumns.forEach(col => {
+                    const td = document.createElement('td');
+                    td.textContent = record[col] ?? '';
+                    tr.appendChild(td);
+                });
+                const actionTd = document.createElement('td');
+                actionTd.innerHTML = `
+                    <button onclick="editInline('${record[primaryKey]}')">Editar</button>
+                    <button onclick="deleteRecord('${record[primaryKey]}')">Excluir</button>
+                `;
+                tr.appendChild(actionTd);
+                tbody.appendChild(tr);
+            });
+            renderPaginationControls();
+        }
+
+        // Gera os botões de paginação com base no número total de páginas
+        function renderPaginationControls() {
+            const total = filteredData.length;
+            const totalPages = Math.ceil(total / rowsPerPage);
+            const container = document.getElementById('paginationControls');
+            container.innerHTML = '';
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('button');
+                btn.textContent = i;
+                btn.className = 'pagination-btn';
+                btn.disabled = i === currentPage;
+                btn.onclick = () => { currentPage = i; renderTablePage(); };
+                container.appendChild(btn);
+            }
+        }
+
+        // Filtra os dados da tabela com base no texto digitado na busca global
+        document.getElementById('globalSearchInput').oninput = (e) => {
+            const val = e.target.value.toLowerCase();
+            filteredData = allData.filter(row =>
+                Object.values(row).some(v => v?.toString().toLowerCase().includes(val))
+            );
+            currentPage = 1;
+            sortAndRender();
+        };
+
+        // Ação do botão "Restaurar": restaura a visualização inicial da tabela, incluindo colunas, ordenação e página
+        document.getElementById('restoreViewButton').onclick = () => {
+            filteredData = [...allData];
+            visibleColumns = [...originalColumnOrder];
+            currentSort = { ...initialSort };
+            document.getElementById('columnSelection').innerHTML = '';
+            populateColumnSelection();
+            generateTableHeader();
+            sortAndRender();
+            currentPage = 1;
+        };
+
+        // Ação do botão "Adicionar Novo Registro": exibe o formulário para adicionar um novo registro
+        document.getElementById('addNewButton').onclick = () => {
+            clearMessages();
+            document.getElementById('dynamicFormFields').innerHTML = '';
+            columns.forEach(col => {
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.id = `field_${col}`;
+                input.value = col === primaryKey && isPkInteger ? lastPkValue + 1 : '';
+                const label = document.createElement('label');
+                label.textContent = `${col}: `;
+                label.appendChild(input);
+                document.getElementById('dynamicFormFields').appendChild(label);
+            });
+            originalPkValue = null;
+            document.getElementById('dynamicForm').style.display = 'block';
+        };
+
+        // Ação do botão "Salvar": salva um novo registro ou atualiza um existente no Supabase
+        document.getElementById('saveButton').onclick = async () => {
+            clearMessages();
+            const record = {};
+            columns.forEach(col => record[col] = document.getElementById(`field_${col}`).value || null);
+
+            const isUpdate = originalPkValue !== null;
+
+            const pkValue = record[primaryKey];
+            const hasDuplicate = await checkForDuplicatePk(pkValue, isUpdate ? originalPkValue : null);
+            if (hasDuplicate) {
+                document.getElementById('errorMessage').textContent = `Erro: O valor "${pkValue}" para a chave primária já existe na tabela. Escolha outro valor.`;
+                return;
+            }
+
+            try {
+                if (isUpdate) {
+                    const { error: deleteError } = await supabase.from(currentTable).delete().eq(primaryKey, originalPkValue);
+                    if (deleteError) throw deleteError;
+                    const { error: insertError } = await supabase.from(currentTable).insert([record]);
+                    if (insertError) throw insertError;
+                } else {
+                    const { error } = await supabase.from(currentTable).insert([record]);
+                    if (error) throw error;
+                }
+                document.getElementById('dynamicForm').style.display = 'none';
+                originalPkValue = null;
+                await loadTable();
+            } catch (error) {
+                document.getElementById('errorMessage').textContent = `Erro ao salvar registro: ${error.message}`;
+            }
+        };
+
+        // Ação do botão "Cancelar": esconde o formulário de adição/edição e limpa mensagens
+        document.getElementById('cancelButton').onclick = () => {
+            clearMessages();
+            document.getElementById('dynamicForm').style.display = 'none';
+            originalPkValue = null;
+        };
+
+        // Prepara a edição inline de um registro, transformando a linha em campos editáveis
+        async function editInline(id) {
+            clearMessages();
+            try {
+                const { data, error } = await supabase.from(currentTable).select('*').eq(primaryKey, id);
+                if (error || !data || !data.length) {
+                    document.getElementById('errorMessage').textContent = `Erro ao buscar registro para edição: ${error?.message || 'Registro não encontrado'}`;
+                    return;
+                }
+                const rowIndex = filteredData.findIndex(r => r[primaryKey] == id);
+                const row = document.querySelector(`#dynamicTableBody tr:nth-child(${rowIndex + 1})`);
+                row.innerHTML = '';
+                visibleColumns.forEach(col => {
+                    const td = document.createElement('td');
+                    td.innerHTML = `<input type="text" id="edit_${col}" value="${data[0][col] ?? ''}" />`;
+                    row.appendChild(td);
+                });
+                const tdActions = document.createElement('td');
+                tdActions.innerHTML = `<button onclick="confirmEdit('${id}')">Salvar</button><button onclick="loadTable()">Cancelar</button>`;
+                row.appendChild(tdActions);
+                originalPkValue = id;
+            } catch (error) {
+                document.getElementById('errorMessage').textContent = `Erro ao preparar edição: ${error.message}`;
+            }
+        }
+
+        // Confirma a edição inline de um registro, salvando as alterações no Supabase
+        async function confirmEdit(id) {
+            clearMessages();
+            const updated = {};
+            columns.forEach(col => {
+                const input = document.getElementById(`edit_${col}`);
+                updated[col] = input ? input.value || null : allData.find(r => r[primaryKey] == id)[col];
+            });
+
+            const pkValue = updated[primaryKey];
+            const hasDuplicate = await checkForDuplicatePk(pkValue, id);
+            if (hasDuplicate) {
+                document.getElementById('errorMessage').textContent = `Erro: O valor "${pkValue}" para a chave primária já existe na tabela. Escolha outro valor.`;
+                return;
+            }
+
+            try {
+                const { error: deleteError } = await supabase.from(currentTable).delete().eq(primaryKey, id);
+                if (deleteError) throw deleteError;
+                const { error: insertError } = await supabase.from(currentTable).insert([updated]);
+                if (insertError) throw insertError;
+                originalPkValue = null;
+                await loadTable();
+            } catch (error) {
+                document.getElementById('errorMessage').textContent = `Erro ao salvar edição: ${error.message}`;
+            }
+        }
+
+        // Exclui um registro do Supabase após confirmação do usuário
+        async function deleteRecord(id) {
+            clearMessages();
+            if (!confirm(`Deseja excluir o registro ${id}?`)) return;
+            try {
+                const { error } = await supabase.from(currentTable).delete().eq(primaryKey, id);
+                if (error) throw error;
+                await loadTable();
+            } catch (error) {
+                document.getElementById('errorMessage').textContent = `Erro ao excluir registro: ${error.message}`;
+            }
+        }
+
+        // Esconde a mensagem de carregamento inicial ao carregar a página
+        document.getElementById('loadingMessage').style.display = 'none';
+    </script>
+</body>
+</html>
