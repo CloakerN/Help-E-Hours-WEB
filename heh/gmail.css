@@ -18,7 +18,7 @@
   }
 
   header nav a {
-    margin: 0 15px;
+    margin: 0 120px;
     text-decoration: none;
     color: white;
     font-weight: bold;
@@ -344,3 +344,32 @@
       text-align: left;
     }
   }
+  /* ===================== Scrollbar ===================== */
+
+/* Estiliza a scrollbar inteira */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Parte de fundo da scrollbar */
+  ::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+  }
+  
+  /* A parte que se move (thumb) */
+  ::-webkit-scrollbar-thumb {
+    background-color: #0c6c6c; /* azul */
+    border-radius: 10px;
+    border: 2px solid #f0f0f0; /* "borda" ao redor do thumb */
+  }
+  
+  /* Quando passa o mouse em cima do thumb */
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #0c6c6c;
+  }
+  
+  /* Para Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #0c6c6c #f0f0f0; /* thumb e track */
