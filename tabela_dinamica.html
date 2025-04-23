@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gerenciamento Dinâmico de Tabelas</title>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
-    <!-- Estilização CSS para a página -->
+    <!-- Estilização CSS para a página e os modais -->
     <style>
         body { font-family: Arial, sans-serif; padding: 20px; position: relative; }
         table, th, td { border: 1px solid black; border-collapse: collapse; padding: 8px; }
@@ -31,64 +31,121 @@
         #paginationControls { margin-top: 10px; text-align: center; }
         .pagination-btn { padding: 5px 10px; margin: 0 2px; }
         .edit-row input { width: 95%; }
+
+        /* Estilização dos modais */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 500px;
+            text-align: center;
+            border-radius: 5px;
+        }
+        .modal-buttons {
+            margin-top: 20px;
+        }
+        .modal-buttons button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 3px;
+        }
+        #confirmDownloadModal .modal-buttons button:nth-child(1) {
+            background-color: #4CAF50;
+            color: white;
+        }
+        #confirmDownloadModal .modal-buttons button:nth-child(2) {
+            background-color: #f44336;
+            color: white;
+        }
+        #confirmDownloadModal .modal-buttons button:nth-child(3) {
+            background-color: #ff9800;
+            color: white;
+        }
+        #confirmNoDownloadModal .modal-buttons button:nth-child(1) {
+            background-color: #f44336;
+            Fcolor: white;
+        }
+        #confirmNoDownloadModal .modal-buttons button:nth-child(2) {
+            background-color: #4CAF50;
+            color: white;
+        }
     </style>
 </head>
 <body>
     <h1>Gerenciamento Dinâmico de Tabelas</h1>
     <!-- Seção para seleção de tabela e utilitários -->
     <div id="tableSelection">
-        <!-- Botão que permite selecionar uma tabela para carregar -->
         <button id="selectTableButton">Selecionar Tabela</button>
-        <!-- Botão que abre/fecha o modo de seleção de colunas -->
         <button id="columnSelectionButton">Modo de Seleção</button>
-        <!-- Área onde os checkboxes de seleção de colunas serão exibidos -->
         <div id="columnSelection"></div>
-        <!-- Seção com barra de busca e botão de restauração -->
         <div id="tableUtilities">
-            <!-- Campo de texto para busca global na tabela -->
             <input type="text" id="globalSearchInput" placeholder="Buscar em qualquer coluna..." />
-            <!-- Botão que restaura a visualização inicial da tabela -->
             <button id="restoreViewButton">Restaurar</button>
+            <button id="downloadLogButton" style="display: none;">Baixar Log de Exclusões</button>
         </div>
     </div>
-    <!-- Área para exibir mensagens de sucesso -->
     <div id="successMessage"></div>
-    <!-- Área para exibir mensagens de erro -->
     <div id="errorMessage"></div>
-    <!-- Mensagem exibida durante o carregamento -->
     <div id="loadingMessage">Carregando...</div>
-    <!-- Seção para seleção da chave primária -->
     <div id="pkSelection">
         <label>Selecione a chave primária: 
-            <!-- Dropdown para escolher a chave primária -->
             <select id="pkSelect"></select>
         </label>
-        <!-- Botão que confirma a seleção da chave primária -->
         <button id="confirmPkButton-famous">Confirmar</button>
     </div>
-    <!-- Container principal da tabela -->
     <div id="tableContainer" style="display: none;">
-        <!-- Formulário para adicionar/editar registros -->
         <div id="dynamicForm">
-            <!-- Área onde os campos do formulário serão gerados dinamicamente -->
             <form id="dynamicFormFields"></form>
-            <!-- Botão que salva o novo registro ou a edição -->
             <button type="button" id="saveButton">Salvar</button>
-            <!-- Botão que cancela a adição/edição -->
             <button type="button" id="cancelButton">Cancelar</button>
         </div>
-        <!-- Botão que abre o formulário para adicionar um novo registro -->
         <button id="addNewButton">Adicionar Novo Registro</button>
-        <!-- Tabela que exibe os dados -->
         <table id="dynamicTable">
-            <!-- Cabeçalho da tabela -->
             <thead id="dynamicTableHead"></thead>
-            <!-- Corpo da tabela -->
             <tbody id="dynamicTableBody"></tbody>
         </table>
-        <!-- Controles de paginação -->
         <div id="paginationControls"></div>
     </div>
+
+    <!-- Modal principal: Confirmação para baixar o log -->
+    <div id="confirmDownloadModal" class="modal">
+        <div class="modal-content">
+            <h2>Logs de Exclusões Pendentes</h2>
+            <p>Você tem logs de exclusões pendentes. O que deseja fazer?</p>
+            <div class="modal-buttons">
+                <button id="downloadYes">BAIXAR (seguro)</button>
+                <button id="downloadCancel">CANCELAR</button>
+                <button id="downloadNo">NÃO BAIXAR</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal secundário: Confirmação para não baixar o log -->
+    <div id="confirmNoDownloadModal" class="modal">
+        <div class="modal-content">
+            <h2>Confirmação</h2>
+            <p>Tem certeza que quer sair sem baixar o SecureLog?</p>
+            <div class="modal-buttons">
+                <button id="noDownloadYes">SIM, não salvar</button>
+                <button id="noDownloadNo">NÃO, cancelar</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         const supabaseUrl = 'https://eygsxxhjxeugfhaysfjm.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImV5Z3N4eGhqeGV1Z2ZoYXlzZmptIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ3NDU5NDUsImV4cCI6MjA2MDMyMTk0NX0.s9gvt1cvo6fYtFNvj2o77-TGlRS2rIx6zoz-310cBhE';
@@ -110,14 +167,128 @@
         let initialSort = { column: null, order: 'asc' };
         let subscriptionChannel = null;
         let isRealtimeConnected = false;
+        let secureLog = null;
+        let allowUnload = false;
+        let isKeyboardAction = false; // Nova variável para rastrear se a ação foi via teclado
 
-        // Limpa as mensagens de erro e sucesso exibidas na página
+        // Referências aos modais
+        const confirmDownloadModal = document.getElementById('confirmDownloadModal');
+        const confirmNoDownloadModal = document.getElementById('confirmNoDownloadModal');
+
+        // Função para obter o timestamp atual
+        function getTimestamp() {
+            return new Date().toISOString();
+        }
+
+        // Função para atualizar o log
+        function updateSecureLog(record) {
+            const timestamp = getTimestamp();
+            if (secureLog === null) {
+                secureLog = `SecureLog ${timestamp}\n`;
+                document.getElementById('downloadLogButton').style.display = 'inline';
+            }
+            secureLog += `[${timestamp}] Dados excluídos: ${JSON.stringify(record)}\n`;
+        }
+
+        // Função para baixar o log
+        function downloadSecureLog() {
+            if (secureLog === null) return;
+            const blob = new Blob([secureLog], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'sql_SecureLog.txt';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        document.getElementById('downloadLogButton').onclick = () => {
+            downloadSecureLog();
+        };
+
+        // Funções para abrir e fechar os modais
+        function openModal(modal) {
+            modal.style.display = 'block';
+        }
+
+        function closeModal(modal) {
+            modal.style.display = 'none';
+        }
+
+        // Captura eventos de teclado para impedir atualização padrão
+        document.addEventListener('keydown', (event) => {
+            // Captura F5, Ctrl+R, Cmd+R
+            if (event.key === 'F5' || (event.ctrlKey && event.key === 'r') || (event.metaKey && event.key === 'r')) {
+                event.preventDefault();
+                isKeyboardAction = true; // Marca que a ação foi via teclado
+                if (secureLog !== null) {
+                    openModal(confirmDownloadModal);
+                } else {
+                    window.location.reload();
+                }
+            }
+        });
+
+        // Evento beforeunload para outros casos (não via teclado)
+        window.addEventListener('beforeunload', (event) => {
+            if (allowUnload) {
+                allowUnload = false;
+                return;
+            }
+
+            // Se a ação foi via teclado, não faz nada aqui (modal já foi exibido)
+            if (isKeyboardAction) {
+                isKeyboardAction = false; // Reseta a variável
+                return;
+            }
+
+            // Para outras ações (ex.: botão de recarregar, fechar aba), exibe a mensagem padrão do navegador
+            if (secureLog !== null) {
+                event.preventDefault();
+                event.returnValue = '';
+                openModal(confirmDownloadModal);
+            }
+        });
+
+        // Ações dos botões do modal principal
+        document.getElementById('downloadYes').onclick = () => {
+            downloadSecureLog();
+            allowUnload = true;
+            closeModal(confirmDownloadModal);
+            window.location.reload();
+        };
+
+        document.getElementById('downloadCancel').onclick = () => {
+            closeModal(confirmDownloadModal);
+            isKeyboardAction = false; // Reseta a variável após interação com o modal
+        };
+
+        document.getElementById('downloadNo').onclick = () => {
+            closeModal(confirmDownloadModal);
+            openModal(confirmNoDownloadModal);
+        };
+
+        // Ações dos botões do modal secundário
+        document.getElementById('noDownloadYes').onclick = () => {
+            allowUnload = true;
+            closeModal(confirmNoDownloadModal);
+            window.location.reload();
+        };
+
+        document.getElementById('noDownloadNo').onclick = () => {
+            closeModal(confirmNoDownloadModal);
+            isKeyboardAction = false; // Reseta a variável após interação com o modal
+        };
+
+        // Limpa mensagens
         function clearMessages() {
             document.getElementById('successMessage').textContent = '';
             document.getElementById('errorMessage').textContent = '';
         }
 
-        // Verifica o status da conexão em tempo real e atualiza as mensagens
+        // Verifica conexão em tempo real
         function checkRealtimeConnection() {
             if (isRealtimeConnected) {
                 document.getElementById('successMessage').textContent = 'Conectado em tempo real!';
@@ -128,10 +299,9 @@
             }
         }
 
-        // Configura a verificação periódica do status da conexão em tempo real a cada 10 segundos
         setInterval(checkRealtimeConnection, 10000);
 
-        // Ação do botão "Selecionar Tabela": solicita o nome da tabela e inicia o processo de carregamento
+        // Ação do botão "Selecionar Tabela"
         document.getElementById('selectTableButton').onclick = async () => {
             clearMessages();
             const tableName = prompt('Digite o nome da tabela (exemplo: alunos, ongs):');
@@ -157,7 +327,7 @@
             document.getElementById('pkSelection').style.display = 'block';
         };
 
-        // Popula o dropdown de seleção de chave primária com as colunas disponíveis
+        // Popula o dropdown de chave primária
         function populatePkSelector(columns) {
             const select = document.getElementById('pkSelect');
             select.innerHTML = '';
@@ -169,7 +339,7 @@
             });
         }
 
-        // Popula a seção de seleção de colunas com checkboxes para escolher quais colunas exibir
+        // Popula a seção de seleção de colunas
         function populateColumnSelection() {
             const container = document.getElementById('columnSelection');
             container.innerHTML = '<h4>Selecione as colunas a visualizar:</h4>';
@@ -196,7 +366,7 @@
             });
         }
 
-        // Ação do botão "Modo de Seleção": alterna a visibilidade da seção de seleção de colunas
+        // Ação do botão "Modo de Seleção"
         document.getElementById('columnSelectionButton').onclick = () => {
             if (!currentTable) {
                 document.getElementById('errorMessage').textContent = 'Selecione uma tabela primeiro.';
@@ -206,7 +376,7 @@
             container.style.display = container.style.display === 'block' ? 'none' : 'block';
         };
 
-        // Ação do botão "Confirmar": confirma a seleção da chave primária e carrega a tabela
+        // Ação do botão "Confirmar"
         document.getElementById('confirmPkButton-famous').onclick = async () => {
             primaryKey = document.getElementById('pkSelect').value;
             if (!primaryKey) {
@@ -216,7 +386,7 @@
             await loadTable();
         };
 
-        // Verifica se um valor de chave primária já existe na tabela, exceto para o registro original (se especificado)
+        // Verifica duplicatas na chave primária
         async function checkForDuplicatePk(pkValue, excludeOriginal = null) {
             try {
                 let query = supabase.from(currentTable).select(primaryKey).eq(primaryKey, pkValue);
@@ -232,7 +402,7 @@
             }
         }
 
-        // Carrega os dados da tabela do Supabase, define a ordenação inicial e configura a conexão em tempo real
+        // Carrega os dados da tabela
         async function loadTable() {
             clearMessages();
             document.getElementById('pkSelection').style.display = 'none';
@@ -288,7 +458,7 @@
             }
         }
 
-        // Gera o cabeçalho da tabela com as colunas visíveis e adiciona a coluna de ações
+        // Gera o cabeçalho da tabela
         function generateTableHeader() {
             const thead = document.getElementById('dynamicTableHead');
             thead.innerHTML = '';
@@ -311,7 +481,7 @@
             thead.appendChild(tr);
         }
 
-        // Ordena os dados com base na coluna e ordem atuais e renderiza a página
+        // Ordena e renderiza os dados
         function sortAndRender() {
             const { column, order } = currentSort;
             if (!visibleColumns.includes(column) && currentSort !== initialSort) {
@@ -331,7 +501,7 @@
             renderTablePage();
         }
 
-        // Renderiza a página atual da tabela com os dados filtrados e ordenados
+        // Renderiza a página atual da tabela
         function renderTablePage() {
             const start = (currentPage - 1) * rowsPerPage;
             const end = start + rowsPerPage;
@@ -356,7 +526,7 @@
             renderPaginationControls();
         }
 
-        // Gera os botões de paginação com base no número total de páginas
+        // Gera os botões de paginação
         function renderPaginationControls() {
             const total = filteredData.length;
             const totalPages = Math.ceil(total / rowsPerPage);
@@ -372,7 +542,7 @@
             }
         }
 
-        // Filtra os dados da tabela com base no texto digitado na busca global
+        // Filtra os dados com base na busca global
         document.getElementById('globalSearchInput').oninput = (e) => {
             const val = e.target.value.toLowerCase();
             filteredData = allData.filter(row =>
@@ -382,7 +552,7 @@
             sortAndRender();
         };
 
-        // Ação do botão "Restaurar": restaura a visualização inicial da tabela, incluindo colunas, ordenação e página
+        // Ação do botão "Restaurar"
         document.getElementById('restoreViewButton').onclick = () => {
             filteredData = [...allData];
             visibleColumns = [...originalColumnOrder];
@@ -394,7 +564,7 @@
             currentPage = 1;
         };
 
-        // Ação do botão "Adicionar Novo Registro": exibe o formulário para adicionar um novo registro
+        // Ação do botão "Adicionar Novo Registro"
         document.getElementById('addNewButton').onclick = () => {
             clearMessages();
             document.getElementById('dynamicFormFields').innerHTML = '';
@@ -412,7 +582,7 @@
             document.getElementById('dynamicForm').style.display = 'block';
         };
 
-        // Ação do botão "Salvar": salva um novo registro ou atualiza um existente no Supabase
+        // Ação do botão "Salvar"
         document.getElementById('saveButton').onclick = async () => {
             clearMessages();
             const record = {};
@@ -445,14 +615,14 @@
             }
         };
 
-        // Ação do botão "Cancelar": esconde o formulário de adição/edição e limpa mensagens
+        // Ação do botão "Cancelar"
         document.getElementById('cancelButton').onclick = () => {
             clearMessages();
             document.getElementById('dynamicForm').style.display = 'none';
             originalPkValue = null;
         };
 
-        // Prepara a edição inline de um registro, transformando a linha em campos editáveis
+        // Prepara a edição inline de um registro
         async function editInline(id) {
             clearMessages();
             try {
@@ -478,7 +648,7 @@
             }
         }
 
-        // Confirma a edição inline de um registro, salvando as alterações no Supabase
+        // Confirma a edição inline
         async function confirmEdit(id) {
             clearMessages();
             const updated = {};
@@ -506,11 +676,17 @@
             }
         }
 
-        // Exclui um registro do Supabase após confirmação do usuário
+        // Exclui um registro
         async function deleteRecord(id) {
             clearMessages();
             if (!confirm(`Deseja excluir o registro ${id}?`)) return;
             try {
+                const { data, error: fetchError } = await supabase.from(currentTable).select('*').eq(primaryKey, id);
+                if (fetchError || !data || !data.length) {
+                    document.getElementById('errorMessage').textContent = `Erro ao buscar registro para exclusão: ${fetchError?.message || 'Registro não encontrado'}`;
+                    return;
+                }
+                updateSecureLog(data[0]);
                 const { error } = await supabase.from(currentTable).delete().eq(primaryKey, id);
                 if (error) throw error;
                 await loadTable();
@@ -519,7 +695,6 @@
             }
         }
 
-        // Esconde a mensagem de carregamento inicial ao carregar a página
         document.getElementById('loadingMessage').style.display = 'none';
     </script>
 </body>
