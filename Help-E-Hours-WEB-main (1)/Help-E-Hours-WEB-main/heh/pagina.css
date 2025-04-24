@@ -1,0 +1,323 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f3ece5;
+  }
+  
+  /* Header */
+  header {
+    height: 90px;
+    background-color: #006666;
+  }
+  
+  /* Conteúdo simulado */
+  .conteudo {
+    height: 500px;
+  }
+  
+  /* Footer */
+  footer {
+    background-color: #006666;
+    color: white;
+    position: relative;
+    padding-top: 40px;
+    padding-bottom: 80px;
+  }
+  
+  .footer-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+  }
+  
+  .coluna {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .coluna a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .coluna.redes span {
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  .coluna.redes a i {
+    margin-right: 6px;
+  }
+  
+  .logo-central {
+    position: absolute;
+    top: -50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #006666;
+    padding: 8px;
+    border-radius: 50%;
+  }
+  
+  .logo-central img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    border-radius: 50%;
+    background-color: white;
+  }
+  
+  /* Frase e copyright */
+  .frase {
+    text-align: center;
+    font-size: 14px;
+    margin-top: 40px;
+    font-style: italic;
+  }
+  
+  .copy {
+    text-align: center;
+    font-size: 12px;
+    color: #ccc;
+    margin-top: 5px;
+  }
+  /* ===================== RODAPÉ ===================== */
+  footer {
+    background-color: #0c6c6c;
+    color: #fff;
+    padding: 40px 20px 20px 20px;
+    font-family: "Jost-Regular", Helvetica;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  .footer-linhas {
+    display: flex;
+    justify-content: space-between;
+    align-items: center; /* era center */
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  /* Colunas esquerda, centro, direita */
+  .footer-coluna {
+    flex: 1;
+    min-width: 200px;
+    text-align: center;
+  }
+  
+  .esquerda ul,
+  .direita ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+  }
+  
+  /* Redes sociais lado a lado */
+  
+  .direita {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .direita h4 {
+    margin-bottom: 10px;
+    font-family: "Jost-Regular", Helvetica;
+    text-align: center;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: 100;
+    line-height: normal;
+  }
+  
+  .icones-sociais {
+    display: flex;
+    gap: 16px; /* espaço entre os dois ícones */
+  }
+  
+  .direita a img {
+    height: 30px;
+    width: 30px;
+  }
+  
+  /* Agrupamento das 3 colunas de links */
+  .links-grid {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+  }
+  
+  /* Estilização das listas */
+  .links-grid ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+  }
+  
+  .links-grid li {
+    margin: 6px 0;
+  }
+  
+  .links-grid a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+  }
+  
+  .links-grid a:hover {
+    text-decoration: underline;
+  }
+  
+  .footer-coluna ul li,
+  .footer-coluna a {
+    margin: 8px 0;
+    color: white;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .footer-coluna a:hover {
+    text-decoration: underline;
+  }
+  
+  .logo-footer-fundo {
+    background-color: #0c6c6c;
+    height: 220px;
+    width: 170px;
+    border-radius: 69% / 59%;
+    margin: -120px auto 15px auto;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .logo-footer {
+    background-color: #efeae4;
+    padding: 30px;
+    border-radius: 60% / 40%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    height: 200px;
+    width: 130px;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .logo-footer img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+  }
+  
+  .logo-footer img {
+    height: 190px;
+    width: 190px;
+    object-fit: contain;
+  }
+  
+  /* Divisor e frase */
+  .divisor-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0rem;
+    width: 90%;
+    margin: 2px auto 10px;
+  }
+  
+  /* Linha fininha */
+  .linha-footer {
+    flex: 1;
+    height: 1px;
+    background-color: #efeae4; /* cor da linha */
+  }
+  
+  /* Losangos pequenos */
+  .losango-footer {
+    width: 6px;
+    height: 6px;
+    background-color: #efeae4; /* ou a cor que quiser */
+    transform: rotate(45deg); /* Rotaciona para parecer um losango */
+  }
+  
+  .frase-final {
+    color: #f5f5f5;
+    font-family: "Jost-Regular", Helvetica;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  
+  .copyright {
+    color: #fffded;
+    text-align: center;
+    font-family: Jost;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+  
+  @media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      gap: 30px;
+    }
+  
+    .header-itens {
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+  
+    .video {
+      width: 100%;
+      height: auto;
+    }
+  
+    .texto {
+      text-align: left;
+    }
+  }
+  footer {
+    background-color: #0A5C5C;
+    color: white;
+    text-align: center;
+    padding: 20px 10px;
+    margin-top: 30px;
+  }
+  .social a {
+    color: white;
+    margin: 0 8px;
+    text-decoration: none;
+    font-size: 16px;
+  }
+  .logo img {
+    width: 80px;
+    margin-bottom: 10px;
+  }
+  .footer-text {
+    font-size: 12px;
+    margin-top: 10px;
+  }
+  

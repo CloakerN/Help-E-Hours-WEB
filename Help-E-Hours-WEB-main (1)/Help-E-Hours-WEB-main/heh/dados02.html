@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Alterar ONG</title>
+    <link rel="stylesheet" href="dados02.css" />
+  </head>
+  <body>
+    <header>
+      <!-- Menu de navegação -->
+      <div class="header-top">
+        <nav>
+          <ul class="header-itens">
+            <li><a href="#home.html">Home</a></li>
+            <li><a href="#texto">Sobre nós</a></li>
+            <li><a href="#">ONGs Disponíveis</a></li>
+            <li><a href="#">Feedbacks</a></li>
+            <li><a href="cadastro.html">Login</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    </header>
+
+    <main>
+      <section class="form-section">
+        <div class="logo">
+          <img
+            src="https://github.com/CloakerN/Help-E-Hours-WEB/blob/main/Help%20and%20Hour%20nb.png?raw=true"
+            alt="Logo ONG"
+          />
+          <span class="edit-icon">✏️</span>
+        </div>
+        <h2>ALTERE SEUS DADOS</h2>
+        <hr />
+
+        <form class="form-container">
+          <div class="form-row">
+            <input type="text" placeholder="*Nome da ONG" />
+            <input type="text" placeholder="*CNPJ" class="locked" />
+          </div>
+          <div class="form-row">
+            <input type="text" placeholder="*Endereço da ONG" />
+            <input type="text" placeholder="*Nº" />
+            <input type="email" placeholder="*E-mail" />
+          </div>
+          <div class="form-row">
+            <input type="text" placeholder="Celular" />
+            <input type="text" placeholder="Telefone" />
+          </div>
+          <textarea placeholder="SOBRE A ONG."></textarea>
+          <small>DADOS COM “*” SIGNIFICA OBRIGATORIEDADE.</small>
+        </form>
+      </section>
+
+      <section class="upload-section">
+        <h3>ADICIONE FOTOS DA ONG</h3>
+        <div class="uploads">
+          <div class="upload-box">📄+</div>
+          <div class="upload-box">📄+</div>
+          <div class="upload-box">📄+</div>
+          <button class="plus-button">+</button>
+        </div>
+      </section>
+
+      <section class="feedback-section">
+        <h3>SELECIONE FEEDBACKS</h3>
+        <div class="feedbacks">
+          <div class="menu-icon">☰</div>
+          <div class="feedback-list">
+            <label
+              ><input type="radio" name="feedback" /> Laura Gonçalves</label
+            >
+            <label><input type="radio" name="feedback" /> Jamille Lima</label>
+            <label
+              ><input type="radio" name="feedback" /> Bianca Ferreira</label
+            >
+            <label><input type="radio" name="feedback" /> Carlos Santos</label>
+            <label><input type="radio" name="feedback" /> Nicolas Araújo</label>
+          </div>
+        </div>
+        <div class="buttons">
+          <button class="cancel">CANCELAR</button>
+          <button class="confirm">CONFIRMAR</button>
+        </div>
+      </section>
+    </main>
+
+    <!-- ========== RODAPÉ ========== -->
+    <footer>
+      <!-- Rodapé da página -->
+
+      <div class="rodape">
+        <!-- Container principal do rodapé -->
+
+        <div class="footer-linhas">
+          <!-- Agrupamento das 3 colunas do rodapé -->
+
+          <!-- === COLUNA 1: LINKS === -->
+          <div class="footer-coluna coluna-links">
+            <div class="links-grid">
+              <!-- Grade com três listas de links -->
+              <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="home.html">Sobre Nós</a></li>
+                <li><a href="home.html">Feedbacks</a></li>
+              </ul>
+              <ul>
+                <li><a href="cadastro.html">Login</a></li>
+                <li><a href="Dados.html">Perfil</a></li>
+                <li><a href="#">ONGs Disponíveis</a></li>
+              </ul>
+              <ul>
+                <li><a href="#">Gerar Certificado</a></li>
+                <li><a href="dados02.html">Cadastrar</a></li>
+                <li><a href="#suporte.html">Suporte</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- === COLUNA 2: LOGO === -->
+          <div class="footer-coluna centro">
+            <div class="logo-footer-fundo">
+              <!-- Fundo com forma decorativa -->
+              <div class="logo-footer">
+                <!-- Área da logo -->
+                <img
+                  src="assets/logos/logo-footer.png"
+                  alt="Logo Help and Hours"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- === COLUNA 3: REDES SOCIAIS === -->
+          <div class="footer-coluna direita">
+            <h4>Nossas redes sociais</h4>
+            <div class="icones-sociais">
+              <!-- Links com ícones para redes sociais -->
+              <a href="#">
+                <img src="assets/icons/instagram.png" alt="Instagram" />
+                Instagram
+              </a>
+              <a href="#">
+                <img src="assets/icons/facebook.png" alt="Facebook" />
+                Facebook
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Frase motivacional final -->
+        <p class="frase-final">
+          ”O voluntariado é uma jornada de aprendizado, amor e generosidade.”
+        </p>
+
+        <!-- Linha decorativa com losangos -->
+        <div class="divisor-footer">
+          <span class="losango-footer"></span>
+          <div class="linha-footer"></div>
+          <span class="losango-footer"></span>
+        </div>
+
+        <!-- Texto de copyright -->
+        <p class="copyright">Copyright 2025</p>
+      </div>
+    </footer>
+  </body>
+</html>
