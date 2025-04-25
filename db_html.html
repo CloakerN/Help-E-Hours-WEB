@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciamento Dinâmico de Tabelas</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+    <link rel="stylesheet" href="db_css.css">
+</head>
+<body>
+    <h1>Gerenciamento Dinâmico de Tabelas</h1>
+    <div id="tableSelection">
+        <button id="docsButton" class="docsButton">Documentação</button>
+        <button id="selectTableButton">Selecionar Tabela</button>
+        <div id="controle_display" style="display: none;">
+            <button id="adminPasswordButton">Senha ADM</button>
+            <button id="masterPasswordButton">Senha Master</button>
+            <button id="columnSelectionButton">Modo de Seleção</button>
+            <button id="restoreViewButton">Restaurar</button>
+            <button id="downloadLogButton" style="display: none;">Baixar Log de Exclusões</button>
+            <button id="printTableButton" style="display: none;">Imprimir Tabela</button>
+            <button id="undoDeleteButton" style="display: none;">Voltar Linhas</button>
+            <button id="messageLogButton" style="display: none;">Imprimir LogMGM</button>
+        </div>
+        <button id="toggleControleButton">Controle</button>
+        <div id="columnSelection"></div>
+        <div id="tableUtilities">
+            <input type="text" id="globalSearchInput" placeholder="Buscar em qualquer coluna..." />
+        </div>
+    </div>
+    <div id="display_prompt">
+        <div id="successMessage"></div>
+        <div id="errorMessage"></div>
+        <div id="loadingMessage">1-Carregando...</div>
+        <div id="adminMessage" style="color: gray;"></div>
+    </div>
+    <div id="adminStatus" style="display: none;">ADM</div>
+    <div id="masterStatus" style="display: none;">Master</div>
+    <div id="pkSelection">
+        <label>Selecione a chave primária: 
+            <select id="pkSelect"></select>
+        </label>
+        <button id="confirmPkButton-famous">Confirmar</button>
+    </div>
+    <div id="tableContainer" style="display: none;">
+        <div id="dynamicForm">
+            <form id="dynamicFormFields"></form>
+            <button type="button" id="saveButton">Salvar</button>
+            <button type="button" id="cancelButton">Cancelar</button>
+        </div>
+        <button id="addNewButton">Adicionar Novo Registro</button>
+        <table id="dynamicTable">
+            <thead id="dynamicTableHead"></thead>
+            <tbody id="dynamicTableBody"></tbody>
+        </table>
+        <div id="paginationControls"></div>
+    </div>
+    <div id="confirmDownloadModal" class="modal">
+        <div class="modal-content">
+            <h2>Logs de Exclusões Pendentes</h2>
+            <p>Você tem logs de exclusões pendentes. O que deseja fazer?</p>
+            <div class="modal-buttons">
+                <button id="downloadYes">BAIXAR (seguro)</button>
+                <button id="downloadCancel">CANCELAR</button>
+                <button id="downloadNo">NÃO BAIXAR</button>
+            </div>
+        </div>
+    </div>
+    <div id="confirmNoDownloadModal" class="modal">
+        <div class="modal-content">
+            <h2>Confirmação</h2>
+            <p>Tem certeza que quer sair sem baixar o SecureLog?</p>
+            <div class="modal-buttons">
+                <button id="noDownloadYes">SIM, não salvar</button>
+                <button id="noDownloadNo">NÃO, cancelar</button>
+            </div>
+        </div>
+    </div>
+    <script src="db_js.js"></script>
+    <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'935980dd9c517bc3',t:'MTc0NTUzODYzMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+body { font-family: Arial, sans-serif; padding: 20px; position: relative; }
+table, th, td { border: 1px solid black; border-collapse: collapse; padding: 8px; }
+th { background-color: #f2f2f2; cursor: pointer; }
+button { padding: 5px 10px; margin: 5px; }
+#tableUtilities button { padding: 5px 10px; margin: 5px; }
+#controle_display {
+    background-color: white;
+    border: 1px solid black;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+#controle_display button { padding: 5px 10px; margin: 5px; }
+#toggleControleButton { padding: 5px 10px; margin: 5px; }
+#dynamicForm { margin-bottom: 20px; padding: 10px; border: 1px solid #ccc; display: none; }
+#dynamicForm label { display: block; margin: 5px 0; }
+#errorMessage { color: red; margin: 10px 0; }
+#successMessage { color: green; margin: 10px 0; }
+#loadingMessage { color: blue; }
+#adminMessage { color: gray; margin: 10px 0; }
+#display_prompt {
+    background-color: rgba(173, 216, 230, 0.7);
+    border: 2px solid black;
+    padding: 10px;
+    margin: 10px 0;
+    display: none;
+    border-radius: 5px;
+}
+#adminStatus {
+    background-color: silver;
+    color: black;
+    padding: 5px 10px;
+    margin: 5px 0;
+    display: inline-block;
+    border-radius: 3px;
+    text-align: center;
+    width: 60px;
+}
+#masterStatus {
+    background-color: gold;
+    color: black;
+    padding: 5px 10px;
+    margin: 5px 0;
+    display: inline-block;
+    border-radius: 3px;
+    text-align: center;
+    width: 60px;
+}
+#tableSelection { position: absolute; top: 20px; right: 20px; margin-bottom: 20px; }
+#tableUtilities { margin-top: 10px; display: none; }
+#columnSelection { 
+    margin-top: 10px; 
+    display: none; 
+    padding: 10px; 
+    border: 1px solid black; 
+    background-color: white;
+}
+#columnSelection label { display: block; margin: 5px 0; }
+#tableContainer { margin-top: 80px; }
+#pkSelection { margin: 10px 0; display: none; }
+#paginationControls { margin-top: 10px; text-align: center; }
+.pagination-btn { padding: 5px 10px; margin: 0 2px; }
+.edit-row input { width: 95%; }
+.modal, .password-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+.modal-content, .password-modal-content {
+    background-color: white;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    text-align: center;
+    border-radius: 5px;
+}
+.modal-buttons, .password-modal-buttons {
+    margin-top: 20px;
+}
+.modal-buttons button, .password-modal-buttons button {
+    padding: 10px 20px;
+    margin: 0 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 3px;
+}
+.password-modal-content input[type="password"] {
+    width: 80%;
+    padding: 8px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+#confirmDownloadModal .modal-buttons button:nth-child(1) {
+    background-color: #4CAF50;
+    color: white;
+}
+#confirmDownloadModal .modal-buttons button:nth-child(2) {
+    background-color: #f44336;
+    color: white;
+}
+#confirmDownloadModal .modal-buttons button:nth-child(3) {
+    background-color: #ff9800;
+    color: white;
+}
+#confirmNoDownloadModal .modal-buttons button:nth-child(1) {
+    background-color: #f44336;
+    color: white;
+}
+#confirmNoDownloadModal .modal-buttons button:nth-child(2) {
+    background-color: #4CAF50;
+    color: white;
+}
+.password-modal-buttons button:nth-child(1) {
+    background-color: #4CAF50;
+    color: white;
+}
+.password-modal-buttons button:nth-child(2) {
+    background-color: #f44336;
+    color: white;
+}
+.docsButton {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background-color: #a1e0b0;
+    z-index: 2000;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+.docsButton:hover {
+    background-color: #9bb8a1;
+}

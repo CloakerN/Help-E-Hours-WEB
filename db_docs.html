@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentação Completa do Banco de Dados</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+             max-width: 800px; /* Reduced from 1000px to leave space for sidebar */
+            margin: 0 20px 0 20px; /* Adjusted to prevent overlap with sidebar */
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+        }
+        h1 {
+            text-align: center;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            margin-top: 30px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 5px;
+        }
+        h3 {
+            margin-top: 20px;
+        }
+        p, li {
+            color: #333;
+        }
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .index {
+            position: fixed; /* Changed from sticky to fixed */
+            top: 20px;
+            right: 20px; /* Aligns to right side */
+            width: 250px; /* Fixed width for sidebar */
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            max-height: calc(100vh - 40px); /* Limits height to viewport */
+            overflow-y: auto; /* Adds scrollbar if content overflows */
+        }
+        .index h2 {
+            font-size: 1.2em; /* Smaller header for sidebar */
+            margin-top: 0;
+        }
+
+        .index ul {
+            list-style: none;
+            padding: 0;
+            font-size: 0.9em; /* Slightly smaller font for compactness */
+        }
+        .index li {
+            margin: 5px 0;
+        }
+        .index a {
+            text-decoration: none;
+            color: #3498db;
+            transition: color 0.3s;
+        }
+        .index a:hover {
+            color: #e74c3c;
+        }
+        a.back {
+            position: fixed; /* Changed to fixed */
+            top: 10px; /* Position at top */
+            right: 10px; /* Align to right */
+            padding: 10px 15px;
+            background: #3498db;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            z-index: 1000; /* Ensures it’s above content but below index */
+        }
+        a.back:hover {
+            background: #2980b9;
+        }
+        @media (max-width: 600px) {
+        .container {
+            padding: 10px;
+        }
+        .index {
+            position: static; /* Reverts to normal flow on small screens */
+            width: auto; /* Full width on small screens */
+            margin: 0 0 20px 0; /* Restores margin */
+            max-height: none; /* Removes height restriction */
+            overflow-y: visible; /* Removes scrollbar */
+        }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Documentação Completa do Banco de Dados</h1>
+        <div class="index">
+            <h2>Índice</h2>
+            <ul>
+                <li><a href="#introducao">1. Introdução</a></li>
+                <li><a href="#visao-geral">2. Visão Geral da Interface</a></li>
+                <li><a href="#botoes-funcionalidades">3. Botões e Suas Funcionalidades</a>
+                    <ul>
+                        <li><a href="#selecionar-tabela">3.1. Selecionar Tabela</a></li>
+                        <li><a href="#controle-toggle">3.2. Controle (Toggle do Controle Display)</a></li>
+                        <li><a href="#senha-adm">3.3. Senha ADM</a></li>
+                        <li><a href="#senha-master">3.4. Senha Master</a></li>
+                        <li><a href="#modo-selecao">3.5. Modo de Seleção</a></li>
+                        <li><a href="#restaurar">3.6. Restaurar</a></li>
+                        <li><a href="#baixar-log-exclusoes">3.7. Baixar Log de Exclusões</a></li>
+                        <li><a href="#imprimir-tabela">3.8. Imprimir Tabela</a></li>
+                        <li><a href="#voltar-linhas">3.9. Voltar Linhas</a></li>
+                        <li><a href="#imprimir-logmgm">3.10. Imprimir LogMGM</a></li>
+                        <li><a href="#confirmar-chave-primaria">3.11. Confirmar (Seleção de Chave Primária)</a></li>
+                        <li><a href="#adicionar-registro">3.12. Adicionar Novo Registro</a></li>
+                        <li><a href="#salvar-formulario">3.13. Salvar (Formulário)</a></li>
+                        <li><a href="#cancelar-formulario">3.14. Cancelar (Formulário)</a></li>
+                        <li><a href="#editar-linha">3.15. Editar (Linha da Tabela)</a></li>
+                        <li><a href="#excluir-linha">3.16. Excluir (Linha da Tabela)</a></li>
+                        <li><a href="#botoes-paginacao">3.17. Botões de Paginação</a></li>
+                        <li><a href="#botoes-modal-download">3.18. Botões de Modal de Download</a></li>
+                    </ul>
+                </li>
+                <li><a href="#outros-eventos">4. Outros Eventos e Funcionalidades</a>
+                    <ul>
+                        <li><a href="#ordenacao-sort">4.1. Ordenação (Sort) na Tabela</a></li>
+                        <li><a href="#busca-global">4.2. Busca Global</a></li>
+                        <li><a href="#conexao-tempo-real">4.3. Conexão em Tempo Real</a></li>
+                        <li><a href="#atualizar-sair">4.4. Atualizar ou Sair da Página</a></li>
+                    </ul>
+                </li>
+                <li><a href="#mensagens-sistema">5. Mensagens do Sistema</a></li>
+                <li><a href="#gestao-logs">6. Gestão de Logs</a></li>
+                <li><a href="#beneficios-senhas">7. Benefícios das Senhas</a></li>
+                <li><a href="#selecao-chave-primaria">8. Seleção da Chave Primária</a></li>
+                <li><a href="#funcionalidades-nao-implementadas">9. Funcionalidades Não Implementadas</a></li>
+            </ul>
+        </div>
+
+        <section id="introducao">
+            <h2>1. Introdução</h2>
+            <p>O Gerenciamento Dinâmico de Tabelas é uma aplicação web que permite aos usuários interagir com tabelas de um banco de dados Supabase, visualizando, editando e gerenciando dados de forma segura e controlada. A interface é projetada para ser intuitiva, com níveis de acesso diferenciados:</p>
+            <ul>
+                <li><strong>Usuário padrão</strong>: Pode visualizar tabelas (exceto alunos e ongs) com colunas sensíveis (e.g., email, telefone) desabilitadas.</li>
+                <li><strong>Usuário ADM</strong>: Tem acesso a colunas sensíveis e pode editar/excluir registros.</li>
+                <li><strong>Usuário Master</strong>: Tem acesso total, incluindo tabelas restritas (alunos, ongs) e logs de mensagens.</li>
+            </ul>
+            <p>Este manual detalha como usar cada elemento da interface, interpretar eventos automáticos, gerenciar logs e entender limitações do sistema.</p>
+            <p><strong>Nota</strong>: Não compartilhe senhas ADM ou Master. Elas devem ser inseridas apenas por usuários autorizados.</p>
+        </section>
+
+        <section id="visao-geral">
+            <h2>2. Visão Geral da Interface</h2>
+            <p>A interface é dividida em seções principais:</p>
+            <ul>
+                <li><strong>Cabeçalho</strong>: Título "Gerenciamento Dinâmico de Tabelas".</li>
+                <li><strong>Seleção de Tabela</strong>: Botão "Selecionar Tabela" e área de controles (minimizável).</li>
+                <li><strong>Controle Display</strong>: Container minimizável com botões de administração e visualização.</li>
+                <li><strong>Mensagens</strong>: Caixa de mensagens (sucesso, erro, carregamento, administração) em azul claro.</li>
+                <li><strong>Seleção de Chave Primária</strong>: Dropdown para selecionar a chave primária ao carregar uma tabela.</li>
+                <li><strong>Tabela e Utilitários</strong>: Exibe a tabela, campo de busca global e botões de ação (Adicionar, Editar, Excluir).</li>
+                <li><strong>Formulário Dinâmico</strong>: Aparece para adicionar/editar registros.</li>
+                <li><strong>Paginação</strong>: Botões para navegar entre páginas da tabela.</li>
+                <li><strong>Modais</strong>: Janelas pop-up para confirmação de senhas, downloads de logs ou saída da página.</li>
+            </ul>
+            <p><strong>Melhor Prática</strong>: Familiarize-se com a interface antes de realizar operações críticas. Use o botão "Controle" para acessar ferramentas administrativas e verifique mensagens regularmente para entender o estado do sistema.</p>
+        </section>
+
+        <section id="botoes-funcionalidades">
+            <h2>3. Botões e Suas Funcionalidades</h2>
+            <section id="selecionar-tabela">
+                <h3>3.1. Selecionar Tabela</h3>
+                <p><strong>Descrição</strong>: Abre um prompt para inserir o nome de uma tabela a ser carregada.</p>
+                <p><strong>Usos e Situações</strong>:</p>
+                <ol>
+                    <li><strong>Inserir Nome Válido</strong>: Digite um nome de tabela (e.g., usuarios) com letras, números ou sublinhados.
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Carrega a tabela, exibe o seletor de chave primária e ativa a visualização de dados (colunas sensíveis desabilitadas sem autenticação).</li>
+                            <li><strong>Consequência</strong>: A tabela é exibida com paginação, busca e ordenação disponíveis.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Tabelas Restritas (alunos, ongs)</strong>: Requer senha Master.
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Mensagem de erro se Master não autenticado.</li>
+                            <li><strong>Consequência</strong>: Tabela não carregada.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Nome Inválido ou Vazio</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Mensagem de erro (e.g., "5-Nome da tabela não pode ser vazio").</li>
+                            <li><strong>Consequência</strong>: Tabela não carregada.</li>
+                        </ol>
+                    </li>
+                </ol>
+                <p><strong>Melhor Prática</strong>:</p>
+                <ul>
+                    <li>Verifique o nome da tabela antes de inserir.</li>
+                    <li>Para tabelas restritas, autentique com a senha Master primeiro.</li>
+                    <li>Após selecionar a tabela, escolha uma chave primária adequada (veja Seção 8).</li>
+                </ul>
+                <p><strong>Funções Relacionadas</strong>:</p>
+                <ul>
+                    <li>selectTableButton.onclick</li>
+                    <li>populatePkSelector</li>
+                    <li>loadTable</li>
+                </ul>
+            </section>
+
+            <section id="controle-toggle">
+                <h3>3.2. Controle (Toggle do Controle Display)</h3>
+                <p><strong>Descrição</strong>: Alterna a visibilidade do container controle_display, que contém botões administrativos. Inicialmente minimizado ("Controle ►").</p>
+                <p><strong>Usos e Situações</strong>:</p>
+                <ol>
+                    <li><strong>Expandir (Minimizar)</strong>: Clique para mostrar botões como "Senha ADM", "Imprimir Tabela", etc. ("Controle ▼").
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Exibe botões disponíveis com base no estado (e.g., "Imprimir LogMGM" só aparece com Master autenticado).</li>
+                            <li><strong>Consequência</strong>: Acesso a ferramentas administrativas.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Recolher (Maximizar)</strong>: Clique novamente para ocultar o container ("Controle ►").
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Botões ficam inacessíveis, mas funcionalidades ativas persistem.</li>
+                            <li><strong>Consequência</strong>: Interface mais limpa.</li>
+                        </ol>
+                    </li>
+                </ol>
+                <p><strong>Melhor Prática</strong>:</p>
+                <ul>
+                    <li>Mantenha o controle_display minimizado para reduzir desordem visual, expandindo apenas quando necessário.</li>
+                    <li>Verifique quais botões estão visíveis para entender o estado do sistema (e.g., "Voltar Linhas" indica exclusões recentes).</li>
+                </ul>
+                <p><strong>Funções Relacionadas</strong>:</p>
+                <ul>
+                    <li>toggleControleDisplay</li>
+                </ul>
+            </section>
+
+            <section id="senha-adm">
+                <h3>3.3. Senha ADM</h3>
+                <p><strong>Descrição</strong>: Abre um modal para inserir a senha ADM, desbloqueando colunas sensíveis e ações de edição/exclusão.</p>
+                <p><strong>Usos e Situações</strong>:</p>
+                <ol>
+                    <li><strong>Senha Correta</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Mensagem "15-Senha ADM confirmada!", status "ADM" exibido, colunas sensíveis habilitadas.</li>
+                            <li><strong>Consequência</strong>: Permite editar/excluir registros e visualizar colunas como email, telefone.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Senha Incorreta</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Mensagem "16-Senha ADM incorreta.".</li>
+                            <li><strong>Consequência</strong>: Nenhuma mudança.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Cancelar Modal</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Modal fechado, mensagens limpas.</li>
+                            <li><strong>Consequência</strong>: Nenhuma mudança.</li>
+                        </ol>
+                    </li>
+                </ol>
+                <p><strong>Melhor Prática</strong>:</p>
+                <ul>
+                    <li>Insira a senha ADM apenas quando necessário para editar ou visualizar colunas sensíveis.</li>
+                    <li>Após autenticação, verifique se colunas sensíveis estão visíveis no modo de seleção.</li>
+                </ul>
+                <p><strong>Funções Relacionadas</strong>:</p>
+                <ul>
+                    <li>showPasswordModal</li>
+                    <li>verifyAdminPassword</li>
+                    <li>populateColumnSelection</li>
+                    <li>renderTablePage</li>
+                </ul>
+            </section>
+
+            <section id="senha-master">
+                <h3>3.4. Senha Master</h3>
+                <p><strong>Descrição</strong>: Abre um modal para inserir a senha Master, desbloqueando acesso total, incluindo tabelas restritas e log de mensagens.</p>
+                <p><strong>Usos e Situações</strong>:</p>
+                <ol>
+                    <li><strong>Senha Correta</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Mensagem "17-Senha Master confirmada!", status "Master" exibido, acesso a alunos, ongs, e botão "Imprimir LogMGM".</li>
+                            <li><strong>Consequência</strong>: Substitui autenticação ADM, habilitando todas colunas e ações.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Senha Incorreta</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Mensagem "18-Senha Master incorreta.".</li>
+                            <li><strong>Consequência</strong>: Nenhuma mudança.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Cancelar Modal</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Modal fechado, mensagens limpas.</li>
+                            <li><strong>Consequência</strong>: Nenhuma mudança.</li>
+                        </ol>
+                    </li>
+                </ol>
+                <p><strong>Melhor Prática</strong>:</p>
+                <ul>
+                    <li>Use a senha Master apenas para tabelas restritas ou auditoria via log de mensagens.</li>
+                    <li>Após autenticação, expanda o controle_display para acessar o botão "Imprimir LogMGM".</li>
+                </ul>
+                <p><strong>Funções Relacionadas</strong>:</p>
+                <ul>
+                    <li>showPasswordModal</li>
+                    <li>verifyMasterPassword</li>
+                    <li>populateColumnSelection</li>
+                    <li>renderTablePage</li>
+                </ul>
+            </section>
+
+            <section id="modo-selecao">
+                <h3>3.5. Modo de Seleção</h3>
+                <p><strong>Descrição</strong>: Alterna a visibilidade do painel de seleção de colunas para personalizar a visualização da tabela.</p>
+                <p><strong>Usos e Situações</strong>:</p>
+                <ol>
+                    <li><strong>Ativar Painel</strong>: Mostra checkboxes para selecionar/desmarcar colunas.
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Painel exibido, colunas sensíveis desabilitadas sem autenticação.</li>
+                            <li><strong>Consequência</strong>: Usuário pode personalizar colunas visíveis na tabela.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Desativar Painel</strong>: Oculta o painel.
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Painel recolhido.</li>
+                            <li><strong>Consequência</strong>: Tabela reflete colunas selecionadas.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Sem Tabela Selecionada</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Mensagem "14-Selecione uma tabela primeiro.".</li>
+                            <li><strong>Consequência</strong>: Painel não exibido.</li>
+                        </ol>
+                    </li>
+                </ol>
+                <p><strong>Melhor Prática</strong>:</p>
+                <ul>
+                    <li>Use o modo de seleção para ocultar colunas irrelevantes e simplificar a visualização.</li>
+                    <li>Após autenticar ADM ou Master, revisite o painel para habilitar colunas sensíveis.</li>
+                </ul>
+                <p><strong>Funções Relacionadas</strong>:</p>
+                <ul>
+                    <li>columnSelectionButton.onclick</li>
+                    <li>populateColumnSelection</li>
+                </ul>
+            </section>
+
+            <section id="restaurar">
+                <h3>3.6. Restaurar</h3>
+                <p><strong>Descrição</strong>: Restaura a visualização da tabela para o estado inicial (todas colunas visíveis, ordenação padrão, busca limpa).</p>
+                <p><strong>Usos e Situações</strong>:</p>
+                <ol>
+                    <li><strong>Restaurar Visualização</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Dados filtrados, colunas visíveis e ordenação retornam ao estado inicial.</li>
+                            <li><strong>Consequência</strong>: Tabela é recarregada com todas colunas e ordenação padrão (descendente para chaves numéricas, ascendente para outras).</li>
+                        </ol>
+                    </li>
+                    <li><strong>Sem Alterações</strong>: Se a visualização já está no estado inicial, nada muda.</li>
+                </ol>
+                <p><strong>Melhor Prática</strong>:</p>
+                <ul>
+                    <li>Use "Restaurar" após experimentações com busca ou ordenação para voltar ao estado padrão.</li>
+                    <li>Verifique o controle_display após restaurar para confirmar botões ativos.</li>
+                </ul>
+                <p><strong>Funções Relacionadas</strong>:</p>
+                <ul>
+                    <li>restoreViewButton.onclick</li>
+                    <li>populateColumnSelection</li>
+                    <li>generateTableHeader</li>
+                    <li>sortAndRender</li>
+                </ul>
+            </section>
+
+            <section id="baixar-log-exclusoes">
+                <h3>3.7. Baixar Log de Exclusões</h3>
+                <p><strong>Descrição</strong>: Baixa um arquivo de log (sql_[prefix]_SecureLog_[timestamp].txt) com registros excluídos. Visível após exclusões.</p>
+                <p><strong>Usos e Situações</strong>:</p>
+                <ol>
+                    <li><strong>Baixar Log</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Arquivo baixado com exclusões registradas (tabela, dados, timestamp).</li>
+                            <li><strong>Consequência</strong>: Log é limpo, botão ocultado.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Sem Exclusões</strong>: Botão não visível.</li>
+                </ol>
+                <p><strong>Melhor Prática</strong>:</p>
+                <ul>
+                    <li>Baixe o log após exclusões para manter um registro seguro.</li>
+                    <li>Nomeie o arquivo com prefixo (ADM ou Master) para auditoria.</li>
+                </ul>
+                <p><strong>Funções Relacionadas</strong>:</p>
+                <ul>
+                    <li>downloadLogButton.onclick</li>
+                    <li>downloadSecureLog</li>
+                    <li>updateSecureLog</li>
+                </ul>
+            </section>
+
+            <section id="imprimir-tabela">
+                <h3>3.8. Imprimir Tabela</h3>
+                <p><strong>Descrição</strong>: Baixa um arquivo (print_[prefix]_TableLog_[table]_[timestamp].txt) com os dados atuais da tabela.</p>
+                <p><strong>Usos e Situações</strong>:</p>
+                <ol>
+                    <li><strong>Baixar Tabela</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Arquivo baixado com colunas visíveis e dados (sensíveis excluídos sem autenticação).</li>
+                            <li><strong>Consequência</strong>: Registro offline da tabela.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Sem Tabela/Dados</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Mensagem "19-Nenhuma tabela ou dados para imprimir.".</li>
+                            <li><strong>Consequência</strong>: Nenhum download.</li>
+                        </ol>
+                    </li>
+                </ol>
+                <p><strong>Melhor Prática</strong>:</p>
+                <ul>
+                    <li>Use para exportar dados para relatórios.</li>
+                    <li>Autentique ADM ou Master para incluir colunas sensíveis.</li>
+                </ul>
+                <p><strong>Funções Relacionadas</strong>:</p>
+                <ul>
+                    <li>printTableButton.onclick</li>
+                    <li>downloadTableData</li>
+                </ul>
+            </section>
+
+            <section id="voltar-linhas">
+                <h3>3.9. Voltar Linhas</h3>
+                <p><strong>Descrição</strong>: Restaura registros excluídos na sessão atual. Visível após exclusões.</p>
+                <p><strong>Usos e Situações</strong>:</p>
+                <ol>
+                    <li><strong>Restaurar Linhas</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Registros excluídos são reinseridos, mensagem "23-Linhas restauradas com sucesso!".</li>
+                            <li><strong>Consequência</strong>: Tabela atualizada, log de exclusões limpo, botão ocultado.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Chave Primária Duplicada</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Mensagem "21-Erro: A chave primária '[pkValue]' já existe na tabela.".</li>
+                            <li><strong>Consequência</strong>: Linha não restaurada.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Sem Exclusões</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Mensagem "20-Nenhuma linha excluída para restaurar.".</li>
+                            <li><strong>Consequência</strong>: Nenhuma ação.</li>
+                        </ol>
+                    </li>
+                </ol>
+                <p><strong>Melhor Prática</strong>:</p>
+                <ul>
+                    <li>Use imediatamente após exclusões acidentais.</li>
+                    <li>Verifique chaves primárias para evitar conflitos.</li>
+                </ul>
+                <p><strong>Funções Relacionadas</strong>:</p>
+                <ul>
+                    <li>undoDeleteButton.onclick</li>
+                    <li>undoDeleteRows</li>
+                    <li>checkForDuplicatePk</li>
+                </ul>
+            </section>
+
+            <section id="imprimir-logmgm">
+                <h3>3.10. Imprimir LogMGM</h3>
+                <p><strong>Descrição</strong>: Baixa um arquivo (txt_MGNSLog_[timestamp].txt) com todas as mensagens da sessão. Visível apenas com Master autenticado.</p>
+                <p><strong>Usos e Situações</strong>:</p>
+                <ol>
+                    <li><strong>Baixar Log</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Arquivo baixado com mensagens indexadas e timestamps.</li>
+                            <li><strong>Consequência</strong>: Registro de eventos para auditoria.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Sem Mensagens</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Mensagem "19-Nenhum log de mensagens para imprimir.".</li>
+                            <li><strong>Consequência</strong>: Nenhum download.</li>
+                        </ol>
+                    </li>
+                </ol>
+                <p><strong>Melhor Prática</strong>:</p>
+                <ul>
+                    <li>Baixe o log ao final da sessão para auditoria.</li>
+                    <li>Analise mensagens para identificar erros ou eventos críticos.</li>
+                </ul>
+                <p><strong>Funções Relacionadas</strong>:</p>
+                <ul>
+                    <li>messageLogButton.onclick</li>
+                    <li>downloadMessageLog</li>
+                    <li>logMessage</li>
+                </ul>
+            </section>
+
+            <section id="confirmar-chave-primaria">
+                <h3>3.11. Confirmar (Seleção de Chave Primária)</h3>
+                <p><strong>Descrição</strong>: Confirma a coluna selecionada como chave primária para carregar a tabela.</p>
+                <p><strong>Usos e Situações</strong>:</p>
+                <ol>
+                    <li><strong>Seleção Válida</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Tabela carregada com ordenação padrão baseada na chave.</li>
+                            <li><strong>Consequência</strong>: Interface de tabela ativada.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Sem Seleção</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Mensagem "10-Selecione uma chave primária.".</li>
+                            <li><strong>Consequência</strong>: Tabela não carregada.</li>
+                        </ol>
+                    </li>
+                </ol>
+                <p><strong>Melhor Prática</strong>:</p>
+                <ul>
+                    <li>Escolha uma coluna única (e.g., id, cpf) como chave primária.</li>
+                    <li>Evite colunas com valores repetidos para prevenir erros.</li>
+                </ul>
+                <p><strong>Funções Relacionadas</strong>:</p>
+                <ul>
+                    <li>confirmPkButton-famous.onclick</li>
+                    <li>loadTable</li>
+                </ul>
+            </section>
+
+            <section id="adicionar-registro">
+                <h3>3.12. Adicionar Novo Registro</h3>
+                <p><strong>Descrição</strong>: Abre um formulário para inserir um novo registro na tabela.</p>
+                <p><strong>Usos e Situações</strong>:</p>
+                <ol>
+                    <li><strong>Abrir Formulário</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Formulário exibido com campos para todas colunas (chave primária preenchida automaticamente se numérica).</li>
+                            <li><strong>Consequência</strong>: Usuário pode inserir dados.</li>
+                        </ol>
+                    </li>
+                </ol>
+                <p><strong>Melhor Prática</strong>:</p>
+                <ul>
+                    <li>Verifique o valor sugerido para a chave primária.</li>
+                    <li>Preencha todos os campos necessários antes de salvar.</li>
+                </ul>
+                <p><strong>Funções Relacionadas</strong>:</p>
+                <ul>
+                    <li>addNewButton.onclick</li>
+                </ul>
+            </section>
+
+            <section id="salvar-formulario">
+                <h3>3.13. Salvar (Formulário)</h3>
+                <p><strong>Descrição</strong>: Salva o registro do formulário (novo ou editado) no banco de dados.</p>
+                <p><strong>Usos e Situações</strong>:</p>
+                <ol>
+                    <li><strong>Salvar Novo Registro</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Registro inserido, tabela recarregada.</li>
+                            <li><strong>Consequência</strong>: Dados adicionados.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Salvar Edição</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Registro atualizado, tabela recarregada.</li>
+                            <li><strong>Consequência</strong>: Dados modificados.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Chave Primária Duplicada</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Mensagem "24-Erro: O valor '[pkValue]' para a chave primária já existe na tabela.".</li>
+                            <li><strong>Consequência</strong>: Registro não salvo.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Erro de Banco</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Mensagem "25-Erro ao salvar registro: [error.message]".</li>
+                            <li><strong>Consequência</strong>: Registro não salvo.</li>
+                        </ol>
+                    </li>
+                </ol>
+                <p><strong>Melhor Prática</strong>:</p>
+                <ul>
+                    <li>Confirme que a chave primária é única antes de salvar.</li>
+                    <li>Valide os dados inseridos para evitar erros.</li>
+                </ul>
+                <p><strong>Funções Relacionadas</strong>:</p>
+                <ul>
+                    <li>saveButton.onclick</li>
+                    <li>checkForDuplicatePk</li>
+                </ul>
+            </section>
+
+            <section id="cancelar-formulario">
+                <h3>3.14. Cancelar (Formulário)</h3>
+                <p><strong>Descrição</strong>: Fecha o formulário sem salvar alterações.</p>
+                <p><strong>Usos e Situações</strong>:</p>
+                <ol>
+                    <li><strong>Cancelar Inserção/Edição</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Formulário ocultado, mensagens limpas.</li>
+                            <li><strong>Consequência</strong>: Nenhuma mudança nos dados.</li>
+                        </ol>
+                    </li>
+                </ol>
+                <p><strong>Melhor Prática</strong>:</p>
+                <ul>
+                    <li>Use para descartar entradas incorretas.</li>
+                    <li>Verifique a tabela após cancelar para confirmar o estado.</li>
+                </ul>
+                <p><strong>Funções Relacionadas</strong>:</p>
+                <ul>
+                    <li>cancelButton.onclick</li>
+                </ul>
+            </section>
+
+            <section id="editar-linha">
+                <h3>3.15. Editar (Linha da Tabela)</h3>
+                <p><strong>Descrição</strong>: Inicia a edição inline de um registro. Requer autenticação ADM ou Master.</p>
+                <p><strong>Usos e Situações</strong>:</p>
+                <ol>
+                    <li><strong>Editar Registro</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Linha da tabela transformada em campos editáveis.</li>
+                            <li><strong>Consequência</strong>: Usuário pode modificar dados.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Sem Autenticação</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Mensagem "26-Ação de edição requer senha ADM ou Master.".</li>
+                            <li><strong>Consequência</strong>: Edição não iniciada.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Erro de Busca</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Mensagem "27-Erro ao buscar registro para edição: [error.message]".</li>
+                            <li><strong>Consequência</strong>: Edição não iniciada.</li>
+                        </ol>
+                    </li>
+                </ol>
+                <p><strong>Melhor Prática</strong>:</p>
+                <ul>
+                    <li>Autentique antes de editar.</li>
+                    <li>Confirme alterações com cuidado para evitar perda de dados.</li>
+                </ul>
+                <p><strong>Funções Relacionadas</strong>:</p>
+                <ul>
+                    <li>editInline</li>
+                </ul>
+            </section>
+
+            <section id="excluir-linha">
+                <h3>3.16. Excluir (Linha da Tabela)</h3>
+                <p><strong>Descrição</strong>: Exclui um registro após confirmação. Requer autenticação ADM ou Master.</p>
+                <p><strong>Usos e Situações</strong>:</p>
+                <ol>
+                    <li><strong>Excluir Registro</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Registro removido, log de exclusão atualizado, botão "Voltar Linhas" exibido.</li>
+                            <li><strong>Consequência</strong>: Dados excluídos, recuperáveis até sair da sessão.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Sem Autenticação</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Mensagem "30-Ação de exclusão requer senha ADM ou Master.".</li>
+                            <li><strong>Consequência</strong>: Exclusão não realizada.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Erro de Busca/Exclusão</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Mensagem "31-Erro ao buscar registro para exclusão" ou "32-Erro ao excluir registro".</li>
+                            <li><strong>Consequência</strong>: Exclusão não realizada.</li>
+                        </ol>
+                    </li>
+                </ol>
+                <p><strong>Melhor Prática</strong>:</p>
+                <ul>
+                    <li>Confirme exclusões para evitar erros.</li>
+                    <li>Use "Voltar Linhas" para restaurar exclusões acidentais.</li>
+                </ul>
+                <p><strong>Funções Relacionadas</strong>:</p>
+                <ul>
+                    <li>deleteRecord</li>
+                    <li>updateSecureLog</li>
+                </ul>
+            </section>
+
+            <section id="botoes-paginacao">
+                <h3>3.17. Botões de Paginação</h3>
+                <p><strong>Descrição</strong>: Navega entre páginas da tabela (20 linhas por página).</p>
+                <p><strong>Usos e Situações</strong>:</p>
+                <ol>
+                    <li><strong>Mudar Página</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Exibe a página selecionada.</li>
+                            <li><strong>Consequência</strong>: Dados da página carregados.</li>
+                        </ol>
+                    </li>
+                    <li><strong>Página Atual</strong>: Botão desabilitado.</li>
+                </ol>
+                <p><strong>Melhor Prática</strong>:</p>
+                <ul>
+                    <li>Use para revisar grandes tabelas.</li>
+                    <li>Combine com busca para localizar registros específicos.</li>
+                </ul>
+                <p><strong>Funções Relacionadas</strong>:</p>
+                <ul>
+                    <li>renderPaginationControls</li>
+                    <li>renderTablePage</li>
+                </ul>
+            </section>
+
+            <section id="botoes-modal-download">
+                <h3>3.18. Botões de Modal de Download</h3>
+                <p><strong>Descrição</strong>: Gerencia o download do log de exclusões ao tentar sair ou atualizar a página com exclusões pendentes.</p>
+                <p><strong>Usos e Situações</strong>:</p>
+                <ol>
+                    <li><strong>BAIXAR (seguro)</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Log baixado, página recarregada.</li>
+                            <li><strong>Consequência</strong>: Exclusões registradas.</li>
+                        </ol>
+                    </li>
+                    <li><strong>CANCELAR</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Modal fechado.</li>
+                            <li><strong>Consequência</strong>: Permanece na página.</li>
+                        </ol>
+                    </li>
+                    <li><strong>NÃO BAIXAR</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Abre modal de confirmação.</li>
+                            <li><strong>Consequência</strong>: Opção para descartar log.</li>
+                        </ol>
+                    </li>
+                    <li><strong>SIM, não salvar (Modal de Confirmação)</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Log descartado, página recarregada.</li>
+                            <li><strong>Consequência</strong>: Exclusões não registradas.</li>
+                        </ol>
+                    </li>
+                    <li><strong>NÃO, cancelar (Modal de Confirmação)</strong>:
+                        <ol type="a">
+                            <li><strong>Evento</strong>: Modal fechado.</li>
+                            <li><strong>Consequência</strong>: Permanece na página.</li>
+                        </ol>
+                    </li>
+                </ol>
+                <p><strong>Melhor Prática</strong>:</p>
+                <ul>
+                    <li>Sempre baixe o log para manter registros de exclusões.</li>
+                    <li>Evite descartar logs em ambientes críticos.</li>
+                </ul>
+                <p><strong>Funções Relacionadas</strong>:</p>
+                <ul>
+                    <li>downloadYes.onclick</li>
+                    <li>downloadCancel.onclick</li>
+                    <li>downloadNo.onclick</li>
+                    <li>noDownloadYes.onclick</li>
+                    <li>noDownloadNo.onclick</li>
+                </ul>
+            </section>
+        </section>
+
+        <section id="outros-eventos">
+            <h2>4. Outros Eventos e Funcionalidades</h2>
+            <section id="ordenacao-sort">
+                <h3>4.1. Ordenação (Sort) na Tabela</h3>
+                <p><strong>Descrição</strong>: Clica no cabeçalho de uma coluna para ordenar a tabela.</p>
+                <p><strong>Funcionamento</strong>:</p>
+                <ul>
+                    <li>Clique alterna entre ordem ascendente (ASC) e descendente (DESC).</li>
+                    <li>Chaves numéricas são ordenadas descendentemente por padrão; outras, ascendentemente.</li>
+                    <li>Ordenação persiste até restaurar ou mudar de tabela.</li>
+                </ul>
+                <p><strong>Melhor Prática</strong>:</p>
+                <ul>
+                    <li>Use para organizar dados (e.g., ordenar por id ou nome).</li>
+                    <li>Combine com busca para filtrar e ordenar resultados.</li>
+                </ul>
+                <p><strong>Funções Relacionadas</strong>:</p>
+                <ul>
+                    <li>generateTableHeader</li>
+                    <li>sortAndRender</li>
+                </ul>
+            </section>
+
+            <section id="busca-global">
+                <h3>4.2. Busca Global</h3>
+                <p><strong>Descrição</strong>: Campo de texto que filtra registros em todas as colunas.</p>
+                <p><strong>Funcionamento</strong>:</p>
+                <ul>
+                    <li>Digite um termo para filtrar linhas em tempo real.</li>
+                    <li>Ignora maiúsculas/minúsculas, busca em todos os campos visíveis.</li>
+                    <li>Limpe o campo para restaurar todos os dados.</li>
+                </ul>
+                <p><strong>Melhor Prática</strong>:</p>
+                <ul>
+                    <li>Use termos específicos para reduzir resultados.</li>
+                    <li>Combine com ordenação para melhor visualização.</li>
+                </ul>
+                <p><strong>Funções Relacionadas</strong>:</p>
+                <ul>
+                    <li>globalSearchInput.oninput</li>
+                    <li>sortAndRender</li>
+                </ul>
+            </section>
+
+            <section id="conexao-tempo-real">
+                <h3>4.3. Conexão em Tempo Real</h3>
+                <p><strong>Descrição</strong>: Monitora a conexão com o Supabase em tempo real, atualizando a tabela automaticamente.</p>
+                <p><strong>Funcionamento</strong>:</p>
+                <ul>
+                    <li><strong>Conectado</strong>: Mensagem "2-Conectado em tempo real!" a cada 10 segundos.</li>
+                    <li><strong>Desconectado</strong>: Mensagem "3-Desconectado do tempo real. Tentando reconectar...".</li>
+                    <li>Alterações no banco (inserções, exclusões) recarregam a tabela.</li>
+                </ul>
+                <p><strong>Melhor Prática</strong>:</p>
+                <ul>
+                    <li>Verifique mensagens de conexão antes de realizar operações críticas.</li>
+                    <li>Em caso de desconexão persistente, recarregue a página.</li>
+                </ul>
+                <p><strong>Funções Relacionadas</strong>:</p>
+                <ul>
+                    <li>checkRealtimeConnection</li>
+                    <li>loadTable</li>
+                </ul>
+            </section>
+
+            <section id="atualizar-sair">
+                <h3>4.4. Atualizar ou Sair da Página</h3>
+                <p><strong>Descrição</strong>: Controla o comportamento ao tentar atualizar (F5, Ctrl+R) ou fechar a aba.</p>
+                <p><strong>Funcionamento</strong>:</p>
+                <ul>
+                    <li><strong>Sem Exclusões</strong>: Página recarrega ou fecha normalmente.</li>
+                    <li><strong>Com Exclusões</strong>: Modal de download aparece com opções (ver Seção 3.18).</li>
+                    <li>Autenticações e logs de mensagens são resetados ao sair.</li>
+                </ul>
+                <p><strong>Melhor Prática</strong>:</p>
+                <ul>
+                    <li>Sempre baixe o log de exclusões antes de sair.</li>
+                    <li>Evite atualizar durante edições para não perder dados.</li>
+                </ul>
+                <p><strong>Funções Relacionadas</strong>:</p>
+                <ul>
+                    <li>window.addEventListener('beforeunload')</li>
+                    <li>document.addEventListener('keydown')</li>
+                </ul>
+            </section>
+        </section>
+
+        <section id="mensagens-sistema">
+            <h2>5. Mensagens do Sistema</h2>
+            <p><strong>Descrição</strong>: O sistema exibe mensagens numeradas em uma caixa azul clara para informar o usuário sobre eventos, erros ou estados. Abaixo está a lista completa de mensagens, ordenada por ordem aproximada de aparição, conforme usada no programa.</p>
+            <ol>
+                <li><strong>1-Carregando...</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: Estado inicial (loadTable)</li>
+                        <li><strong>Causa</strong>: Indica carregamento de dados.</li>
+                    </ol>
+                </li>
+                <li><strong>2-Conectado em tempo real!</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: checkRealtimeConnection</li>
+                        <li><strong>Causa</strong>: Conexão Supabase ativa.</li>
+                    </ol>
+                </li>
+                <li><strong>3-Desconectado do tempo real. Tentando reconectar...</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: checkRealtimeConnection</li>
+                        <li><strong>Causa</strong>: Falha na conexão.</li>
+                    </ol>
+                </li>
+                <li><strong>4-Algumas funcionalidades e colunas estão desabilitadas. Insira a senha ADM ou Master.</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: updateMessages</li>
+                        <li><strong>Causa</strong>: Acesso restrito sem autenticação.</li>
+                    </ol>
+                </li>
+                <li><strong>5-Nome da tabela não pode ser vazio.</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: selectTableButton</li>
+                        <li><strong>Causa</strong>: Prompt de tabela vazio.</li>
+                    </ol>
+                </li>
+                <li><strong>6-Nome da tabela inválido. Use apenas letras, números ou sublinhados.</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: selectTableButton</li>
+                        <li><strong>Causa</strong>: Caracteres inválidos no nome da tabela.</li>
+                    </ol>
+                </li>
+                <li><strong>7-Acesso às tabelas 'alunos' e 'ongs' requer a senha Master.</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: selectTableButton</li>
+                        <li><strong>Causa</strong>: Tentativa de acessar tabela restrita.</li>
+                    </ol>
+                </li>
+                <li><strong>8-Erro ao acessar a tabela: [error.message]</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: selectTableButton</li>
+                        <li><strong>Causa</strong>: Falha na consulta Supabase.</li>
+                    </ol>
+                </li>
+                <li><strong>9-Tabela vazia. Adicione um registro para começar.</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: selectTableButton</li>
+                        <li><strong>Causa</strong>: Tabela sem dados.</li>
+                    </ol>
+                </li>
+                <li><strong>10-Selecione uma chave primária.</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: confirmPkButton-famous</li>
+                        <li><strong>Causa</strong>: Nenhuma chave selecionada.</li>
+                    </ol>
+                </li>
+                <li><strong>11-Erro ao carregar dados: [error.message]</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: loadTable</li>
+                        <li><strong>Causa</strong>: Falha na consulta de dados.</li>
+                    </ol>
+                </li>
+                <li><strong>12-Erro ao carregar tabela: [error.message]</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: loadTable</li>
+                        <li><strong>Causa</strong>: Erro geral no carregamento.</li>
+                    </ol>
+                </li>
+                <li><strong>13-Nenhuma coluna selecionada para visualização.</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: loadTable</li>
+                        <li><strong>Causa</strong>: Todas colunas desmarcadas.</li>
+                    </ol>
+                </li>
+                <li><strong>14-Selecione uma tabela primeiro.</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: columnSelectionButton</li>
+                        <li><strong>Causa</strong>: Tentativa de usar modo de seleção sem tabela.</li>
+                    </ol>
+                </li>
+                <li><strong>15-Senha ADM confirmada!</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: verifyAdminPassword</li>
+                        <li><strong>Causa</strong>: Senha ADM correta.</li>
+                    </ol>
+                </li>
+                <li><strong>16-Senha ADM incorreta.</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: verifyAdminPassword</li>
+                        <li><strong>Causa</strong>: Senha ADM errada.</li>
+                    </ol>
+                </li>
+                <li><strong>17-Senha Master confirmada!</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: verifyMasterPassword</li>
+                        <li><strong>Causa</strong>: Senha Master correta.</li>
+                    </ol>
+                </li>
+                <li><strong>18-Senha Master incorreta.</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: verifyMasterPassword</li>
+                        <li><strong>Causa</strong>: Senha Master errada.</li>
+                    </ol>
+                </li>
+                <li><strong>19-Nenhuma tabela ou dados para imprimir.</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: downloadTableData</li>
+                        <li><strong>Causa</strong>: Tentativa de imprimir sem dados.</li>
+                    </ol>
+                </li>
+                <li><strong>20-Nenhuma linha excluída para restaurar.</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: undoDeleteRows</li>
+                        <li><strong>Causa</strong>: Tentativa de restaurar sem exclusões.</li>
+                    </ol>
+                </li>
+                <li><strong>21-Erro: A chave primária '[pkValue]' já existe na tabela.</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: undoDeleteRows</li>
+                        <li><strong>Causa</strong>: Conflito de chave primária ao restaurar.</li>
+                    </ol>
+                </li>
+                <li><strong>22-Erro ao restaurar linhas: [error.message]</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: undoDeleteRows</li>
+                        <li><strong>Causa</strong>: Falha na inserção de linhas.</li>
+                    </ol>
+                </li>
+                <li><strong>23-Linhas restauradas com sucesso!</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: undoDeleteRows</li>
+                        <li><strong>Causa</strong>: Restauração bem-sucedida.</li>
+                    </ol>
+                </li>
+                <li><strong>24-Erro: O valor '[pkValue]' para a chave primária já existe na tabela. Escolha outro valor.</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: saveButton, confirmEdit</li>
+                        <li><strong>Causa</strong>: Chave primária duplicada ao salvar/editar.</li>
+                    </ol>
+                </li>
+                <li><strong>25-Erro ao salvar registro: [error.message]</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: saveButton</li>
+                        <li><strong>Causa</strong>: Falha na inserção/exclusão.</li>
+                    </ol>
+                </li>
+                <li><strong>26-Ação de edição requer senha ADM ou Master.</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: editInline</li>
+                        <li><strong>Causa</strong>: Tentativa de edição sem autenticação.</li>
+                    </ol>
+                </li>
+                <li><strong>27-Erro ao buscar registro para edição: [error.message]</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: editInline</li>
+                        <li><strong>Causa</strong>: Falha na busca do registro.</li>
+                    </ol>
+                </li>
+                <li><strong>28-Erro ao preparar edição: [error.message]</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: editInline</li>
+                        <li><strong>Causa</strong>: Erro geral na preparação da edição.</li>
+                    </ol>
+                </li>
+                <li><strong>29-Erro ao salvar edição: [error.message]</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: confirmEdit</li>
+                        <li><strong>Causa</strong>: Falha na edição do registro.</li>
+                    </ol>
+                </li>
+                <li><strong>30-Ação de exclusão requer senha ADM ou Master.</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: deleteRecord</li>
+                        <li><strong>Causa</strong>: Tentativa de exclusão sem autenticação.</li>
+                    </ol>
+                </li>
+                <li><strong>31-Erro ao buscar registro para exclusão: [error.message]</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: deleteRecord</li>
+                        <li><strong>Causa</strong>: Falha na busca do registro.</li>
+                    </ol>
+                </li>
+                <li><strong>32-Erro ao excluir registro: [error.message]</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: deleteRecord</li>
+                        <li><strong>Causa</strong>: Falha na exclusão.</li>
+                    </ol>
+                </li>
+                <li><strong>33-Erro ao verificar duplicatas: [error.message]</strong>
+                    <ol type="a">
+                        <li><strong>Função</strong>: checkForDuplicatePk</li>
+                        <li><strong>Causa</strong>: Falha na verificação de chaves.</li>
+                    </ol>
+                </li>
+            </ol>
+            <p><strong>Melhor Prática</strong>:</p>
+            <ul>
+                <li>Monitore mensagens para diagnosticar problemas.</li>
+                <li>Use o log de mensagens (Master) para auditoria detalhada.</li>
+            </ul>
+        </section>
+
+        <section id="gestao-logs">
+            <h2>6. Gestão de Logs</h2>
+            <p><strong>Descrição</strong>: O sistema gera três tipos de logs para auditoria e backup:</p>
+            <ol>
+                <li><strong>Log de Exclusões</strong>: Registra registros excluídos (sql_[prefix]_SecureLog_[timestamp].txt).</li>
+                <li><strong>Log de Tabela</strong>: Exporta a tabela atual (print_[prefix]_TableLog_[table]_[timestamp].txt).</li>
+                <li><strong>Log de Mensagens</strong>: Lista mensagens da sessão (txt_MGNSLog_[timestamp].txt, apenas Master).</li>
+            </ol>
+            <p><strong>Procedimento</strong>:</p>
+            <ul>
+                <li><strong>Log de Exclusões</strong>: Clique em "Baixar Log de Exclusões" após exclusões ou confirme download ao sair.</li>
+                <li><strong>Log de Tabela</strong>: Use "Imprimir Tabela" para exportar dados.</li>
+                <li><strong>Log de Mensagens</strong>: Autentique Master e clique em "Imprimir LogMGM".</li>
+            </ul>
+            <p><strong>Benefícios</strong>:</p>
+            <ul>
+                <li>Rastreamento de alterações (exclusões, edições).</li>
+                <li>Exportação de dados para relatórios.</li>
+                <li>Auditoria de eventos via mensagens (Master).</li>
+            </ul>
+            <p><strong>Melhor Prática</strong>:</p>
+            <ul>
+                <li>Armazene logs em local seguro.</li>
+                <li>Use logs de mensagens para investigar erros ou comportamento do sistema.</li>
+            </ul>
+            <p><strong>Funções Relacionadas</strong>:</p>
+            <ul>
+                <li>downloadSecureLog</li>
+                <li>downloadTableData</li>
+                <li>downloadMessageLog</li>
+                <li>updateSecureLog</li>
+                <li>logMessage</li>
+            </ul>
+        </section>
+
+        <section id="beneficios-senhas">
+            <h2>7. Benefícios das Senhas</h2>
+            <p><strong>Descrição</strong>: As senhas ADM e Master desbloqueiam funcionalidades adicionais:</p>
+            <ul>
+                <li><strong>Senha ADM</strong>:
+                    <ul>
+                        <li>Visualiza colunas sensíveis (e.g., email, telefone).</li>
+                        <li>Permite edição e exclusão de registros.</li>
+                        <li>Gera logs com prefixo "ADM".</li>
+                    </ul>
+                </li>
+                <li><strong>Senha Master</strong>:
+                    <ul>
+                        <li>Tudo do ADM, mais:</li>
+                        <li>Acesso a tabelas restritas (alunos, ongs).</li>
+                        <li>Download do log de mensagens.</li>
+                        <li>Gera logs com prefixo "Master".</li>
+                    </ul>
+                </li>
+            </ul>
+            <p><strong>Melhor Prática</strong>:</p>
+            <ul>
+                <li>Use ADM para operações comuns.</li>
+                <li>Reserve Master para tabelas restritas ou auditoria.</li>
+                <li>Autentique antes de ações críticas.</li>
+            </ul>
+            <p><strong>Funções Relacionadas</strong>:</p>
+            <ul>
+                <li>verifyAdminPassword</li>
+                <li>verifyMasterPassword</li>
+            </ul>
+        </section>
+
+        <section id="selecao-chave-primaria">
+            <h2>8. Seleção da Chave Primária</h2>
+            <p><strong>Descrição</strong>: Ao carregar uma tabela, o usuário deve selecionar uma coluna como chave primária para identificar registros unicamente.</p>
+            <p><strong>Motivo</strong>:</p>
+            <ul>
+                <li>A API Supabase não identifica chaves primárias automaticamente.</li>
+                <li>A chave primária é usada para:
+                    <ul>
+                        <li>Ordenação padrão.</li>
+                        <li>Verificação de duplicatas ao salvar/editar.</li>
+                        <li>Identificação de registros para edição/exclusão.</li>
+                    </ul>
+                </li>
+            </ul>
+            <p><strong>Melhor Prática</strong>:</p>
+            <ul>
+                <li>Escolha uma coluna com valores únicos (e.g., id, cpf).</li>
+                <li>Prefira chaves numéricas para ordenação descendente automática.</li>
+                <li>Evite colunas com valores repetidos ou nulos.</li>
+            </ul>
+            <p><strong>Funções Relacionadas</strong>:</p>
+            <ul>
+                <li>populatePkSelector</li>
+                <li>confirmPkButton-famous.onclick</li>
+                <li>loadTable</li>
+            </ul>
+        </section>
+
+        <section id="funcionalidades-nao-implementadas">
+            <h2>9. Funcionalidades Não Implementadas</h2>
+            <p><strong>Descrição</strong>: Algumas funcionalidades não foram incluídas devido a limitações técnicas, de segurança ou escopo:</p>
+            <ol>
+                <li><strong>Criação/Exclusão de Tabelas</strong>:
+                    <ol type="a">
+                        <li><strong>Motivo</strong>: A API Supabase usada é anônima, sem permissões para modificar o esquema do banco.</li>
+                        <li><strong>Solução</strong>: Crie/exclua tabelas diretamente no painel Supabase.</li>
+                    </ol>
+                </li>
+                <li><strong>Detecção Automática de Chave Primária</strong>:
+                    <ol type="a">
+                        <li><strong>Motivo</strong>: A API não fornece metadados sobre chaves primárias.</li>
+                        <li><strong>Solução</strong>: O usuário seleciona a chave manualmente (Seção 8).</li>
+                    </ol>
+                </li>
+                <li><strong>Validação de Tipos de Dados</strong>:
+                    <ol type="a">
+                        <li><strong>Motivo</strong>: A API não impõe tipos de dados, permitindo inserções flexíveis.</li>
+                        <li><strong>Solução</strong>: Valide manualmente os dados antes de salvar.</li>
+                    </ol>
+                </li>
+                <li><strong>Edição em Lote</strong>:
+                    <ol type="a">
+                        <li><strong>Motivo</strong>: Complexidade e risco de erros em grandes tabelas.</li>
+                        <li><strong>Solução</strong>: Edite registros individualmente.</li>
+                    </ol>
+                </li>
+                <li><strong>Autenticação Multi-Usuário</strong>:
+                    <ol type="a">
+                        <li><strong>Motivo</strong>: Foco em controle via senhas fixas para simplicidade.</li>
+                        <li><strong>Solução</strong>: Gerencie acesso via senhas ADM e Master.</li>
+                    </ol>
+                </li>
+            </ol>
+            <p><strong>Melhor Prática</strong>:</p>
+            <ul>
+                <li>Use o painel Supabase para gerenciar o esquema do banco.</li>
+                <li>Documente limitações para evitar expectativas incorretas.</li>
+            </ul>
+            <p><strong>Nota Final</strong>: Este manual deve ser revisado regularmente para refletir atualizações do sistema. Para suporte, contate a equipe de desenvolvimento.</p>
+            <p><strong>Desenvolvedor Master do Banco de Dados</strong>: Cláudio Lobo Chaib Filho (Master-Dev).</p>
+            <p><strong>Fim do Documento</strong></p>
+        </section>
+
+        <a href="db_html.html" class="back">Voltar ao Gerenciamento de Tabelas</a>
+    </div>
+
+    <script>
+        document.querySelectorAll('.index a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 20,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
