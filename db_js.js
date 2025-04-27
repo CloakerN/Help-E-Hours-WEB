@@ -24,9 +24,11 @@ const supabaseKey = '05253608023303094109363547263554400935193514445803293559351
 const sbasey = deco(supabaseKey).trim();
 const supabase = window.supabase.createClient(supabaseUrl, sbasey);
 
-const ADMIN_PASSWORD = '66270413545556676767';
+const ADMIN_PASSWORDS = {
+    'ong_1': '66270413545556676767', 
+    'ong_2': '65656527041368545557' 
+};
 const MASTER_PASSWORD = '65656527041368545556';
-const admi = deco(ADMIN_PASSWORD).trim();
 const mast = deco(MASTER_PASSWORD).trim();
 const SENSITIVE_COLUMNS = /^(email|e-mail|endereco|end|tel|telefone|cel|celular|_email|_e-mail|_endereco|_end|_tel|_telefone|_cel|_celular)$/i;
 
@@ -243,7 +245,15 @@ function showPasswordModal(type) {
 
 function verifyAdminPassword(password) {
     clearMessages();
-    if (password === admi) {
+    console.log('Current table:', currentTable); // Debug log to verify table name
+    const adminPassword = ADMIN_PASSWORDS[currentTable];
+    if (!adminPassword) {
+        document.getElementById('errorMessage').textContent = '16-Tabela não configurada para acesso ADM. Verifique o nome da tabela.';
+        logMessage(16, 'Tabela não configurada para acesso ADM. Verifique o nome da tabela.');
+        updateMessages();
+        return;
+    }
+    if (password === deco(adminPassword).trim()) {
         isAdminAuthenticated = true;
         document.getElementById('successMessage').textContent = '15-Senha ADM confirmada!';
         logMessage(15, 'Senha ADM confirmada!');
@@ -252,6 +262,7 @@ function verifyAdminPassword(password) {
             populateColumnSelection();
             renderTablePage();
         }
+        document.getElementById('restoreViewButton').click();
     } else {
         document.getElementById('errorMessage').textContent = '16-Senha ADM incorreta.';
         logMessage(16, 'Senha ADM incorreta.');
@@ -271,6 +282,7 @@ function verifyMasterPassword(password) {
             populateColumnSelection();
             renderTablePage();
         }
+        document.getElementById('restoreViewButton').click();
     } else {
         document.getElementById('errorMessage').textContent = '18-Senha Master incorreta.';
         logMessage(18, 'Senha Master incorreta.');
