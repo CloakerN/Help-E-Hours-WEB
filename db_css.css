@@ -47,6 +47,13 @@ button { padding: 5px 10px; margin: 5px; }
     width: 60px;
 }
 #tableSelection { position: absolute; top: 20px; right: 20px; margin-bottom: 20px; }
+#tableTitle {
+    font-size: 2.5em; /* Tamanho grande */
+    color: blue; /* Cor azul */
+    text-align: center; /* Centralizado */
+    margin: 20px 0; /* Espaçamento acima e abaixo */
+    font-weight: bold; /* Negrito para destaque */
+}
 #tableUtilities { margin-top: 10px; display: none; }
 #columnSelection { 
     margin-top: 10px; 
