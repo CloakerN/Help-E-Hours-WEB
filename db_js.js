@@ -26,7 +26,7 @@ const supabase = window.supabase.createClient(supabaseUrl, sbasey);
 
 const ADMIN_PASSWORDS = {
     'zong_1': '66270413545556676767',
-    'zong_2': '65656527041368545557'
+    'zong_2': '67270413565554666666'
 };
 const MASTER_PASSWORD = '65656527041368545556';
 const mast = deco(MASTER_PASSWORD).trim();
@@ -676,6 +676,9 @@ async function loadTable() {
     document.getElementById('loadingMessage').style.display = 'block';
     document.getElementById('loadingMessage').textContent = '1-Carregando...';
     logMessage(1, 'Carregando...');
+    
+    // Atualiza o título da tabela
+    document.getElementById('tableTitle').textContent = currentTable ? currentTable.toUpperCase() : '';
 
     if (currentTable === 'alunos') {
         document.getElementById('alunosLoadingIndicator').style.display = 'flex';
@@ -719,7 +722,7 @@ async function loadTable() {
             for (let row of filteredData) {
                 if (row.CPF) {
                     try {
-                        row.ongs_registradas = await getOngsByCpf(row.CPF);
+                        row.ongstel = await getOngsByCpf(row.CPF);
                     } catch (error) {
                         hasErrors = true;
                         row.ongs_registradas = '';
