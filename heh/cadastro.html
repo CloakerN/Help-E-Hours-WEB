@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<!-- Define o tipo de documento como HTML5 -->
+<html lang="pt-br">
+  <!-- Define o idioma principal como português do Brasil -->
+
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Define a codificação de caracteres como UTF-8 (suporta acentuação) -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Responsividade: ajusta o layout para diferentes tamanhos de tela -->
+
+    <title>Help and Hours</title>
+    <!-- Título da aba do navegador -->
+
+    <link rel="stylesheet" href="cadastro.css" />
+    <!-- Link para o arquivo de estilos externo -->
+  </head>
+
+  <body>
+    <!-- Início do corpo da página -->
+
+    <!-- ========== HEADER ========== -->
+    <header>
+      <!-- Cabeçalho fixo no topo da página -->
+
+      <div class="header-top">
+        <!-- Container do menu de navegação -->
+
+        <nav>
+          <!-- Elemento de navegação principal -->
+          <ul class="header-itens">
+            <!-- Lista de itens do menu -->
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Sobre nós</a></li>
+            <li><a href="#">ONGs Disponíveis</a></li>
+            <li><a href="#">Feedbacks</a></li>
+            <li><a href="#">Login</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- ========== FORMULÁRIO DE CADASTRO ========== -->
+    <main>
+      <!-- Conteúdo principal da página -->
+      <div class="form-container">
+        <!-- Container do formulário com estilização -->
+
+        <h2>Cadastrar</h2>
+        <!-- Título do formulário -->
+
+        <div class="linha-losango">
+          <span class="losango"></span>
+          <div class="linha-horizontal"></div>
+          <span class="losango"></span>
+        </div>
+
+        <form class="cadastro-form">
+          <!-- Início do formulário -->
+
+          <!-- ======= COLUNA DA ESQUERDA: CAMPOS ======= -->
+          <div class="coluna-form">
+            <!-- Agrupamento dos inputs -->
+
+            <!-- Linha com um único campo: Nome -->
+            <div class="linha-horizontal">
+              <input type="text" placeholder="Nome completo" />
+            </div>
+
+            <!-- Linha com Endereço, Número e CEP -->
+            <div class="linha-horizontal">
+              <input type="text" placeholder="Endereço" />
+              <input type="text" placeholder="Nº" />
+              <input type="text" placeholder="CEP" />
+            </div>
+
+            <!-- Linha com Telefone e Email -->
+            <div class="linha-horizontal">
+              <input type="text" placeholder="(ddd)00000-0000" />
+              <input type="email" placeholder="email" />
+            </div>
+
+            <!-- Linha com Instituição e Data de Nascimento -->
+            <div class="linha-horizontal">
+              <input type="text" placeholder="Nome da Instituição de Ensino" />
+              <input type="date" placeholder="Data de Nascimento" />
+            </div>
+
+            <!-- Linha com Senha e Confirmação -->
+            <div class="linha-horizontal">
+              <input type="password" placeholder="Senha" />
+              <input type="password" placeholder="Confirmar senha" />
+            </div>
+
+            <!-- Checkbox para aceitar termos -->
+            <label class="checkbox-label">
+              <input type="checkbox" />
+              Aceito os <a href="#">termos de uso</a>
+            </label>
+
+            <!-- Botão de envio do formulário -->
+            <button class="botao-cadastrar">Cadastrar-se</button>
+          </div>
+
+          <!-- ======= COLUNA DA DIREITA: UPLOAD DE IMAGEM ======= -->
+          <div class="coluna-foto">
+            <!-- Área para upload de imagem de perfil -->
+            <label for="foto">
+              <div class="foto-preview"></div>
+              <!-- Imagem pré-visualizada (placeholder) -->
+            </label>
+            <input type="file" id="foto" name="foto" accept="image/*" />
+            <!-- Input oculto para escolher arquivo -->
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <!-- ========== RODAPÉ ========== -->
+    <footer>
+      <!-- Rodapé da página -->
+
+      <div class="rodape">
+        <!-- Container principal do rodapé -->
+
+        <div class="footer-linhas">
+          <!-- Agrupamento das 3 colunas do rodapé -->
+
+          <!-- === COLUNA 1: LINKS === -->
+          <div class="footer-coluna coluna-links">
+            <div class="links-grid">
+              <!-- Grade com três listas de links -->
+              <ul>
+                <li><a href="home.html">Home</a></li>
+                <li><a href="home.html">Sobre Nós</a></li>
+                <li><a href="home.html">Feedbacks</a></li>
+              </ul>
+              <ul>
+                <li><a href="cadastro.html">Login</a></li>
+                <li><a href="Dados.html">Perfil</a></li>
+                <li><a href="#">ONGs Disponíveis</a></li>
+              </ul>
+              <ul>
+                <li><a href="#">Gerar Certificado</a></li>
+                <li><a href="dados02.html">Cadastrar</a></li>
+                <li><a href="#suporte.html">Suporte</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- === COLUNA 2: LOGO === -->
+          <div class="footer-coluna centro">
+            <div class="logo-footer-fundo">
+              <!-- Fundo com forma decorativa -->
+              <div class="logo-footer">
+                <!-- Área da logo -->
+                <img
+                  src="assets/logos/logo-footer.png"
+                  alt="Logo Help and Hours"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- === COLUNA 3: REDES SOCIAIS === -->
+          <div class="footer-coluna direita">
+            <h4>Nossas redes sociais</h4>
+            <div class="icones-sociais">
+              <!-- Links com ícones para redes sociais -->
+              <a href="#">
+                <img src="assets/icons/instagram.png" alt="Instagram" />
+                Instagram
+              </a>
+              <a href="#">
+                <img src="assets/icons/facebook.png" alt="Facebook" />
+                Facebook
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Frase motivacional final -->
+        <p class="frase-final">
+          ”O voluntariado é uma jornada de aprendizado, amor e generosidade.”
+        </p>
+
+        <!-- Linha decorativa com losangos -->
+        <div class="divisor-footer">
+          <span class="losango-footer"></span>
+          <div class="linha-footer"></div>
+          <span class="losango-footer"></span>
+        </div>
+
+        <!-- Texto de copyright -->
+        <p class="copyright">Copyright 2025</p>
+      </div>
+    </footer>
+  </body>
+</html>

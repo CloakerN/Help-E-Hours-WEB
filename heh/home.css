@@ -1,0 +1,925 @@
+/* ===================== RESET BÁSICO ===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ===================== Scrollbar ===================== */
+
+/* Estiliza a scrollbar inteira */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Parte de fundo da scrollbar */
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+/* A parte que se move (thumb) */
+::-webkit-scrollbar-thumb {
+  background-color: #0c6c6c; /* azul */
+  border-radius: 10px;
+  border: 2px solid #f0f0f0; /* "borda" ao redor do thumb */
+}
+
+/* Quando passa o mouse em cima do thumb */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #0c6c6c;
+}
+
+/* Para Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #0c6c6c #f0f0f0; /* thumb e track */
+}
+
+/* ===================== ESTILO GERAL DO BODY ===================== */
+body {
+  font-family: "Jost-Regular", Helvetica;
+  line-height: 1.6;
+  color: #333;
+  background-color: #efeae4;
+  text-align: center; /* Centraliza textos e blocos */
+}
+
+/* ===================== HEADER ===================== */
+header {
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Barra superior com o menu de navegação */
+.header-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 5%;
+  background-color: #0c6c6c;
+  font-family: "Jost-Regular", Helvetica;
+}
+
+/* Estilo dos links do menu */
+.header-top a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+
+/* Lista dos itens do menu */
+.header-itens {
+  display: flex;
+  gap: 200px; /* Espaçamento entre os itens */
+  list-style: none;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+/* Efeito hover nos links do menu */
+.header-top a:hover {
+  background-color: #013440;
+  border: 1px solid #f28d41;
+}
+
+/* Logo do menu (caso usada em outros locais) */
+.logo {
+  height: 50px;
+}
+
+/* Ajustes gerais do nav */
+nav ul {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+/* ===================== IMAGEM DE CABEÇALHO ===================== */
+
+.header-image {
+  position: relative;
+  height: 300px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.header-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("assets/imagens/image\ carrosel.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+/* Logo sobre a imagem */
+.logo4 {
+  position: absolute;
+  top: 120px;
+  left: 40px;
+  height: 150px;
+  width: 150px;
+  z-index: 2;
+  border-radius: 5%;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* ===================== CONTEÚDO PRINCIPAL ===================== */
+main {
+  padding: 20px 5%;
+}
+
+/* ===================== CONTAINER GERAL DA SEÇÃO ===================== */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 70px; /* Espaço entre o vídeo e o texto */
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ===================== BLOCO DE TEXTO ===================== */
+.texto {
+  max-width: 500px;
+  font-family: "Jost", sans-serif;
+  font-size: 16px;
+  color: #333;
+  text-align: center; /* <-- aqui está a mudança */
+  line-height: 1.6;
+  margin: 0 auto; /* centraliza o bloco em telas maiores */
+}
+
+.texto p {
+  margin-bottom: 16px;
+}
+
+.texto em {
+  display: block;
+  font-style: italic;
+  color: #333;
+}
+
+.texto strong {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #000;
+}
+
+/* ===================== TEXTO DE BOAS-VINDAS ===================== */
+
+.label {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.label .bem-vindo-ao-help {
+  position: relative;
+  font-family: "Jost-Regular", Helvetica;
+  font-weight: 400;
+  color: transparent;
+  font-size: 32px;
+  text-align: center;
+  line-height: normal;
+}
+
+.label .text-wrapper {
+  color: #000000;
+}
+
+.label .span {
+  color: #026873;
+}
+
+.label .text-wrapper-2 {
+  color: #f28d41;
+}
+
+/* ===================== TÍTULOS E SEÇÕES ===================== */
+h1 span {
+  color: #f28d41;
+}
+
+section {
+  margin-bottom: 40px;
+}
+
+section h2 {
+  margin-bottom: 10px;
+  color: #0c6c6c;
+}
+
+/* ===================== BOTÕES ===================== */
+button {
+  background-color: #f28d41;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #f28d41;
+}
+
+/* ===================== BLOCO DE VÍDEO ===================== */
+.video {
+  position: relative;
+  height: 300px;
+  width: 500px; /* mesma largura da imagem */
+  border: 9px solid #026873; /* azul da borda — ajuste a cor se quiser */
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* sombra opcional pra destacar */
+}
+
+.video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* ou 'contain' se quiser manter proporções sem corte */
+  display: block;
+}
+
+.video img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/*.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  color: #026873;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+}
+*/
+
+/* CABEÇALHO */
+.cabecalho-voluntariado {
+  background-color: #f28d41;
+  padding: 15px;
+  text-align: center;
+  border: 1px solid black;
+}
+
+.cabecalho-voluntariado h2 {
+  color: white;
+  margin: 0;
+  font-size: 24px;
+}
+
+/* SECTION */
+.passos-voluntariado {
+  background-color: #c5d7d9;
+  padding: 40px 20px;
+  border-radius: 5px;
+  border-bottom: 1px solid #000;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.fluxo {
+  display: flex;
+  justify-content: center; /* Centraliza os itens */
+  align-items: flex-start;
+  gap: 40px; /* Espaçamento entre os elementos */
+  flex-wrap: nowrap; /* Garante que fique em linha única */
+  overflow-x: auto; /* Se não couber na tela, ativa rolagem horizontal */
+  padding: 20px 0;
+}
+
+/* PASSO (sem fundo branco) */
+.passo {
+  background-color: transparent;
+  padding: 0;
+  width: 250px;
+  position: relative;
+  flex: 1 1 200px;
+  text-align: center;
+}
+
+.passo img {
+  width: 60px;
+  height: 60px;
+  margin-bottom: 10px;
+}
+
+.passo h3 {
+  font-size: 16px;
+  color: #0c6c6c;
+  margin-bottom: 10px;
+}
+
+.passo p {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.numero {
+  background-color: #6fbe89;
+  color: white;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: -14px;
+  left: 1px;
+  font-size: 14px;
+}
+
+/* BOTÕES COM BORDA PRETA */
+.acao {
+  background-color: #0c6c6c;
+  color: white;
+  border: 1px solid black;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.acao:hover {
+  background-color: #013440;
+}
+
+/* BOTÃO FINAL */
+.voluntariar {
+  margin-top: 30px;
+  background-color: #f28d41;
+  color: white;
+  padding: 12px 30px;
+  border: 1px solid black;
+  font-size: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.voluntariar:hover {
+  background-color: #d8660f;
+}
+
+/* SETAS ENTRE OS PASSOS */
+.seta {
+  width: 50px;
+  height: 30px;
+  background-image: url("assets/icons/seta-direita.png"); /* sua imagem de seta tracejada */
+  background-repeat: no-repeat;
+  background-size: contain;
+  align-self: center;
+}
+
+/* ===================== Conheça===================== */
+
+.conheca {
+  background-color: #f3ece7;
+  padding: 60px 20px;
+  font-family: Arial, sans-serif;
+}
+
+.conheca-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.conheca-texto {
+  flex: 1 1 500px;
+  max-width: 600px;
+  text-align: center;
+}
+
+.logo2 {
+  height: 150px;
+  width: 150px;
+  margin-bottom: 20px;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.conheca-texto h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  color: #000000;
+}
+
+.conheca-texto p {
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.btn-sobre {
+  display: inline-block;
+  background-color: #0e7778;
+  color: white;
+  padding: 10px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-sobre:hover {
+  background-color: #095d5e;
+}
+
+.conheca-imagem {
+  flex: 1 1 400px;
+  max-width: 500px;
+}
+
+.conheca-imagem img {
+  width: 100%;
+  border-radius: 10px;
+  border: 3px solid #0e7778;
+}
+
+/* ===================== Feedback ===================== */
+
+/* ===================== Feedback ===================== */
+
+.titulo-com-linha {
+  text-align: center;
+  font-family: "Jost", helvetica;
+}
+
+.titulo-com-linha h2 {
+  color: #00313f;
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  font-weight: 400;
+  font-size: 32px;
+  letter-spacing: 0%;
+}
+
+/* Container da linha com os losangos */
+.linha-losango {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -20px;
+  margin-bottom: 20px;
+}
+
+/* Linha azul */
+.linha-horizontal {
+  height: 1px;
+  background-color: #00313f;
+  width: 35%;
+  max-width: 600px;
+}
+
+/* Losango rotacionado */
+.losango {
+  width: 5px;
+  height: 5px;
+  background-color: #00313f;
+  transform: rotate(45deg);
+}
+
+/* Estilo geral da seção de feedbacks */
+.feedback {
+  background-color: #d9d9d9cc; /* Cor de fundo translúcida */
+  text-align: center; /* Centraliza o conteúdo */
+  padding: 3rem 1rem; /* Espaçamento interno acima/abaixo e nas laterais */
+  font-family: "Jost", sans-serif; /* Fonte personalizada */
+}
+
+/* Estilização do título principal (h2) */
+.feedback h2 {
+  font-size: 2rem; /* Tamanho da fonte do título */
+  color: #00313f; /* Cor azul escura */
+  margin-bottom: 1rem; /* Espaço abaixo do título */
+  position: relative;
+  display: inline-block; /* Permite a linha abaixo ficar do tamanho do texto */
+}
+
+/* Linha decorativa abaixo do h2 */
+.feedback h2::after {
+  content: ""; /* Elemento vazio para a linha */
+  display: block;
+  width: 80%; /* Largura da linha */
+  max-width: 300px; /* Limite máximo da linha */
+  height: 2px; /* Espessura da linha */
+  background-color: #00313f; /* Cor da linha */
+  margin: 0.5rem auto 2rem auto; /* Centraliza e espaça a linha */
+}
+
+/* Container principal com os cards e setas */
+.feedback-container {
+  display: flex; /* Layout em linha */
+  align-items: center; /* Alinha os itens verticalmente ao centro */
+  justify-content: center; /* Centraliza horizontalmente */
+  gap: 2rem; /* Espaço entre os itens */
+  flex-wrap: wrap; /* Permite quebra de linha em telas menores */
+  padding: 0 2rem; /* Espaçamento nas laterais */
+}
+
+/* Setas de navegação (esquerda e direita) */
+.arrow {
+  background: none; /* Sem fundo */
+  border: none; /* Sem borda */
+  font-size: 2rem; /* Tamanho do ícone da seta */
+  color: #f28d41; /* Cor laranja */
+  cursor: pointer; /* Cursor de clique */
+}
+
+/* Cartões com os feedbacks dos estudantes */
+.feedback-card {
+  background-color: transparent; /* Fundo removido (usará o da seção) */
+  padding: 1rem; /* Espaçamento interno */
+  border-radius: 10px; /* Cantos arredondados */
+  max-width: 500px; /* Largura máxima do card */
+  flex: 1 1 40%; /* Responsivo: ocupa até 40% da largura disponível */
+  display: flex; /* Layout em linha */
+  align-items: flex-start; /* Alinha os itens no topo */
+  gap: 1.5rem; /* Espaço entre a imagem e o texto */
+}
+
+/* Foto do estudante */
+.feedback-card img {
+  width: 120px; /* Largura fixa */
+  height: 120px; /* Altura fixa (igual à largura) para formar círculo */
+  border-radius: 50%; /* Torna a imagem circular */
+  object-fit: cover; /* Corta a imagem para preencher o espaço sem distorcer */
+  border: 4px solid #00313f; /* Borda azul escura ao redor da imagem */
+}
+
+/* Container do texto dentro do card */
+.feedback-text {
+  text-align: left; /* Alinha o texto à esquerda */
+  flex: 1; /* Ocupa o restante do espaço disponível */
+}
+
+/* Nome do estudante */
+.feedback-text strong {
+  font-weight: bold; /* Texto em negrito */
+  color: #000; /* Cor preta */
+  display: block; /* Ocupa uma linha inteira */
+}
+
+/* Comentário do estudante */
+.feedback-text p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+  margin: 0;
+}
+
+/* Curso do estudante */
+.feedback-text .curso {
+  color: #f28d41; /* Cor laranja */
+  margin: 0.2rem 0 0.8rem; /* Espaçamento acima e abaixo */
+  font-weight: 500; /* Seminegrito */
+}
+
+/* Comentário do estudante */
+.feedback-text .comentario {
+  font-size: 0.95rem; /* Tamanho do texto ligeiramente menor */
+  color: #333; /* Cinza escuro para boa leitura */
+  line-height: 1.4; /* Altura da linha para melhorar a legibilidade */
+}
+
+/* ===================== Apoiadores===================== */
+.Nossos-apoiadores {
+  color: #013440;
+  text-align: center;
+  font-family: Jost;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+/* Container da linha com os losangos */
+.linha-losango-apoiadores {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -10px;
+  margin-bottom: 20px;
+}
+
+/* Linha azul */
+.linha-horizontal-ap {
+  height: 1px;
+  background-color: #00313f;
+  width: 80%;
+  max-width: 600px;
+}
+
+/* Losango rotacionado */
+.losango-ap {
+  width: 5px;
+  height: 5px;
+  background-color: #00313f;
+  transform: rotate(45deg);
+}
+
+.obrigado {
+  color: #000;
+  text-align: center;
+  font-family: Inter;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.msgfinal {
+  color: #000;
+}
+
+.apoiadores {
+  margin: 50px auto 100px;
+  width: 40%;
+  padding: 50px auto 100px;
+}
+
+.container-logos {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.linha-logos img {
+  width: 100px;
+  height: auto;
+  object-fit: contain;
+  transition: filter 0.3s ease;
+}
+
+.linha-logos img {
+  max-height: 50px;
+  object-fit: contain;
+  transition: filter 0.3s ease;
+}
+
+.linha-logos img:hover {
+  filter: none;
+}
+
+.linha-logos {
+  display: flex;
+  justify-content: center;
+  gap: 40px; /* << Aqui define o espaçamento horizontal entre as logos */
+}
+
+.divisor-apoiadores {
+  margin: 10px auto 10px;
+  width: 90%;
+  border: 1px solid #013440;
+  stroke-width: 1px;
+  stroke: #013440;
+}
+
+/* ===================== RODAPÉ ===================== */
+footer {
+  background-color: #0c6c6c;
+  color: #fff;
+  padding: 40px 20px 20px 20px;
+  font-family: "Jost-Regular", Helvetica;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-linhas {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* era center */
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Colunas esquerda, centro, direita */
+.footer-coluna {
+  flex: 1;
+  min-width: 200px;
+  text-align: center;
+}
+
+.esquerda ul,
+.direita ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+/* Redes sociais lado a lado */
+
+.direita {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.direita h4 {
+  margin-bottom: 10px;
+  font-family: "Jost-Regular", Helvetica;
+  text-align: center;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 100;
+  line-height: normal;
+}
+
+.icones-sociais {
+  display: flex;
+  gap: 16px; /* espaço entre os dois ícones */
+}
+
+.direita a img {
+  height: 30px;
+  width: 30px;
+}
+
+/* Agrupamento das 3 colunas de links */
+.links-grid {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+/* Estilização das listas */
+.links-grid ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.links-grid li {
+  margin: 6px 0;
+}
+
+.links-grid a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.links-grid a:hover {
+  text-decoration: underline;
+}
+
+.footer-coluna ul li,
+.footer-coluna a {
+  margin: 8px 0;
+  color: white;
+  text-decoration: none;
+  display: block;
+}
+
+.footer-coluna a:hover {
+  text-decoration: underline;
+}
+
+.logo-footer-fundo {
+  background-color: #0c6c6c;
+  height: 220px;
+  width: 170px;
+  border-radius: 69% / 59%;
+  margin: -120px auto 15px auto;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-footer {
+  background-color: #efeae4;
+  padding: 30px;
+  border-radius: 60% / 40%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  height: 200px;
+  width: 130px;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-footer img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.logo-footer img {
+  height: 190px;
+  width: 190px;
+  object-fit: contain;
+}
+
+/* Divisor e frase */
+.divisor-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0rem;
+  width: 90%;
+  margin: 2px auto 10px;
+}
+
+/* Linha fininha */
+.linha-footer {
+  flex: 1;
+  height: 1px;
+  background-color: #efeae4; /* cor da linha */
+}
+
+/* Losangos pequenos */
+.losango-footer {
+  width: 6px;
+  height: 6px;
+  background-color: #efeae4; /* ou a cor que quiser */
+  transform: rotate(45deg); /* Rotaciona para parecer um losango */
+}
+
+.frase-final {
+  color: #f5f5f5;
+  font-family: "Jost-Regular", Helvetica;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+copyright {
+  color: #fffded;
+  text-align: center;
+  font-family: Jost;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .header-itens {
+    gap: 30px;
+    flex-wrap: wrap;
+  }
+
+  .video {
+    width: 100%;
+    height: auto;
+  }
+
+  .texto {
+    text-align: left;
+  }
+}

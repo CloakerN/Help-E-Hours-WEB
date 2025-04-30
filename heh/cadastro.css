@@ -1,0 +1,463 @@
+/* ===================== RESET BÁSICO ===================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ===================== Scrollbar ===================== */
+
+/* Estiliza a scrollbar inteira */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Parte de fundo da scrollbar */
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+/* A parte que se move (thumb) */
+::-webkit-scrollbar-thumb {
+  background-color: #0c6c6c; /* azul */
+  border-radius: 10px;
+  border: 2px solid #f0f0f0; /* "borda" ao redor do thumb */
+}
+
+/* Quando passa o mouse em cima do thumb */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #0c6c6c;
+}
+
+/* Para Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #0c6c6c #f0f0f0; /* thumb e track */
+}
+
+/* ===================== ESTILO GERAL DO BODY ===================== */
+body {
+  font-family: "Jost-Regular", Helvetica;
+  line-height: 1.6;
+  color: #333;
+  background-color: #efeae4;
+  text-align: center; /* Centraliza textos e blocos */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+/* ===================== HEADER ===================== */
+header {
+  background-color: #ffffff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Barra superior com o menu de navegação */
+.header-top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 5%;
+  background-color: #0c6c6c;
+  font-family: "Jost-Regular", Helvetica;
+}
+
+/* Estilo dos links do menu */
+.header-top a {
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+
+/* Lista dos itens do menu */
+.header-itens {
+  display: flex;
+  gap: 200px; /* Espaçamento entre os itens */
+  list-style: none;
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+
+/* Efeito hover nos links do menu */
+.header-top a:hover {
+  background-color: #013440;
+  border: 1px solid #f28d41;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+/* Divisor e frase */
+.divisor-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0rem;
+  width: 30%;
+  margin: 2px auto 10px;
+}
+
+/* Linha fininha */
+.linha-form {
+  flex: 1;
+  height: 1px;
+  background-color: #efeae4; /* cor da linha */
+}
+
+/* Losangos pequenos */
+.losango-form {
+  width: 6px;
+  height: 6px;
+  background-color: #efeae4; /* ou a cor que quiser */
+  transform: rotate(45deg); /* Rotaciona para parecer um losango */
+}
+
+.form-container {
+  background-color: #066c72;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  width: 700px;
+  max-width: 95%;
+  color: white;
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.form-container h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.cadastro-form {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  align-items: center;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.foto-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 10px;
+  position: relative;
+}
+
+.foto-upload input[type="file"] {
+  display: none;
+}
+
+.foto-preview {
+  width: 110px;
+  height: 150px;
+  background-color: #d3d3d3;
+  border-radius: 5px;
+  background-image: url("https://cdn-icons-png.flaticon.com/512/847/847969.png");
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 2px solid #ccc;
+  cursor: pointer;
+}
+
+.foto-upload:hover .foto-preview {
+  border-color: #77be91;
+}
+
+.coluna-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.coluna-foto {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 5px;
+}
+
+.coluna-foto .foto-preview {
+  width: 140px;
+  height: 180px;
+  background-color: #d3d3d3;
+  border-radius: 8px;
+  background-image: url("https://cdn-icons-png.flaticon.com/512/847/847969.png");
+  background-size: 50%;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 2px dashed #ccc;
+  cursor: pointer;
+}
+
+.coluna-foto input[type="file"] {
+  display: none;
+}
+
+.cadastro-form input[type="text"],
+.cadastro-form input[type="email"],
+.cadastro-form input[type="password"],
+.cadastro-form input[type="date"] {
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  width: 100%;
+  max-width: 660px;
+}
+
+.linha-horizontal {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.linha-horizontal input {
+  flex: 1;
+  min-width: 100px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  gap: 5px;
+  color: white;
+}
+
+.checkbox-label a {
+  color: #fff;
+  text-decoration: underline;
+}
+
+.botao-cadastrar {
+  background-color: orange;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 30px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  justify-content: center;
+}
+
+.botao-cadastrar:hover {
+  background-color: #966100;
+}
+
+/* ===================== RODAPÉ ===================== */
+footer {
+  background-color: #0c6c6c;
+  color: #fff;
+  padding: 40px 20px 20px 20px;
+  font-family: "Jost-Regular", Helvetica;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-linhas {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* era center */
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Colunas esquerda, centro, direita */
+.footer-coluna {
+  flex: 1;
+  min-width: 200px;
+  text-align: center;
+}
+
+.esquerda ul,
+.direita ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+/* Redes sociais lado a lado */
+
+.direita {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.direita h4 {
+  margin-bottom: 10px;
+  font-family: "Jost-Regular", Helvetica;
+  text-align: center;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 100;
+  line-height: normal;
+}
+
+.icones-sociais {
+  display: flex;
+  gap: 16px; /* espaço entre os dois ícones */
+}
+
+.direita a img {
+  height: 30px;
+  width: 30px;
+}
+
+/* Agrupamento das 3 colunas de links */
+.links-grid {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+/* Estilização das listas */
+.links-grid ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.links-grid li {
+  margin: 6px 0;
+}
+
+.links-grid a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.links-grid a:hover {
+  text-decoration: underline;
+}
+
+.footer-coluna ul li,
+.footer-coluna a {
+  margin: 8px 0;
+  color: white;
+  text-decoration: none;
+  display: block;
+}
+
+.footer-coluna a:hover {
+  text-decoration: underline;
+}
+
+.logo-footer-fundo {
+  background-color: #0c6c6c;
+  height: 220px;
+  width: 170px;
+  border-radius: 69% / 59%;
+  margin: -120px auto 15px auto;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-footer {
+  background-color: #efeae4;
+  padding: 30px;
+  border-radius: 60% / 40%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  height: 200px;
+  width: 130px;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-footer img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+.logo-footer img {
+  height: 190px;
+  width: 190px;
+  object-fit: contain;
+}
+
+/* Divisor e frase */
+.divisor-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0rem;
+  width: 90%;
+  margin: 2px auto 10px;
+}
+
+/* Linha fininha */
+.linha-footer {
+  flex: 1;
+  height: 1px;
+  background-color: #efeae4; /* cor da linha */
+}
+
+/* Losangos pequenos */
+.losango-footer {
+  width: 6px;
+  height: 6px;
+  background-color: #efeae4; /* ou a cor que quiser */
+  transform: rotate(45deg); /* Rotaciona para parecer um losango */
+}
+
+.frase-final {
+  color: #f5f5f5;
+  font-family: "Jost-Regular", Helvetica;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+copyright {
+  color: #fffded;
+  text-align: center;
+  font-family: Jost;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}

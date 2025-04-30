@@ -1,41 +1,87 @@
+
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="Gmail.css">
-  <title>Help and Hours</title>
+  <title>Cadastro Alunos</title>
+<link rel="stylesheet" href="CadastroCerto.css">
+    
 
-  
 </head>
+
 <body>
+   <!-- ========== HEADER ========== -->
+    <header>
+      <!-- Cabeçalho fixo no topo da página -->
 
-  <header>
-    <nav>
-      <a href="#home.html">Home</a>
-      <a href="#home.html">Sobre nós</a>
-      <a href="#">ONGs Disponíveis</a>
-      <a href="#home.html">Feedbacks</a>
-    </nav>
-    <button class="login-btn">Login</button>
-  </header>
+      <div class="header-top">
+        <!-- Container do menu de navegação -->
 
-  <div class="card-container">
-    <div class="login-card">
-      <img src="logo.png" alt="Logo">
-    </div>
-    <div class="popup">
-      <p>Insira seu email e lhe enviaremos<br>uma nova senha de acesso</p>
-      <input type="email" placeholder="Email">
-      <button>Recuperar Senha</button>
-      <a href="#">Não possui conta? Cadastre-se</a>
+        <nav>
+          <!-- Elemento de navegação principal -->
+          <ul class="header-itens">
+            <!-- Lista de itens do menu -->
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Sobre nós</a></li>
+            <li><a href="#">ONGs Disponíveis</a></li>
+            <li><a href="#">Feedbacks</a></li>
+            <li><a href="#">Login</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+
+ 
+
+  <div class="container">
+    <div class="form-box">
+      <h2>Cadastrar</h2>
+      <input type="text" placeholder="Nome completo">
+      <div class="row">
+        <input type="text" placeholder="Endereço">
+        <input type="text" placeholder="Nº">
+        <input type="text" placeholder="CEP">
+      </div>
+      <div class="row">
+        <input type="tel" placeholder="(ddd)0000-0000">
+        <input type="email" placeholder="email">
+      </div>
+      <div class="row">
+        <input type="text" placeholder="Nome da Instituição de Ensino">
+        <input type="date">
+      </div>
+      <div class="row">
+        <input type="password" placeholder="Senha">
+        <input type="password" placeholder="Confirmar senha">
+      </div>
+      <div class="terms">
+        <input type="checkbox"> Aceito os <a href="#" style="color: white; text-decoration: underline;">termos de uso</a>
+      </div>
+      <button>Cadastrar-se</button>
+
+      <!-- Pop-up de sucesso -->
+      <div class="popup">
+        <h3>Cadastro realizado com sucesso!</h3>
+        <p>Agora você faz parte do Help and Hours.</p>
+        <p>Explore as oportunidades de voluntariado próximas de você, contribua com causas que fazem a diferença e ainda conquiste suas horas complementares.</p>
+        <p>Estamos felizes em ter você com a gente! 💙</p>
+        <div class="btns">
+          <button class="btn-home">Ir para Home</button>
+          <button class="btn-login">Fazer Login</button>
+        </div>
+      </div>
     </div>
   </div>
 
   <footer>
+ 
+>
 
 
-<!-- Rodapé -->
+<!-- ---------------------------------------------------------------Rodapé ---------------------------------------------------------------->
 <footer>
   <div class="rodape">
     <div class="footer-linhas">
@@ -83,20 +129,21 @@
       </div>
     </div>
 
-    <center><p class="frase-final">
-      “Apoie ONGs, some experiências e garanta suas horas complementares.”
-    </p></center>
+    <p class="frase-final">
+      “O voluntariado é uma jornada de aprendizado, amor e generosidade.”
+    </p>
     <div class="divisor-footer">
       <span class="losango-footer"></span>
       <div class="linha-footer"></div>
       <span class="losango-footer"></span>
     </div>
 
-   <center><p class="copyright">Copyright 2025</p></center>
+    <p class="copyright">Copyright 2025</p>
   </div>
 </footer>
 </body>
 </html>
   </footer>
 </body>
+
 </html>
