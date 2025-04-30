@@ -60,6 +60,26 @@ const confirmDownloadModal = document.getElementById('confirmDownloadModal');
 const confirmNoDownloadModal = document.getElementById('confirmNoDownloadModal');
 const docsButton = document.getElementById('docsButton');
 
+async function getNextPrimaryKey(table, pkColumn) {
+    try {
+        const { data, error } = await supabase.from(table).select(pkColumn);
+        if (error) throw error;
+        // Verifica se a chave primária é numérica
+        const isNumeric = data.every(row => Number.isInteger(Number(row[pkColumn])));
+        if (!isNumeric) {
+            // Para chaves não numéricas (ex.: nome_ong), não incrementa
+            throw new Error(`Chave primária ${pkColumn} em ${table} não é numérica. Incremento não suportado.`);
+        }
+        const maxId = data.length > 0
+            ? Math.max(...data.map(row => parseInt(row[pkColumn], 10)).filter(v => !isNaN(v)))
+            : 0;
+        return maxId + 1;
+    } catch (error) {
+        logMessage(32, `Erro ao calcular próximo ${pkColumn} em ${table}: ${error.message}`); // Alterado de 51 para 32 (erro de duplicatas/verificação)
+        throw error;
+    }
+}
+
 async function getOngsByCpf(cpf) {
     if (!cpf || typeof cpf !== 'string' || cpf.trim() === '') {
         logMessage(1, 'Consulta de ONGs por CPF ignorada: CPF inválido');
@@ -136,6 +156,22 @@ async function getTotalGanhoHorasByCpf(cpf) {
     }
 }
 
+function generateBrazilianTimestamp() {
+    const now = new Date();
+    const options = {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+        timeZone: 'America/Sao_Paulo'
+    };
+    const formatter = new Intl.DateTimeFormat('pt-BR', options);
+    const formatted = formatter.format(now);
+    return `${formatted} - America/Sao_Paulo`;
+}
+
 function getTimestamp() {
     return new Date().toISOString().replace(/[:.]/g, '-');
 }
@@ -203,9 +239,7 @@ function downloadSecureLog() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    secureLog = null;
-    deletedRows = [];
-    document.getElementById('downloadLogButton').style.display = 'none';
+    // Não redefinir secureLog ou deletedRows para manter o botão visível
     logMessage(1, 'Download do log seguro concluído com sucesso');
 }
 
@@ -613,18 +647,10 @@ document.getElementById('confirmPkButton-famous').onclick = async () => {
     await loadTable();
 };
 
-async function checkForDuplicatePk(pkValue, excludeOriginal = null) {
+async function checkForDuplicatePk(pkValue, excludeOriginal = null, table = currentTable) {
     try {
-        let tablePrimaryKey;
-        if (currentTable === 'alunos') {
-            tablePrimaryKey = 'aluno_ID';
-        } else if (TABLES_TO_CHECK.includes(currentTable)) {
-            tablePrimaryKey = 'numero_aluno';
-        } else {
-            throw new Error(`Unknown table: ${currentTable}`);
-        }
-
-        let query = supabase.from(currentTable).select(tablePrimaryKey).eq(tablePrimaryKey, pkValue);
+        let tablePrimaryKey = table === 'alunos' ? 'aluno_ID' : table === 'ongs' ? 'nome_ong' : 'numero_aluno';
+        let query = supabase.from(table).select(tablePrimaryKey).eq(tablePrimaryKey, pkValue);
         if (excludeOriginal !== null) {
             query = query.neq(tablePrimaryKey, excludeOriginal);
         }
@@ -655,8 +681,10 @@ async function loadTable() {
         document.getElementById('alunosLoadingIndicator').style.display = 'flex';
     }
 
+    // Remove canal anterior sem await para evitar bloqueio
     if (subscriptionChannel) {
         supabase.removeChannel(subscriptionChannel);
+        subscriptionChannel = null;
         isRealtimeConnected = false;
         logMessage(3, 'Conexão em tempo real anterior encerrada');
     }
@@ -695,6 +723,7 @@ async function loadTable() {
                     } catch (error) {
                         hasErrors = true;
                         row.ongs_registradas = '';
+                        logMessage(36, `Erro ao obter ONGs para CPF ${row.CPF}: ${error.message}`);
                     }
 
                     let totalHoras = 0;
@@ -708,6 +737,7 @@ async function loadTable() {
                         if (updateError) throw updateError;
                     } catch (error) {
                         hasErrors = true;
+                        logMessage(36, `Erro ao atualizar ganho_horas para CPF ${row.CPF}: ${error.message}`);
                     }
                 } else {
                     row.ongs_registradas = '';
@@ -720,6 +750,7 @@ async function loadTable() {
                         if (updateError) throw updateError;
                     } catch (error) {
                         hasErrors = true;
+                        logMessage(36, `Erro ao zerar ganho_horas para aluno_ID ${row.aluno_ID}: ${error.message}`);
                     }
                 }
             }
@@ -750,6 +781,7 @@ async function loadTable() {
                             } catch (error) {
                                 periodicHasErrors = true;
                                 row.ongs_registradas = '';
+                                logMessage(36, `Erro ao obter ONGs para CPF ${row.CPF}: ${error.message}`);
                             }
 
                             let totalHoras = 0;
@@ -763,6 +795,7 @@ async function loadTable() {
                                 if (updateError) throw updateError;
                             } catch (error) {
                                 periodicHasErrors = true;
+                                logMessage(36, `Erro ao atualizar ganho_horas para CPF ${row.CPF}: ${error.message}`);
                             }
                         } else {
                             row.ongs_registradas = '';
@@ -775,6 +808,7 @@ async function loadTable() {
                                 if (updateError) throw updateError;
                             } catch (error) {
                                 periodicHasErrors = true;
+                                logMessage(36, `Erro ao zerar ganho_horas para aluno_ID ${row.aluno_ID}: ${error.message}`);
                             }
                         }
                     }
@@ -792,7 +826,7 @@ async function loadTable() {
 
                     sortAndRender();
                 } catch (error) {
-                    console.error('Periodic update failed:', error);
+                    logMessage(36, `Erro na atualização periódica: ${error.message}`);
                 }
             }, 60000);
             logMessage(1, 'Intervalo de atualização periódica iniciado');
@@ -819,34 +853,44 @@ async function loadTable() {
         sortAndRender();
         updateMessages();
 
+        // Configura a subscrição em tempo real
         subscriptionChannel = supabase.channel(`${currentTable}-channel`)
             .on('postgres_changes', { event: '*', schema: 'public', table: currentTable }, payload => {
                 loadTable();
             })
-            .subscribe(status => {
+            .subscribe((status, err) => {
                 if (status === 'SUBSCRIBED' && !hasConnected) {
                     isRealtimeConnected = true;
                     checkRealtimeConnection();
                     hasConnected = true;
+                    logMessage(2, 'Conexão em tempo real estabelecida');
                 } else if (status !== 'SUBSCRIBED' && !hasFailed) {
                     isRealtimeConnected = false;
                     checkRealtimeConnection();
                     hasFailed = true;
+                    if (err) {
+                        logMessage(3, `Falha na subscrição em tempo real: ${err.message}`);
+                    }
                 }
             });
         logMessage(1, `Inscrição em tempo real para ${currentTable} iniciada`);
 
+        // Configura subscrições adicionais para zong_1 e zong_2 quando necessário
         if (currentTable === 'alunos') {
             TABLES_TO_CHECK.forEach(table => {
                 const channel = supabase.channel(`${table}-channel`)
                     .on('postgres_changes', { event: '*', schema: 'public', table }, payload => {
                         loadTable();
                     })
-                    .subscribe(status => {
+                    .subscribe((status, err) => {
                         if (status === 'SUBSCRIBED' && !hasConnected) {
                             hasConnected = true;
+                            logMessage(2, `Conexão em tempo real para ${table} estabelecida`);
                         } else if (status !== 'SUBSCRIBED' && !hasFailed) {
                             hasFailed = true;
+                            if (err) {
+                                logMessage(3, `Falha na subscrição em tempo real para ${table}: ${err.message}`);
+                            }
                         }
                     });
                 additionalSubscriptions.push(channel);
@@ -858,9 +902,14 @@ async function loadTable() {
     } catch (error) {
         document.getElementById('errorMessage').textContent = `19-Erro ao carregar dados: ${error.message}`;
         logMessage(19, `Erro ao carregar dados: ${error.message}`);
+        updateMessages();
+        // Força renderização mesmo em caso de erro para evitar interface travada
+        generateTableHeader();
+        sortAndRender();
     } finally {
         document.getElementById('loadingMessage').style.display = 'none';
         document.getElementById('alunosLoadingIndicator').style.display = 'none';
+        // Remove canais adicionais apenas se a tabela não for 'alunos'
         if (currentTable !== 'alunos') {
             additionalSubscriptions.forEach(channel => supabase.removeChannel(channel));
             logMessage(1, 'Inscrições adicionais em tempo real encerradas');
@@ -877,14 +926,16 @@ function generateTableHeader() {
         if (SENSITIVE_COLUMNS.test(col) && !isAdminAuthenticated && !isMasterAuthenticated) return;
         const th = document.createElement('th');
         th.textContent = col;
-        th.onclick = () => {
-            currentSort = {
-                column: col,
-                order: currentSort.column === col && currentSort.order === 'asc' ? 'desc' : 'asc'
+        if (col !== 'registro_em') { // Impede ordenação para registro_em
+            th.onclick = () => {
+                currentSort = {
+                    column: col,
+                    order: currentSort.column === col && currentSort.order === 'asc' ? 'desc' : 'asc'
+                };
+                sortAndRender();
+                logMessage(9, `Tabela ordenada por ${col} (${currentSort.order}).`);
             };
-            sortAndRender();
-            logMessage(9, `Tabela ordenada por ${col} (${currentSort.order}).`);
-        };
+        }
         tr.appendChild(th);
     });
     if (currentTable === 'alunos') {
@@ -1004,11 +1055,17 @@ document.getElementById('restoreViewButton').onclick = () => {
 document.getElementById('addNewButton').onclick = () => {
     clearMessages();
     document.getElementById('dynamicFormFields').innerHTML = '';
+    const timestamp = generateBrazilianTimestamp();
     columns.forEach(col => {
         const input = document.createElement('input');
         input.type = 'text';
         input.id = `field_${col}`;
-        input.value = col === primaryKey && isPkInteger ? lastPkValue + 1 : '';
+        if (col === 'registro_em') {
+            input.value = timestamp;
+            input.disabled = true; // Campo não editável
+        } else {
+            input.value = col === primaryKey && isPkInteger ? lastPkValue + 1 : '';
+        }
         const label = document.createElement('label');
         label.textContent = `${col}: `;
         label.appendChild(input);
@@ -1022,7 +1079,11 @@ document.getElementById('addNewButton').onclick = () => {
 document.getElementById('saveButton').onclick = async () => {
     clearMessages();
     const record = {};
-    columns.forEach(col => record[col] = document.getElementById(`field_${col}`).value || null);
+    columns.forEach(col => {
+        record[col] = col === 'registro_em' 
+            ? document.getElementById(`field_${col}`).value // Usa o timestamp gerado
+            : document.getElementById(`field_${col}`).value || null;
+    });
 
     const isUpdate = originalPkValue !== null;
 
@@ -1050,7 +1111,7 @@ document.getElementById('saveButton').onclick = async () => {
             insertedData = data;
             logMessage(1, `Registro adicionado com sucesso na tabela ${currentTable}`);
 
-            if (TABLES_TO_CHECK.includes(currentTable)) {
+            if (TABLES_TO_CHECK.includes(currentTable) && currentTable !== 'ongs') {
                 const cpfValue = record['CPF'];
                 if (!cpfValue) {
                     document.getElementById('errorMessage').textContent = '37-CPF não encontrado no registro.';
@@ -1168,7 +1229,8 @@ async function editInline(id) {
             if (SENSITIVE_COLUMNS.test(col) && !isAdminAuthenticated && !isMasterAuthenticated) return;
             const td = document.createElement('td');
             const inputType = col === 'ganho_horas' ? 'number' : 'text';
-            td.innerHTML = `<input type="${inputType}" id="edit_${col}" value="${data[0][col] ?? ''}" />`;
+            const isDisabled = col === 'registro_em' ? 'disabled' : '';
+            td.innerHTML = `<input type="${inputType}" id="edit_${col}" value="${data[0][col] ?? ''}" ${isDisabled} />`;
             row.appendChild(td);
         });
         if (currentTable === 'alunos') {
@@ -1196,7 +1258,7 @@ async function confirmEdit(id) {
     visibleColumns.forEach(col => {
         if (SENSITIVE_COLUMNS.test(col) && !isAdminAuthenticated && !isMasterAuthenticated) return;
         const input = document.getElementById(`edit_${col}`);
-        if (input) {
+        if (input && col !== 'registro_em') {
             updated[col] = col === 'ganho_horas' ? parseInt(input.value, 10) || 0 : (input.value || null);
             if (col === 'CPF') {
                 cpfValue = input.value;
@@ -1365,34 +1427,52 @@ async function undoDeleteRows() {
     clearMessages();
     try {
         for (const { table, record } of deletedRows) {
-            if (!record[primaryKey]) {
+            let pkColumn = table === 'alunos' ? 'aluno_ID' : table === 'ongs' ? 'nome_ong' : 'numero_aluno';
+            if (!record[pkColumn]) {
                 document.getElementById('errorMessage').textContent = `42-Erro: Registro em deletedRows com chave primária inválida: ${JSON.stringify(record)}`;
                 logMessage(42, `Erro: Registro em deletedRows com chave primária inválida: ${JSON.stringify(record)}`);
                 updateMessages();
                 continue;
             }
-            if (table !== currentTable) {
-                document.getElementById('errorMessage').textContent = `43-Erro: Tabela desconhecida em deletedRows: ${table}`;
-                logMessage(43, `Erro: Tabela desconhecida em deletedRows: ${table}`);
-                updateMessages();
-                continue;
+            const pkValue = record[pkColumn];
+            const hasDuplicate = await checkForDuplicatePk(pkValue, null, table);
+            let newRecord = { ...record };
+            if (hasDuplicate && table !== 'ongs') {
+                try {
+                    newRecord[pkColumn] = await getNextPrimaryKey(table, pkColumn);
+                    logMessage(1, `Chave primária ${pkValue} já existe em ${table}, usando novo valor: ${newRecord[pkColumn]}`);
+                } catch (error) {
+                    document.getElementById('errorMessage').textContent = `32-Erro ao calcular nova chave primária: ${error.message}`; // Alterado de 51 para 32
+                    logMessage(32, `Erro ao calcular nova chave primária: ${error.message}`); // Alterado de 51 para 32
+                    updateMessages();
+                    continue;
+                }
             }
-            const pkValue = record[primaryKey];
-            const hasDuplicate = await checkForDuplicatePk(pkValue);
-            if (hasDuplicate) {
-                document.getElementById('errorMessage').textContent = `18-O valor "${pkValue}" para a chave primária já existe na tabela.`;
-                logMessage(18, `O valor "${pkValue}" para a chave primária já existe na tabela.`);
-                updateMessages();
-                continue;
-            }
-            const { error } = await supabase.from(table).insert([record]);
+            const { error } = await supabase.from(table).insert([newRecord]);
             if (error) throw error;
-            logMessage(1, `Registro ${pkValue} restaurado com sucesso na tabela ${table}`);
+            logMessage(1, `Registro ${newRecord[pkColumn]} restaurado com sucesso na tabela ${table}`);
+
+            // Atualiza ganho_horas na tabela alunos se o registro tiver CPF
+            if (TABLES_TO_CHECK.includes(table) && newRecord.CPF) {
+                const normalizedCpf = newRecord.CPF.trim().replace(/[\.\-\s]/g, '').toLowerCase();
+                const totalHoras = await getTotalGanhoHorasByCpf(normalizedCpf);
+                const { error: updateError } = await supabase
+                    .from('alunos')
+                    .update({ ganho_horas: totalHoras })
+                    .eq('CPF', normalizedCpf);
+                if (updateError) {
+                    document.getElementById('errorMessage').textContent = `40-Erro ao atualizar ganho_horas em alunos: ${updateError.message}`;
+                    logMessage(40, `Erro ao atualizar ganho_horas em alunos: ${updateError.message}`);
+                    updateMessages();
+                } else {
+                    logMessage(1, `ganho_horas atualizado em alunos para CPF: ${normalizedCpf}`);
+                }
+            }
         }
         deletedRows = [];
         secureLog = null;
         document.getElementById('undoDeleteButton').style.display = 'none';
-        document.getElementById('downloadLogButton').style.display = 'none';
+        // Não ocultar o botão de download para mantê-lo até o fim da sessão
         await loadTable();
         document.getElementById('successMessage').textContent = '1-Restauração concluída com sucesso';
         logMessage(1, 'Restauração concluída com sucesso');
