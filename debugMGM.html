@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Message Filter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        #messages {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            white-space: pre-wrap; /* Preserve line breaks */
+            text-align: left; /* Align text to the left */
+        }
+        .index {
+            font-weight: bold; /* Make index bold */
+            color: blue; /* Default index color */
+        }
+        .error {
+            color: red; /* Set error text color */
+        }
+        .error-index {
+            color: red; /* Set error index color */
+            font-weight: bold; /* Make error index bold */
+        }
+        .error-message {
+            margin: 10px 0;
+            padding: 5px;
+            border: 1px solid red;
+            background-color: #ffe6e6; /* Light red background */
+        }
+    </style>
+</head>
+<body>
+    <h2>Load Log File</h2>
+    <input type="file" id="fileInput">
+    <div id="errorMessages"></div>
+    <div id="messages"></div>
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const lines = e.target.result.split('\n');
+                const errorMessages = [];
+                const allMessages = [];
+                lines.forEach(line => {
+                    const match = line.match(/\[(\d{4}-\d{2}-\d{2}T.*?)\] (\d+)-(.*)/);
+                    if (match) {
+                        const timestamp = match[1];
+                        const index = match[2];
+                        const message = match[3];
+                        // Expanded error keywords in English and Portuguese
+                        const errorKeywords = /error|failed|failure|problem|exception|critical|warning|fault|malfunction|issue|unable to|not found|timeout|invalid|unreachable|denied|refused|erro|falhou|falha|problema|exceção|crítico|aviso|defeito|mal funcionamento|questão|incapaz de|não encontrado|tempo esgotado|inválido|inalcançável|negado|recusado/i; // Case insensitive
+                        const isError = errorKeywords.test(message);
+                        // Prepare the formatted message
+                        const formattedMessage = `<span>${timestamp} - <span class="${isError ? 'error-index' : 'index'}">${index}</span> - ${isError ? message.replace(errorKeywords, '<span class="error">$&</span>') : message}</span>`;
+                        // Add to appropriate array
+                        if (isError) {
+                            errorMessages.push(`<div class="error-message">${formattedMessage}</div>`);
+                        }
+                        allMessages.push(formattedMessage);
+                    }
+                });
+                // Display error messages at the top
+                document.getElementById('errorMessages').innerHTML = errorMessages.length ? `<h3>Error Messages:</h3>${errorMessages.join('')}` : '<h3>No Error Messages Found</h3>';
+                
+                // Display all messages below
+                document.getElementById('messages').innerHTML = allMessages.length ? allMessages.join('<br>') : '<p>No messages found.</p>';
+            };
+            reader.readAsText(file);
+        });
+    </script>
+</body>
+</html>
