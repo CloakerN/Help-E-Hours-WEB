@@ -722,7 +722,7 @@ async function loadTable() {
             for (let row of filteredData) {
                 if (row.CPF) {
                     try {
-                        row.ongstel = await getOngsByCpf(row.CPF);
+                        row.ongs_registradas = await getOngsByCpf(row.CPF);
                     } catch (error) {
                         hasErrors = true;
                         row.ongs_registradas = '';
