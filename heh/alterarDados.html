@@ -1,0 +1,435 @@
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Formulário ONG</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: "Roboto", sans-serif;
+    }
+    /* ===================== RODAPÉ ===================== */
+footer {
+  background-color: #0c6c6c;
+  color: #fff;
+  padding: 40px 20px 20px 20px;
+  font-family: "Jost-Regular", Helvetica;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-linhas {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* era center */
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Colunas esquerda, centro, direita */
+.footer-coluna {
+  flex: 1;
+  min-width: 200px;
+  text-align: center;
+}
+
+.esquerda ul,
+.direita ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+/* Redes sociais lado a lado */
+
+.direita {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.direita h4 {
+  margin-bottom: 10px;
+  font-family: "Jost-Regular", Helvetica;
+  text-align: center;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 100;
+  line-height: normal;
+}
+
+.icones-sociais {
+  display: flex;
+  gap: 16px; /* espaço entre os dois ícones */
+}
+
+.direita a img {
+  height: 30px;
+  width: 30px;
+}
+
+/* Agrupamento das 3 colunas de links */
+.links-grid {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+/* Estilização das listas */
+.links-grid ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.links-grid li {
+  margin: 6px 0;
+}
+
+.links-grid a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.links-grid a:hover {
+  text-decoration: underline;
+}
+
+.footer-coluna ul li,
+.footer-coluna a {
+  margin: 8px 0;
+  color: white;
+  text-decoration: none;
+  display: block;
+}
+
+.footer-coluna a:hover {
+  text-decoration: underline;
+}
+
+.logo-footer-fundo {
+  background-color: #0c6c6c;
+  height: 220px;
+  width: 170px;
+  border-radius: 69% / 59%;
+  margin: -120px auto 15px auto;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-footer {
+  background-color: #efeae4;
+  padding: 10px;
+  border-radius: 60% / 40%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  height: 250px; /* ou mais, se quiser maior */
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-footer img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+
+.logo-footer img {
+  height: 190px;
+  width: 190px;
+  object-fit: contain;
+}
+
+/* Divisor e frase */
+.divisor-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0rem;
+  width: 90%;
+  margin: 2px auto 10px;
+}
+
+/* Linha fininha */
+.linha-footer {
+  flex: 1;
+  height: 1px;
+  background-color: #efeae4; /* cor da linha */
+}
+
+/* Losangos pequenos */
+.losango-footer {
+  width: 6px;
+  height: 6px;
+  background-color: #efeae4; /* ou a cor que quiser */
+  transform: rotate(45deg); /* Rotaciona para parecer um losango */
+}
+
+.frase-final {
+  color: #f5f5f5;
+  font-family: "Jost-Regular", Helvetica;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+  </style>
+</head>
+<body class="bg-[#f0ebe6] relative min-h-screen">
+  <!-- Navbar -->
+  <nav class="bg-[#006a78] text-white flex flex-wrap justify-center gap-6 py-5 text-sm sm:text-base">
+    <a href="#" class="hover:underline whitespace-nowrap">Home</a>
+    <a href="#" class="hover:underline whitespace-nowrap">Sobre nós</a>
+    <a href="#" class="hover:underline whitespace-nowrap">ONGs Disponíveis</a>
+    <a href="#" class="hover:underline whitespace-nowrap">Feedbacks</a>
+    <a href="#" class="hover:underline whitespace-nowrap">Login</a>
+  </nav>
+
+  <!-- Profile image with pen icon -->
+  <div class="absolute top-[90px] left-4 sm:left-20 w-24 h-24 sm:w-32 sm:h-32 rounded-full border border-[#e89a5a] overflow-hidden bg-white z-10">
+    <img
+      src="mulherr.png"
+      alt="Mulher sorrindo segurando livros e cadernos, vestindo camiseta listrada branca e preta, fundo desfocado de pessoas"
+      class="w-full h-full object-cover"
+      width="128"
+      height="128"
+    />
+    <i
+      class="fas fa-pen absolute -bottom-2 -right-2 text-black text-xl sm:text-2xl"
+      style="transform: rotate(-20deg)"
+      aria-hidden="true"
+    ></i>
+  </div>
+
+  <main class="pt-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <form>
+      <h2
+        class="text-[#e89a5a] text-center text-lg sm:text-xl font-medium border-b border-[#e89a5a] pb-1 mb-6 sm:mb-10"
+      >
+        ALTERE SEUS DADOS
+      </h2>
+
+      <div class="max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-x-6 gap-y-4">
+        <!-- Left column -->
+        <div class="space-y-4">
+          <input
+            type="text"
+            placeholder="*Digite seu nome completo"
+            required
+            class="bg-[#bed6db] text-[#004d5a] text-sm sm:text-base px-2 py-1 w-full"
+          />
+          <input
+            type="text"
+            placeholder="*Informe seu curso."
+            required
+            class="bg-[#bed6db] text-[#004d5a] text-sm sm:text-base px-2 py-1 w-full sm:w-3/5"
+          />
+          <textarea
+            rows="5"
+            placeholder="DIGITE AQUI SUA BIOGRAFIA."
+            class="bg-[#bed6db] text-[#004d5a] text-sm sm:text-base px-2 py-1 w-full resize-none"
+          ></textarea>
+        </div>
+
+        <!-- Middle column -->
+        <div class="space-y-4 flex flex-col items-center sm:items-center">
+          <input
+            type="text"
+            placeholder="Idade"
+            class="bg-[#bed6db] text-[#004d5a] text-sm sm:text-base px-2 py-1 w-3/5 max-w-full"
+          />
+          <input
+            type="text"
+            placeholder="Semestre"
+            class="bg-[#bed6db] text-[#004d5a] text-sm sm:text-base px-2 py-1 w-3/5 max-w-full"
+          />
+        </div>
+
+        <!-- Right column -->
+        <div class="space-y-4">
+          <input
+            type="text"
+            placeholder="*Nome da sua universidade"
+            required
+            class="bg-[#bed6db] text-[#004d5a] text-sm sm:text-base px-2 py-1 w-full"
+          />
+          <input
+            type="email"
+            placeholder="*E-mail"
+            required
+            class="bg-[#bed6db] text-[#004d5a] text-sm sm:text-base px-2 py-1 w-full"
+          />
+          <input
+            type="text"
+            placeholder="Celular"
+            class="bg-[#bed6db] text-[#004d5a] text-sm sm:text-base px-2 py-1 w-full sm:w-3/5"
+          />
+          <input
+            type="text"
+            placeholder="Telefone"
+            class="bg-[#bed6db] text-[#004d5a] text-sm sm:text-base px-2 py-1 w-full sm:w-3/5"
+          />
+        </div>
+      </div>
+
+      <p class="text-[#e89a5a] text-xs mt-1 max-w-6xl mx-auto">
+        DADOS COM "*" SIGNIFICA OBRIGATÓRIEDADE.
+      </p>
+
+      <!-- Volunteer section -->
+      <section class="max-w-6xl mx-auto mt-8">
+        <h3 class="text-[#e89a5a] text-lg sm:text-xl font-normal mb-1">
+          Adicione seus trabalhos voluntários:
+        </h3>
+        <p class="text-[#004d5a] text-xs mb-1">Selecionar opções:</p>
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2">
+          <i class="fas fa-bars text-black text-xl mt-1 sm:mt-0" aria-hidden="true"></i>
+          <div
+            class="bg-[#a9c1af] text-[#004d5a] text-sm sm:text-base rounded-md p-3 max-w-full sm:max-w-3xl"
+          >
+            <p>
+              <input
+                type="radio"
+                id="ong1"
+                name="volunteer"
+                class="mr-2"
+                checked
+              />
+              <label for="ong1"
+                ><strong>ONG YGUÁSUPE</strong>, ajudando na limpeza de praia.</label
+              >
+            </p>
+            <p>
+              <input type="radio" id="ong2" name="volunteer" class="mr-2" />
+              <label for="ong2"
+                ><strong>ONG SOS CÃO</strong>, ajudando animais de rua.</label
+              >
+            </p>
+            <p>
+              <input type="radio" id="ong3" name="volunteer" class="mr-2" />
+              <label for="ong3"
+                ><strong>ONG KIDSPLAY</strong>, ajudando crianças necessitadas.</label
+              >
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Buttons -->
+      <div
+        class="max-w-6xl mx-auto mt-10 flex flex-col sm:flex-row justify-end gap-4 sm:gap-6 pr-2 sm:pr-0"
+      >
+        <button
+          type="reset"
+          class="bg-[#ff9a4a] text-white text-sm sm:text-base px-5 py-2 rounded w-full sm:w-auto"
+        >
+          CANCELAR
+        </button>
+        <button
+          type="submit"
+          class="bg-[#4a7f4a] text-white text-sm sm:text-base px-5 py-2 rounded w-full sm:w-auto"
+        >
+          CONFIRMAR
+        </button>
+      </div>
+    </form>
+  </main>
+
+  <!-- Footer -->
+  <!-- ========== RODAPÉ ========== -->
+  <footer>
+    <!-- Rodapé da página -->
+
+    <div class="rodape">
+      <!-- Container principal do rodapé -->
+
+      <div class="footer-linhas">
+        <!-- Agrupamento das 3 colunas do rodapé -->
+
+        <!-- === COLUNA 1: LINKS === -->
+        <div class="footer-coluna coluna-links">
+          <div class="links-grid">
+            <!-- Grade com três listas de links -->
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Sobre Nós</a></li>
+              <li><a href="#">Feedbacks</a></li>
+            </ul>
+            <ul>
+              <li><a href="#">Login</a></li>
+              <li><a href="#">Perfil</a></li>
+              <li><a href="#">ONGs Disponíveis</a></li>
+            </ul>
+            <ul>
+              <li><a href="#">Gerar Certificado</a></li>
+              <li><a href="#">Cadastrar</a></li>
+              <li><a href="#">Suporte</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- === COLUNA 2: LOGO === -->
+        <div class="footer-coluna centro">
+          <div class="logo-footer-fundo">
+            <!-- Fundo com forma decorativa -->
+            <div class="logo-footer">
+              <!-- Área da logo -->
+              <img
+                src="https://private-user-images.githubusercontent.com/124811095/432440376-b6bf4b90-3f05-44a8-a8ca-937538dc8265.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDcxNDY2NDksIm5iZiI6MTc0NzE0NjM0OSwicGF0aCI6Ii8xMjQ4MTEwOTUvNDMyNDQwMzc2LWI2YmY0YjkwLTNmMDUtNDRhOC1hOGNhLTkzNzUzOGRjODI2NS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNTEzJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDUxM1QxNDI1NDlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mOWRkZGU3YjZkNzM3ZTk5ZDMzOGM5ODg4ZmI0YmFkM2ZhOWM1YWQwZTVhOWQwMGZjYTI2YTRmYmRhMDdiNmI1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.Qi9joPfLXvIWCF8lkBlSVyGg0bwk-R_DfdZQhjqZLYM"
+                alt="Logo Help and Hours"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- === COLUNA 3: REDES SOCIAIS === -->
+        <div class="footer-coluna direita">
+          <h4>Nossas redes sociais</h4>
+          <div class="icones-sociais">
+            <!-- Links com ícones para redes sociais -->
+            <a href="#">
+              <img src="insta.png" alt="Instagram" />
+              Instagram
+            </a>
+            <a href="#">
+              <img src="face.png" alt="Facebook" />
+              Facebook
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Frase motivacional final -->
+      <center><p class="frase-final">
+        ”O voluntariado é uma jornada de aprendizado, amor e generosidade.”
+      </p></center>
+
+      <!-- Linha decorativa com losangos -->
+      <div class="divisor-footer">
+        <span class="losango-footer"></span>
+        <div class="linha-footer"></div>
+        <span class="losango-footer"></span>
+      </div>
+
+      <!-- Texto de copyright -->
+      <center><p class="copyright">Copyright 2025</p></center>
+    </div>
+  </footer>
+</body>
+</html>

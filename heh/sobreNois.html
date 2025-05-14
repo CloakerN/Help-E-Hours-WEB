@@ -1,0 +1,545 @@
+<html class="scroll-smooth" lang="pt-BR">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Help and Hours - Sobre Nós
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: "Roboto", sans-serif;
+    }
+     /* Footer */
+     footer {
+      background-color: #0c6c6c;
+      color: white;
+      padding: 40px 20px 20px 20px;
+      font-family: 'Jost', Helvetica, Arial, sans-serif;
+      position: relative;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .footer-linhas {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-coluna {
+      flex: 1 1 200px;
+      text-align: center;
+    }
+    .links-grid {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .links-grid ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+    }
+    .links-grid li {
+      margin: 6px 0;
+    }
+    .links-grid a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      display: block;
+      padding: 2px 0;
+      transition: text-decoration 0.3s ease;
+    }
+    .links-grid a:hover {
+      text-decoration: underline;
+    }
+    .direita h4 {
+      margin-bottom: 10px;
+      font-size: 25px;
+      font-weight: 100;
+      line-height: normal;
+    }
+    .icones-sociais {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .icones-sociais a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: white;
+      font-size: 16px;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .icones-sociais a img {
+      height: 30px;
+      width: 30px;
+      object-fit: contain;
+    }
+    .icones-sociais a:hover {
+      color: #f28d41;
+    }
+    .logo-footer-fundo {
+      background-color: #0c6c6c;
+      height: 220px;
+      width: 170px;
+      border-radius: 69% / 59%;
+      margin: -120px auto 15px auto;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-footer {
+      background-color: #efeae4;
+      padding: 30px;
+      border-radius: 60% / 40%;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      height: 200px;
+      width: 130px;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-footer img {
+      height: 190px;
+      width: 190px;
+      object-fit: contain;
+    }
+    .divisor-footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0rem;
+      width: 90%;
+      margin: 2px auto 10px;
+    }
+    .linha-footer {
+      flex: 1;
+      height: 1px;
+      background-color: #efeae4;
+    }
+    .losango-footer {
+      width: 6px;
+      height: 6px;
+      background-color: #efeae4;
+      transform: rotate(45deg);
+    }
+    .frase-final {
+      color: #f5f5f5;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: normal;
+      text-align: center;
+      margin: 0 auto 10px;
+      max-width: 600px;
+      font-style: normal;
+    }
+    .copyright {
+      color: #fffded;
+      text-align: center;
+      font-family: 'Jost', Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: normal;
+      margin-bottom: 0;
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #0c6c6c;
+      border-radius: 10px;
+      border: 2px solid #f0f0f0;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #0c6c6c;
+    }
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #0c6c6c #f0f0f0;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        margin: 20px 10px;
+        padding: 0 10px;
+      }
+      .form-box {
+        width: 100%;
+        padding: 20px;
+      }
+      .row {
+        flex-direction: column;
+      }
+      .row input {
+        min-width: 100%;
+      }
+      .footer-linhas {
+        flex-direction: column;
+        gap: 30px;
+      }
+      .footer-coluna {
+        min-width: 100%;
+        text-align: center;
+      }
+      .logo-footer-fundo {
+  background-color: #0c6c6c;
+  height: 280px; /* aumentou */
+  width: 200px;  /* aumentou */
+  border-radius: 69% / 59%;
+  margin: -140px auto 15px auto;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-footer {
+  background-color: #efeae4;
+  padding: 20px;
+  border-radius: 60% / 40%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  height: 250px;
+  width: 180px;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-footer img {
+  height: 230px;
+  width: 230px;
+  object-fit: contain;
+}
+
+
+      .frase-final {
+        font-size: 14px;
+        max-width: 90%;
+        
+      }
+    }
+  </style>
+ </head>
+ <body class="bg-[#f0efe8] text-[#333333]">
+  <!-- Navbar -->
+  <nav class="bg-[#1a6e7a] text-[#d9d9d9] text-xs sm:text-sm font-normal flex flex-wrap justify-between px-4 sm:px-10 py-2 sm:py-3 select-none">
+   <a class="hover:underline w-1/2 sm:w-auto text-center sm:text-left py-1" href="#">
+    Home
+   </a>
+   <a class="hover:underline w-1/2 sm:w-auto text-center sm:text-left py-1" href="#">
+    Sobre nós
+   </a>
+   <a class="hover:underline w-1/2 sm:w-auto text-center sm:text-left py-1" href="#">
+    ONGs Disponíveis
+   </a>
+   <a class="hover:underline w-1/2 sm:w-auto text-center sm:text-left py-1" href="#">
+    Feedbacks
+   </a>
+   <a class="hover:underline w-1/2 sm:w-auto text-center sm:text-left py-1" href="#">
+    Login
+   </a>
+  </nav>
+  <!-- Title with lines -->
+  <div class="flex flex-wrap items-center justify-center mt-6 mb-4 px-4">
+   <div class="border-t border-[#333333] w-16 mr-3 flex-grow min-w-[40px]">
+   </div>
+   <h2 class="text-[#333333] text-lg sm:text-xl font-normal whitespace-nowrap">
+    Sobre Nós
+   </h2>
+   <div class="border-t border-[#333333] w-16 ml-3 flex-grow min-w-[40px]">
+   </div>
+  </div>
+  <!-- Main content with image and text -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center sm:items-start gap-6 sm:gap-10 mb-6">
+   <p class="text-xs sm:text-sm text-justify sm:w-1/3 leading-relaxed">
+    O Help and Hours nasceu da vontade de criar uma ponte entre estudantes que precisam de horas complementares e ONGs que necessitam de apoio voluntário.
+    <br/>
+    <br/>
+    A ideia surgiu em 2025, durante projetos acadêmicos que evidenciaram a dificuldade tanto para alunos encontrarem oportunidades de voluntariado válidas quanto para instituições divulgarem suas necessidades.
+   </p>
+   <img alt="Grupo de pessoas sentadas em escada moderna de vidro e metal em ambiente claro, sorrindo e olhando para a câmera" class="w-full sm:w-1/3 rounded-md shadow-md" height="300" loading="lazy" src="https://storage.googleapis.com/a1aa/image/23492209-0807-44b0-1f17-eeb7509864e4.jpg" width="600"/>
+   <p class="text-xs sm:text-sm text-justify sm:w-1/3 leading-relaxed">
+    Desde então, o H&amp;H evoluiu para uma plataforma prática e acessível, ajudando a impulsionar o impacto social de dezenas de organizações, enquanto proporciona experiências enriquecedoras para os estudantes.
+   </p>
+  </section>
+  <!-- Horizontal blue line -->
+  <div class="border-t-2 border-[#7ac7e3] max-w-6xl mx-auto mb-4">
+  </div>
+  <!-- Conquistas e Objetivos section with full blue background -->
+  <section class="max-w-full bg-[#7ac7e3]">
+   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+    <div class="flex flex-col sm:flex-row justify-between border border-[#7ac7e3] rounded-md p-4 gap-4 sm:gap-0 text-xs sm:text-sm text-[#a87a3a] font-normal bg-[#7ac7e3]">
+     <div class="sm:w-1/2 bg-[#7ac7e3] rounded-md p-4">
+      <h3 class="text-[#d9a14a] font-semibold mb-1">
+       Nossas Conquistas
+      </h3>
+      <ul class="list-none space-y-1 text-[#333333] font-normal">
+       <li class="flex items-start gap-2">
+        <span class="text-[#2f9e2f]">
+         ✅
+        </span>
+        <span>
+         Conexão de centenas de estudantes com ONGs ativas.
+        </span>
+       </li>
+       <li class="flex items-start gap-2">
+        <span class="text-[#2f9e2f]">
+         ✅
+        </span>
+        <span>
+         Apoio a projetos sociais em diversas áreas como educação, meio ambiente e assistência social.
+        </span>
+       </li>
+       <li class="flex items-start gap-2">
+        <span class="text-[#2f9e2f]">
+         ✅
+        </span>
+        <span>
+         Criação de uma plataforma segura, com processos de verificação de documentos para garantir a confiança mútua entre voluntários e instituições.
+        </span>
+       </li>
+      </ul>
+     </div>
+     <div class="sm:w-1/2 bg-[#7ac7e3] rounded-md p-4">
+      <h3 class="text-[#d9a14a] font-semibold mb-1">
+       Nossos Objetivos
+      </h3>
+      <p class="text-[#333333] font-normal text-justify leading-relaxed">
+       Nosso próximo passo é expandir o alcance do Help &amp; Hours para todo o Brasil, firmando parcerias com universidades e redes de ONGs. Também planejamos lançar um aplicativo móvel para tornar o processo ainda mais ágil e acessível.
+       <br/>
+       <br/>
+       Queremos não apenas facilitar o voluntariado, mas também
+       <strong>
+        fortalecer uma cultura de solidariedade e cidadania
+       </strong>
+       , mostrando que, ao ajudar, todos crescem juntos.
+      </p>
+     </div>
+    </div>
+   </div>
+  </section>
+  <!-- Horizontal blue line -->
+  <div class="border-t-2 border-[#7ac7e3] max-w-6xl mx-auto mb-6">
+  </div>
+  <!-- Desenvolvedores section -->
+  <section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 mb-10">
+   <h3 class="text-[#d9a14a] font-semibold text-center mb-4 text-sm sm:text-base">
+    Desenvolvedores
+   </h3>
+   <p class="text-xs sm:text-sm text-[#333333] text-center max-w-4xl mx-auto mb-8 leading-relaxed">
+    O Help &amp; Hours foi desenvolvido por um time de estudantes apaixonados por tecnologia e impacto social. Nossa equipe multidisciplinar reúne desenvolvedores, designers e analistas, todos unidos pelo propósito de transformar boas ideias em soluções que geram valor para a sociedade.
+   </p>
+   <div class="grid grid-cols-2 sm:grid-cols-5 gap-6 max-w-5xl mx-auto text-center text-xs sm:text-sm text-[#1a6e7a] font-normal">
+    <!-- Anne Cunha -->
+    <div>
+     <img alt="Foto de Anne Cunha, mulher jovem com cabelos castanhos claro e roupa clara, sorrindo" class="mx-auto rounded-md" height="80" loading="lazy" src="https://storage.googleapis.com/a1aa/image/4cd08ff4-5a1c-419a-e9d6-e01f13dd658f.jpg" width="80"/>
+     <p class="mt-2 font-semibold text-[#1a6e7a]">
+      Anne Cunha
+     </p>
+     <p class="text-[9px] sm:text-xs text-[#7a7a7a] leading-tight">
+      Idealizadora do projeto, UX/UI Designer, Criação de Protótipos e Mídia Visual
+     </p>
+    </div>
+    <!-- Anna malzone -->
+    <div>
+     <img alt="Foto de Anna malzone, mulher jovem com cabelos pretos e roupa escura, olhando para frente" class="mx-auto rounded-md" height="80" loading="lazy" src="https://storage.googleapis.com/a1aa/image/84b3d134-54eb-4e12-cd0b-b4dfae5ab33b.jpg" width="80"/>
+     <p class="mt-2 font-semibold text-[#1a6e7a]">
+      Anna malzone
+     </p>
+     <p class="text-[9px] sm:text-xs text-[#7a7a7a] leading-tight">
+      Documentação em vídeo e mídia, Suporte ao Design e Prototipagem
+     </p>
+    </div>
+    <!-- Antonio Amaral -->
+    <div>
+     <img alt="Imagem cinza placeholder para Antonio Amaral" class="mx-auto rounded-md" height="80" loading="lazy" src="https://storage.googleapis.com/a1aa/image/6e56f0cd-eb99-4f72-6b75-dac25efe75fa.jpg" width="80"/>
+     <p class="mt-2 font-semibold text-[#1a6e7a]">
+      Antonio Amaral
+     </p>
+     <p class="text-[9px] sm:text-xs text-[#7a7a7a] leading-tight">
+      Apoio Desenvolvedor Frontend, Banco de Dados
+     </p>
+    </div>
+    <!-- Claudio Lobo -->
+    <div>
+     <img alt="Foto de Claudio Lobo, homem jovem com cabelos curtos e roupa clara, olhando para frente" class="mx-auto rounded-md" height="80" loading="lazy" src="https://storage.googleapis.com/a1aa/image/03a38b66-7e75-4377-38a9-cc4c159420ca.jpg" width="80"/>
+     <p class="mt-2 font-semibold text-[#1a6e7a]">
+      Claudio Lobo
+     </p>
+     <p class="text-[9px] sm:text-xs text-[#7a7a7a] leading-tight">
+      Banco de Dados, Documentação Técnica e Pesquisa Social
+     </p>
+    </div>
+    <!-- Guilherme Nogueira -->
+    <div>
+     <img alt="Foto de Guilherme Nogueira, homem jovem com cabelos curtos e roupa clara, olhando para frente" class="mx-auto rounded-md" height="80" loading="lazy" src="https://storage.googleapis.com/a1aa/image/ba038236-eb2b-48d4-40f9-d787e6588ac7.jpg" width="80"/>
+     <p class="mt-2 font-semibold text-[#1a6e7a]">
+      Guilherme Nogueira
+     </p>
+     <p class="text-[9px] sm:text-xs text-[#7a7a7a] leading-tight">
+      Desenvolvedor Frontend
+     </p>
+    </div>
+    <!-- Jorge Augusto -->
+    <div>
+     <img alt="Foto de Jorge Augusto, homem jovem com cabelos pretos e roupa verde, olhando para frente" class="mx-auto rounded-md" height="80" loading="lazy" src="https://storage.googleapis.com/a1aa/image/ac876712-eb12-4402-0fcf-65970ebc9d10.jpg" width="80"/>
+     <p class="mt-2 font-semibold text-[#1a6e7a]">
+      Jorge Augusto
+     </p>
+     <p class="text-[9px] sm:text-xs text-[#7a7a7a] leading-tight">
+      Desenvolvedor Backend, Git Manager, Organização de Tarefas Backend
+     </p>
+    </div>
+    <!-- Juliano Awazu -->
+    <div>
+     <img alt="Foto de Juliano Awazu, homem jovem com cabelos pretos e roupa cinza, olhando para frente" class="mx-auto rounded-md" height="80" loading="lazy" src="https://storage.googleapis.com/a1aa/image/d56584dc-1624-441b-7f72-195e3c9b3144.jpg" width="80"/>
+     <p class="mt-2 font-semibold text-[#1a6e7a]">
+      Juliano Awazu
+     </p>
+     <p class="text-[9px] sm:text-xs text-[#7a7a7a] leading-tight">
+      Desenvolvedor Frontend
+     </p>
+    </div>
+    <!-- Kauan martes -->
+    <div>
+     <img alt="Foto de Kauan martes, homem jovem com cabelos pretos e roupa clara, olhando para frente" class="mx-auto rounded-md" height="80" loading="lazy" src="https://storage.googleapis.com/a1aa/image/9eeaad44-695b-40a7-7895-367895ff7dbd.jpg" width="80"/>
+     <p class="mt-2 font-semibold text-[#1a6e7a]">
+      Kauan martes
+     </p>
+     <p class="text-[9px] sm:text-xs text-[#7a7a7a] leading-tight">
+      Desenvolvedor Backend
+     </p>
+    </div>
+    <!-- Richard Schumann -->
+    <div>
+     <img alt="Foto de Richard Schumann, homem jovem com cabelos pretos e roupa verde, olhando para frente" class="mx-auto rounded-md" height="80" loading="lazy" src="https://storage.googleapis.com/a1aa/image/91663d2f-b082-4e71-1821-6486acbe8b83.jpg" width="80"/>
+     <p class="mt-2 font-semibold text-[#1a6e7a]">
+      Richard Schumann
+     </p>
+     <p class="text-[9px] sm:text-xs text-[#7a7a7a] leading-tight">
+      Desenvolvedor Backend
+     </p>
+    </div>
+    <!-- Ygor Belarmino -->
+    <div>
+     <img alt="Imagem cinza placeholder para Ygor Belarmino" class="mx-auto rounded-md" height="80" loading="lazy" src="https://storage.googleapis.com/a1aa/image/a68d5bae-be8e-4630-f476-3b420171b675.jpg" width="80"/>
+     <p class="mt-2 font-semibold text-[#1a6e7a]">
+      Ygor Belarmino
+     </p>
+     <p class="text-[9px] sm:text-xs text-[#7a7a7a] leading-tight">
+      Desenvolvedor Backend
+     </p>
+    </div>
+   </div>
+  </section>
+  <br>
+  
+  <br>
+ <!-- Footer -->
+  <!-- ========== RODAPÉ ========== -->
+  <footer>
+    <!-- Rodapé da página -->
+
+    <div class="rodape">
+      <!-- Container principal do rodapé -->
+
+      <div class="footer-linhas">
+        <!-- Agrupamento das 3 colunas do rodapé -->
+
+        <!-- === COLUNA 1: LINKS === -->
+        <div class="footer-coluna coluna-links">
+          <div class="links-grid">
+            <!-- Grade com três listas de links -->
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Sobre Nós</a></li>
+              <li><a href="#">Feedbacks</a></li>
+            </ul>
+            <ul>
+              <li><a href="#">Login</a></li>
+              <li><a href="#">Perfil</a></li>
+              <li><a href="#">ONGs Disponíveis</a></li>
+            </ul>
+            <ul>
+              <li><a href="#">Gerar Certificado</a></li>
+              <li><a href="#">Cadastrar</a></li>
+              <li><a href="#">Suporte</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- === COLUNA 2: LOGO === -->
+        <div class="footer-coluna centro">
+          <div class="logo-footer-fundo">
+            <!-- Fundo com forma decorativa -->
+            <div class="logo-footer">
+              <!-- Área da logo -->
+              <img
+                src="https://private-user-images.githubusercontent.com/124811095/432440376-b6bf4b90-3f05-44a8-a8ca-937538dc8265.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDcxNDY2NDksIm5iZiI6MTc0NzE0NjM0OSwicGF0aCI6Ii8xMjQ4MTEwOTUvNDMyNDQwMzc2LWI2YmY0YjkwLTNmMDUtNDRhOC1hOGNhLTkzNzUzOGRjODI2NS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNTEzJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDUxM1QxNDI1NDlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mOWRkZGU3YjZkNzM3ZTk5ZDMzOGM5ODg4ZmI0YmFkM2ZhOWM1YWQwZTVhOWQwMGZjYTI2YTRmYmRhMDdiNmI1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.Qi9joPfLXvIWCF8lkBlSVyGg0bwk-R_DfdZQhjqZLYM"
+                alt="Logo Help and Hours"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- === COLUNA 3: REDES SOCIAIS === -->
+        <div class="footer-coluna direita">
+          <h4>Nossas redes sociais</h4>
+          <div class="icones-sociais">
+            <!-- Links com ícones para redes sociais -->
+            <a href="#">
+              <img src="insta.png" alt="Instagram" />
+              Instagram
+            </a>
+            <a href="#">
+              <img src="face.png" alt="Facebook" />
+              Facebook
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Frase motivacional final -->
+      <center><p class="frase-final">
+        ”O voluntariado é uma jornada de aprendizado, amor e generosidade.”
+      </p></center>
+
+      <!-- Linha decorativa com losangos -->
+      <div class="divisor-footer">
+        <span class="losango-footer"></span>
+        <div class="linha-footer"></div>
+        <span class="losango-footer"></span>
+      </div>
+
+      <!-- Texto de copyright -->
+      <center><p class="copyright">Copyright 2025</p></center>
+    </div>
+  </footer>
+ </body>
+</html>

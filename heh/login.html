@@ -1,0 +1,316 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Login - Help and Hours
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <style>
+   /* Custom font to match the screenshot's style */
+    body {
+      font-family: Arial, sans-serif;
+    }
+    footer {
+  background-color: #0c6c6c;
+  color: #fff;
+  padding: 40px 20px 20px 20px;
+  font-family: "Jost-Regular", Helvetica;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-linhas {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* era center */
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Colunas esquerda, centro, direita */
+.footer-coluna {
+  flex: 1;
+  min-width: 200px;
+  text-align: center;
+}
+
+.esquerda ul,
+.direita ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+/* Redes sociais lado a lado */
+
+.direita {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.direita h4 {
+  margin-bottom: 10px;
+  font-family: "Jost-Regular", Helvetica;
+  text-align: center;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 100;
+  line-height: normal;
+}
+
+.icones-sociais {
+  display: flex;
+  gap: 16px; /* espaço entre os dois ícones */
+}
+
+.direita a img {
+  height: 30px;
+  width: 30px;
+}
+
+/* Agrupamento das 3 colunas de links */
+.links-grid {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+/* Estilização das listas */
+.links-grid ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.links-grid li {
+  margin: 6px 0;
+}
+
+.links-grid a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.links-grid a:hover {
+  text-decoration: underline;
+}
+
+.footer-coluna ul li,
+.footer-coluna a {
+  margin: 8px 0;
+  color: white;
+  text-decoration: none;
+  display: block;
+}
+
+.footer-coluna a:hover {
+  text-decoration: underline;
+}
+
+.logo-footer-fundo {
+  background-color: #0c6c6c;
+  height: 220px;
+  width: 170px;
+  border-radius: 69% / 59%;
+  margin: -120px auto 15px auto;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-footer {
+  background-color: #efeae4;
+  padding: 10px;
+  border-radius: 60% / 40%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  height: 250px; /* ou mais, se quiser maior */
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-footer img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+
+.logo-footer img {
+  height: 190px;
+  width: 190px;
+  object-fit: contain;
+}
+
+/* Divisor e frase */
+.divisor-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0rem;
+  width: 90%;
+  margin: 2px auto 10px;
+}
+
+/* Linha fininha */
+.linha-footer {
+  flex: 1;
+  height: 1px;
+  background-color: #efeae4; /* cor da linha */
+}
+
+/* Losangos pequenos */
+.losango-footer {
+  width: 6px;
+  height: 6px;
+  background-color: #efeae4; /* ou a cor que quiser */
+  transform: rotate(45deg); /* Rotaciona para parecer um losango */
+}
+
+.frase-final {
+  color: #f5f5f5;
+  font-family: "Jost-Regular", Helvetica;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+  </style>
+ </head>
+ <body class="bg-[#E9E8DD] min-h-screen flex flex-col">
+  <!-- Navigation Bar -->
+  <nav class="bg-[#0B5E62] text-[#D9D9D9] text-xs sm:text-sm">
+   <div class="max-w-5xl mx-auto flex justify-between items-center px-4 py-1">
+    <a class="hover:text-[#A7C4C6]" href="#">
+     Home
+    </a>
+    <a class="hover:text-[#A7C4C6]" href="#">
+     Sobre nós
+    </a>
+    <a class="hover:text-[#A7C4C6]" href="#">
+     ONGs Disponíveis
+    </a>
+    <a class="hover:text-[#A7C4C6]" href="#">
+     Feedbacks
+    </a>
+    <a class="text-[#A7C4C6]" href="#">
+     Login
+    </a>
+   </div>
+  </nav>
+  <!-- Main Content -->
+  <main class="flex-grow flex justify-center items-center px-4 py-10">
+   <section class="bg-[#0B5E62] rounded-md w-full max-w-xs p-6 flex flex-col items-center shadow-lg">
+    <img alt="Help and Hour logo, circular emblem with two hands and text 'HELP AND HOUR' below" class="mb-4" height="133" src="central.png" width="149"/>
+    <h2 class="text-[#D9D9D9] text-lg mb-6">
+     Login
+    </h2>
+    <form class="w-full flex flex-col gap-3">
+     <input class="rounded text-xs sm:text-sm px-3 py-2 w-full focus:outline-none" placeholder="email" type="email"/>
+     <input class="rounded text-xs sm:text-sm px-3 py-2 w-full focus:outline-none" placeholder="Senha" type="password"/>
+     <a class="text-[#A7C4C6] text-[9px] sm:text-xs underline mb-4 self-start" href="#">
+      Esqueci minha senha
+     </a>
+     <button class="bg-[#6B8E6B] text-[#D9D9D9] text-xs sm:text-sm rounded py-2 w-full" type="submit">
+      Entrar
+     </button>
+    </form>
+    <a class="text-[#A7C4C6] text-[9px] sm:text-xs underline mt-3" href="#">
+     Não possui conta? Cadastre-se
+    </a>
+   </section>
+  </main>
+  <!-- Footer -->
+  <!-- ========== RODAPÉ ========== -->
+  <footer>
+    <!-- Rodapé da página -->
+
+    <div class="rodape">
+      <!-- Container principal do rodapé -->
+
+      <div class="footer-linhas">
+        <!-- Agrupamento das 3 colunas do rodapé -->
+
+        <!-- === COLUNA 1: LINKS === -->
+        <div class="footer-coluna coluna-links">
+          <div class="links-grid">
+            <!-- Grade com três listas de links -->
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Sobre Nós</a></li>
+              <li><a href="#">Feedbacks</a></li>
+            </ul>
+            <ul>
+              <li><a href="#">Login</a></li>
+              <li><a href="#">Perfil</a></li>
+              <li><a href="#">ONGs Disponíveis</a></li>
+            </ul>
+            <ul>
+              <li><a href="#">Gerar Certificado</a></li>
+              <li><a href="#">Cadastrar</a></li>
+              <li><a href="#">Suporte</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- === COLUNA 2: LOGO === -->
+        <div class="footer-coluna centro">
+          <div class="logo-footer-fundo">
+            <!-- Fundo com forma decorativa -->
+            <div class="logo-footer">
+              <!-- Área da logo -->
+              <img
+                src="logo.png"
+                alt="Logo Help and Hours"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- === COLUNA 3: REDES SOCIAIS === -->
+        <div class="footer-coluna direita">
+          <h4>Nossas redes sociais</h4>
+          <div class="icones-sociais">
+            <!-- Links com ícones para redes sociais -->
+            <a href="#">
+              <img src="insta.png" alt="Instagram" />
+              Instagram
+            </a>
+            <a href="#">
+              <img src="face.png" alt="Facebook" />
+              Facebook
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Frase motivacional final -->
+      <center><p class="frase-final">
+        ”O voluntariado é uma jornada de aprendizado, amor e generosidade.”
+      </p></center>
+
+      <!-- Linha decorativa com losangos -->
+      <div class="divisor-footer">
+        <span class="losango-footer"></span>
+        <div class="linha-footer"></div>
+        <span class="losango-footer"></span>
+      </div>
+
+      <!-- Texto de copyright -->
+      <center><p class="copyright">Copyright 2025</p></center>
+    </div>
+  </footer>
+ </body>
+</html>

@@ -1,131 +1,575 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Suporte ao Cliente</title>
-<link rel="stylesheet" href="Suporte.css">
-   
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Suporte - Help and Hours</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #f5f0ea;
+      color: #002f34;
+    }
+
+    nav {
+      background-color: #015c63;
+      padding: 1rem;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      justify-content: space-around;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 2rem;
+      gap: 2rem;
+    }
+
+    .faq-section {
+      flex: 1 1 50%;
+    }
+
+    .faq-section h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #015c63;
+      display: inline-block;
+    }
+
+    .faq details summary {
+      font-weight: bold;
+      color: #0296c9;
+      cursor: pointer;
+      margin: 1rem 0;
+    }
+
+    .faq p {
+      margin-left: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .contact-info {
+      margin-top: 2rem;
+      font-size: 1rem;
+    }
+
+    .help-form {
+      flex: 1 1 35%;
+      background-color: #015c63;
+      color: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .help-form h3 {
+      font-size: 1.5rem;
+      border-bottom: 2px solid white;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .help-form .subtitulo {
+      font-weight: bold;
+      color: #f8c177;
+    }
+
+    .help-form .descricao {
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .help-form input,
+    .help-form textarea {
+      width: 100%;
+      margin-bottom: 1rem;
+      padding: 0.75rem;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .help-form button {
+      background-color: #f48220;
+      color: white;
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    footer {
+      background-color: #015c63;
+      color: white;
+      text-align: center;
+      padding: 2rem 1rem 1rem;
+    }
+
+    .footer-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      gap: 2rem;
+    }
+
+    .footer-grid ul {
+      list-style: none;
+    }
+
+    .footer-grid a {
+      color: white;
+      text-decoration: none;
+      display: block;
+      margin: 0.25rem 0;
+    }
+
+    .logo img {
+      width: 100px;
+      height: auto;
+    }
+
+    .social a {
+      display: inline-block;
+      margin: 0.25rem;
+    }
+    /* Footer */
+    footer {
+      background-color: #0c6c6c;
+      color: white;
+      padding: 40px 20px 20px 20px;
+      font-family: 'Jost', Helvetica, Arial, sans-serif;
+      position: relative;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .footer-linhas {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  padding: 0 20px; /* opcional, para não grudar nas bordas */
+  box-sizing: border-box;
+}
+
+    .footer-coluna {
+      flex: 1 1 200px;
+      text-align: center;
+    }
+    .links-grid {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .links-grid ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+    }
+    .links-grid li {
+      margin: 6px 0;
+    }
+    .links-grid a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      display: block;
+      padding: 2px 0;
+      transition: text-decoration 0.3s ease;
+    }
+    .links-grid a:hover {
+      text-decoration: underline;
+    }
+    .direita h4 {
+      margin-bottom: 10px;
+      font-size: 25px;
+      font-weight: 100;
+      line-height: normal;
+    }
+    .icones-sociais {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .icones-sociais a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: white;
+      font-size: 16px;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .icones-sociais a img {
+      height: 30px;
+      width: 30px;
+      object-fit: contain;
+    }
+    .icones-sociais a:hover {
+      color: #f28d41;
+    }
+    .logo-footer-fundo {
+      background-color: #0c6c6c;
+      height: 220px;
+      width: 170px;
+      border-radius: 69% / 59%;
+      margin: -120px auto 15px auto;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-footer {
+      background-color: #efeae4;
+      padding: 60px;
+      border-radius: 100% / 60%;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      height: 220px;
+      width: 280px;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo-footer img {
+      height: 190px;
+      width: 190px;
+      object-fit: contain;
+    }
+    .divisor-footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0rem;
+      width: 90%;
+      margin: 2px auto 10px;
+    }
+    .linha-footer {
+      flex: 1;
+      height: 1px;
+      background-color: #efeae4;
+    }
+    .losango-footer {
+      width: 6px;
+      height: 6px;
+      background-color: #efeae4;
+      transform: rotate(45deg);
+    }
+    .frase-final {
+      color: #f5f5f5;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: normal;
+      text-align: center;
+      margin: 0 auto 10px;
+      max-width: 600px;
+      font-style: normal;
+    }
+    .copyright {
+      color: #fffded;
+      text-align: center;
+      font-family: 'Jost', Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: normal;
+      margin-bottom: 0;
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #0c6c6c;
+      border-radius: 10px;
+      border: 2px solid #f0f0f0;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #0c6c6c;
+    }
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #0c6c6c #f0f0f0;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        margin: 20px 10px;
+        padding: 0 10px;
+      }
+      .form-box {
+        width: 100%;
+        padding: 20px;
+      }
+      .row {
+        flex-direction: column;
+      }
+      .row input {
+        min-width: 100%;
+      }
+      .footer-linhas {
+        flex-direction: column;
+        gap: 30px;
+      }
+      .footer-coluna {
+        min-width: 100%;
+        text-align: center;
+      }
+      .logo-footer-container {
+  position: relative;
+  width: 250px;
+  height: 250px;
+  margin: 0 auto;
+}
+
+.logo-img-fundo {
+  position: absolute;
+  top: 100%;
+  left: 100%;
+  width: 230px;
+  height: 230px;
+  transform: translate(-50%, -50%);
+  object-fit: contain;
+  z-index: 1; /* fundo */
+}
+
+.logo-footer-fundo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 200px;
+  height: 200px;
+  transform: translate(-50%, -50%);
+  background-color: #0c6c6c;
+  border-radius: 60% / 40%;
+  z-index: 2; /* por cima da imagem */
+}
+
+      .logo-footer img {
+        height: 150px;
+        width: 150px;
+      }
+      .frase-final {
+        font-size: 14px;
+        max-width: 90%;
+        
+      }
+      .logo-footer-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+}
+
+.logo-img-fundo {
+  position: absolute;
+  top: 100%;
+  left: 100%;
+  width: 160px;
+  height: 160px;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  border-radius: 50%; /* deixa a imagem redonda */
+  z-index: 1; /* fica atrás da borda */
+}
+
+.logo-borda {
+  position: absolute;
+  top: 100%;
+  left: 100%;
+  width: 180px;
+  height: 180px;
+  transform: translate(-50%, -50%);
+  background-color: transparent;
+  border: 6px solid #0c6c6c; /* cor da borda */
+  border-radius: 100%; /* deixa a borda redonda */
+  z-index: 2; /* fica por cima da imagem */
+}
+
+    }
+
+    .slogan {
+      margin-top: 1rem;
+      font-style: italic;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .help-form,
+      .faq-section {
+        width: 100%;
+      }
+
+      .footer-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Sobre nós</a></li>
+        <li><a href="#">ONGs Disponíveis</a></li>
+        <li><a href="#">Feedbacks</a></li>
+        <li><a href="#">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+  
 
-<header>
-  <nav>
-    <a href="#">Home</a>
-    <a href="#">Sobre nós</a>
-    <a href="#">ONGs Disponíveis</a>
-    <a href="#">Feedback</a>
-    <a href="#">Login</a>
-  </nav>
-</header>
+  <main class="container">
+    <section class="faq-section">
+      <h2>Suporte</h2>
+      <div class="faq">
+        <details open>
+          <summary>Como consigo o certificado?</summary>
+          <p>Após a confirmação da ONG escolhida sobre sua presença no trabalho voluntário.</p>
+        </details>
+        <details>
+          <summary>Preciso estar matriculado em algum curso?</summary>
+        </details>
+        <details>
+          <summary>Preciso pagar algo?</summary>
+        </details>
+      </div>
 
-<div class="container">
-  <h1>SUPORTE AO CLIENTE</h1>
+      <div class="contact-info">
+        <p>Entre em contato com a nossa equipe através dos canais:</p>
+        <p>📞 Telefone: (012) 1234-5678</p>
+        <p>📧 E-mail: suporte@helpandhours.com</p>
+        <p>Atendimento por telefone: Segunda a Sexta, das 9h às 17h. Respostas por e-mail: até 3 dias úteis.</p>
+      </div>
+    </section>
 
-  <div class="faq">
-    <h2>Perguntas Frequentes:</h2>
-    <p><strong>Como consigo o certificado?</strong><br>
-    Após a confirmação do engajamento sobre sua presença no trabalho voluntário.</p>
+    <aside class="help-form">
+      <h3>Ajuda</h3>
+      <p class="subtitulo">Precisa de ajuda?</p>
+      <p class="descricao">Preencha os campos abaixo descrevendo o seu problema. Nossa equipe entrará em contato o mais rápido possível!</p>
+      <form>
+        <input type="text" placeholder="Nome" required />
+        <input type="email" placeholder="Email" required />
+        <textarea placeholder="Descreva o problema..." required></textarea>
+        <button type="submit">Enviar</button>
+      </form>
+    </aside>
+  </main>
 
-    <p><strong>Preciso estar matriculado em algum curso?</strong><br>
-    Sim, H&H tem a intenção de ajudar alunos que necessitam de horas complementares.</p>
+  <!-- Footer -->
+  <!-- ========== RODAPÉ ========== -->
+  <footer>
+    <!-- Rodapé da página -->
 
-    <p><strong>Preciso pagar algo?</strong><br>
-    Não é necessário nenhum tipo de pagamento.</p>
-  </div>
+    <div class="rodape">
+      <!-- Container principal do rodapé -->
 
-  <div class="formulario">
-    <h2 style="color:#FF7B00; margin-bottom:15px;">Informe sua dúvida e entraremos em contato</h2>
-    <form>
-      <label for="nome">Seu nome:</label>
-      <input type="text" id="nome" name="nome" required>
+      <div class="footer-linhas">
+        <!-- Agrupamento das 3 colunas do rodapé -->
 
-      <label for="email">*Insira seu e-mail:</label>
-      <input type="email" id="email" name="email" required>
+        <!-- === COLUNA 1: LINKS === -->
+        <div class="footer-coluna coluna-links">
+          <div class="links-grid">
+            <!-- Grade com três listas de links -->
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Sobre Nós</a></li>
+              <li><a href="#">Feedbacks</a></li>
+            </ul>
+            <ul>
+              <li><a href="#">Login</a></li>
+              <li><a href="#">Perfil</a></li>
+              <li><a href="#">ONGs Disponíveis</a></li>
+            </ul>
+            <ul>
+              <li><a href="#">Gerar Certificado</a></li>
+              <li><a href="#">Cadastrar</a></li>
+              <li><a href="#">Suporte</a></li>
+            </ul>
+          </div>
+        </div>
 
-      <label for="mensagem">Digite aqui:</label>
-      <textarea id="mensagem" name="mensagem" required></textarea>
-
-      <button type="submit">Confirmar</button>
-    </form>
-  </div>
-
-  <div class="contato">
-    <h2>Outras formas de suporte:</h2>
-    <p>📞 4002-8922</p>
-    <p>✉️ helpandhours@gmail.com</p>
-    <p>💬 Chat online</p>
+      
+       <!-- === COLUNA 2: LOGO === -->
+<div class="footer-coluna centro">
+  <div class="logo-footer-fundo">
+    <!-- Fundo com forma decorativa -->
+    <div class="logo-footer">
+      <!-- Área da logo -->
+      <img
+        src="https://private-user-images.githubusercontent.com/124811095/432440376-b6bf4b90-3f05-44a8-a8ca-937538dc8265.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDcxNDY2NDksIm5iZiI6MTc0NzE0NjM0OSwicGF0aCI6Ii8xMjQ4MTEwOTUvNDMyNDQwMzc2LWI2YmY0YjkwLTNmMDUtNDRhOC1hOGNhLTkzNzUzOGRjODI2NS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNTEzJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDUxM1QxNDI1NDlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mOWRkZGU3YjZkNzM3ZTk5ZDMzOGM5ODg4ZmI0YmFkM2ZhOWM1YWQwZTVhOWQwMGZjYTI2YTRmYmRhMDdiNmI1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.Qi9joPfLXvIWCF8lkBlSVyGg0bwk-R_DfdZQhjqZLYM"
+        alt="Logo Help and Hours"
+      />
+    </div>
   </div>
 </div>
 
-<footer>
-  
 
-
-<!-- Rodapé -->
-<footer>
-  <div class="rodape">
-    <div class="footer-linhas">
-      <!-- Coluna esquerda: links -->
-      <!-- Coluna esquerda com 3 subcolunas -->
-      <div class="footer-coluna coluna-links">
-        <div class="links-grid">
-          <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">Sobre Nós</a></li>
-            <li><a href="#">Feedbacks</a></li>
-          </ul>
-          <ul>
-            <li><a href="#">Login</a></li>
-            <li><a href="#">Perfil</a></li>
-            <li><a href="#">ONGs Disponíveis</a></li>
-          </ul>
-          <ul>
-            <li><a href="#">Gerar Certificado</a></li>
-            <li><a href="#">Cadastrar</a></li>
-            <li><a href="#">Suporte</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Logo no centro -->
-      <div class="footer-coluna centro">
-        <div class="logo-footer-fundo">
-          <div class="logo-footer">
-            <img
-              src="https://github.com/CloakerN/Help-E-Hours-WEB/blob/main/Help%20and%20Hour%20nb.png?raw=true"
-              alt="Logo Help and Hours"
-            />
+        <!-- === COLUNA 3: REDES SOCIAIS === -->
+        <div class="footer-coluna direita">
+          <h4>Nossas redes sociais</h4>
+          <div class="icones-sociais">
+            <!-- Links com ícones para redes sociais -->
+            <a href="#">
+              <img src="insta.png" alt="Instagram" />
+              Instagram
+            </a>
+            <a href="#">
+              <img src="face.png" alt="Facebook" />
+              Facebook
+            </a>
           </div>
         </div>
       </div>
 
-      <!-- Coluna direita: redes sociais -->
-      <div class="footer-coluna direita">
-        <h4>Nossas redes sociais</h4>
-        <div class="icones-sociais">
-          <a href="#"><img src="https://s3-alpha-sig.figma.com/img/c799/0651/e4e30f782dcb09796866dd02d8653a7f?Expires=1746403200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=F4t81G6~1wdl-uW0UV3rVqgj8fTRIsdcXjXMH1xjEtzsSl8jnH3U6OLKeWODCVN6fdMZsQSyFXzC9gxm7ktTy-88ThTcSoo7wqjPrtdwA7atJ6TRjdni-5vWSR5l3icGptyM6GPvN~nwTSsFXpeWqqdWY9BKPcHZUN4IT8WCprP8ihO7xuQubVgJSQmxLzobJ-IE6ZQp4fLwVZUzVxHuMv4SB0LxCgT2mHTs0QhFpjO-ieM~me0shexxpRNA6Lcnog32XxpqPDCWXvIv-0h7dH4Wl2GOC-ajyz9WmYcJAYZDgklhFlhvmO8NLBoUm7DjaRFxTlV6ZrbuncoU531CvQ__" alt="Instagram" />Instagram</a>
-          <a href="#"><img src="https://s3-alpha-sig.figma.com/img/829b/ed90/7dd53e53e288a9eb1356551de7643371?Expires=1746403200&Key-Pair-Id=APKAQ4GOSFWCW27IBOMQ&Signature=Q6AIpl6goxGxyFPtvRj9qc4sljJJSsVl2KSvtSQM4H55bgq9NjdphodvpgRGyZVlKSVU-RltrJRY0PYAOnFWwhs1rIbDOgYSQuDz5Jxwa-F3HmTrsCPhPQyavDQ8zyNQ60~b3jCGN-S0V5eYiYMF71d1dgAGXmpZkNjfXYN5BXx4zhz1~PgH216Dkv337LgdMtkUSwm~8748I~pwwY-TJseMrwDy1evlRipGex9Xczjr2mihCDnWjG~Wurb0Z4acpMnYurnsl6h3kOGawTdVB7e9uMnTyywDeoAxGZeVqbPxpDxpDbjKBvK9ZSLgbBKea0EuJG94No53Dp67fBdjFQ_" alt="Facebook" />Facebook</a>
-        </div>
+      <!-- Frase motivacional final -->
+      <center><p class="frase-final">
+        ”O voluntariado é uma jornada de aprendizado, amor e generosidade.”
+      </p></center>
+
+      <!-- Linha decorativa com losangos -->
+      <div class="divisor-footer">
+        <span class="losango-footer"></span>
+        <div class="linha-footer"></div>
+        <span class="losango-footer"></span>
       </div>
+
+      <!-- Texto de copyright -->
+      <center><p class="copyright">Copyright 2025</p></center>
     </div>
-
-    <p class="frase-final">
-      “Apoie ONGs, some experiências e garanta suas horas complementares.”
-    </p>
-    <div class="divisor-footer">
-      <span class="losango-footer"></span>
-      <div class="linha-footer"></div>
-      <span class="losango-footer"></span>
-    </div>
-
-    <p class="copyright">Copyright 2025</p>
-  </div>
-</footer>
-</body>
-</html>
-</footer>
-
+  </footer>
 </body>
 </html>

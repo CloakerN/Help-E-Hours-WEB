@@ -1,0 +1,347 @@
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projeto Help and Hours</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    body {
+      font-family: "Open Sans", sans-serif;
+    }
+     /* ===================== RODAPÉ ===================== */
+footer {
+  background-color: #0c6c6c;
+  color: #fff;
+  padding: 40px 20px 20px 20px;
+  font-family: "Jost-Regular", Helvetica;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-linhas {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* era center */
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+/* Colunas esquerda, centro, direita */
+.footer-coluna {
+  flex: 1;
+  min-width: 200px;
+  text-align: center;
+}
+
+.esquerda ul,
+.direita ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+/* Redes sociais lado a lado */
+
+.direita {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.direita h4 {
+  margin-bottom: 10px;
+  font-family: "Jost-Regular", Helvetica;
+  text-align: center;
+  font-size: 25px;
+  font-style: normal;
+  font-weight: 100;
+  line-height: normal;
+}
+
+.icones-sociais {
+  display: flex;
+  gap: 16px; /* espaço entre os dois ícones */
+}
+
+.direita a img {
+  height: 30px;
+  width: 30px;
+}
+
+/* Agrupamento das 3 colunas de links */
+.links-grid {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+}
+
+/* Estilização das listas */
+.links-grid ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+.links-grid li {
+  margin: 6px 0;
+}
+
+.links-grid a {
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.links-grid a:hover {
+  text-decoration: underline;
+}
+
+.footer-coluna ul li,
+.footer-coluna a {
+  margin: 8px 0;
+  color: white;
+  text-decoration: none;
+  display: block;
+}
+
+.footer-coluna a:hover {
+  text-decoration: underline;
+}
+
+.logo-footer-fundo {
+  background-color: #0c6c6c;
+  height: 220px;
+  width: 170px;
+  border-radius: 69% / 59%;
+  margin: -120px auto 15px auto;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-footer {
+  background-color: #efeae4;
+  padding: 10px;
+  border-radius: 60% / 40%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  height: 250px; /* ou mais, se quiser maior */
+  width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-footer img {
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+}
+
+
+.logo-footer img {
+  height: 190px;
+  width: 190px;
+  object-fit: contain;
+}
+
+/* Divisor e frase */
+.divisor-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0rem;
+  width: 90%;
+  margin: 2px auto 10px;
+}
+
+/* Linha fininha */
+.linha-footer {
+  flex: 1;
+  height: 1px;
+  background-color: #efeae4; /* cor da linha */
+}
+
+/* Losangos pequenos */
+.losango-footer {
+  width: 6px;
+  height: 6px;
+  background-color: #efeae4; /* ou a cor que quiser */
+  transform: rotate(45deg); /* Rotaciona para parecer um losango */
+}
+
+.frase-final {
+  color: #f5f5f5;
+  font-family: "Jost-Regular", Helvetica;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+  </style>
+</head>
+<body class="bg-[#b7b7b7] m-0 p-0 min-h-screen flex flex-col">
+  <!-- Navbar -->
+  <nav class="bg-[#0a4a4a] text-[#d9d9d9] text-sm sm:text-base flex justify-between items-center px-4 sm:px-6 py-2">
+    <ul class="flex space-x-4 sm:space-x-8 font-normal text-xs sm:text-sm md:text-base">
+      <li><a href="#" class="hover:underline">Home</a></li>
+      <li><a href="#" class="hover:underline">Sobre nós</a></li>
+      <li><a href="#" class="hover:underline">ONGs Disponíveis</a></li>
+      <li><a href="#" class="hover:underline">Feedbacks</a></li>
+    </ul>
+    <button
+      class="text-[#0a4a4a] border border-[#0a4a4a] rounded-full px-3 py-1 text-xs sm:text-sm md:text-base hover:bg-[#0a4a4a] hover:text-[#d9d9d9] transition-colors duration-300"
+    >
+      Login
+    </button>
+  </nav>
+
+  <!-- Main content -->
+  <main class="flex-grow flex justify-center items-center relative px-4 sm:px-6 py-10">
+    <div class="relative w-full max-w-[360px] sm:max-w-[400px] flex flex-col items-center">
+      <!-- Large dark teal background behind all -->
+      <div class="bg-[#0a4a4a] rounded-md w-full py-10 flex flex-col items-center shadow-lg relative z-0">
+        <!-- Logo top -->
+        <img
+          src="https://storage.googleapis.com/a1aa/image/edc70720-4e50-4564-e109-43abc9af891c.jpg"
+          alt="Logo Help and Hour, white icon with fork and spoon inside a circle on dark teal background"
+          class="mb-6 relative z-10 w-20 h-20 sm:w-24 sm:h-24"
+          width="80"
+          height="80"
+        />
+        <!-- Bottom text and link below form -->
+        <div class="mt-6 text-center text-[#8bbf7f] text-xs sm:text-sm relative z-10">
+          <a href="#" class="underline hover:text-[#a0d18a]"
+            >Não possui conta? Cadastre-se!</a
+          >
+        </div>
+      </div>
+
+      <!-- Largest dark teal rectangle behind form, bigger and taller -->
+      <div
+        aria-hidden="true"
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] sm:w-[400px] h-[260px] sm:h-[280px] bg-[#0a4a4a] rounded-md shadow-lg z-10"
+      ></div>
+
+      <!-- Medium dark teal rectangle behind form -->
+      <div
+        aria-hidden="true"
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] sm:w-[320px] h-[200px] sm:h-[220px] bg-[#0f6a6a] rounded-md shadow-lg z-20"
+      ></div>
+
+      <!-- Form container -->
+      <div
+        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0f6a6a] rounded-md w-[260px] sm:w-[280px] p-6 shadow-lg text-center text-white text-xs sm:text-sm z-30"
+      >
+        <p class="mb-4 leading-relaxed text-[11px] sm:text-sm">
+          Insira seu email e lhe enviaremos<br />uma nova senha de acesso
+        </p>
+        <input
+          type="email"
+          placeholder="Email"
+          class="w-full rounded-sm px-2 py-1 mb-4 text-[#0a4a4a] text-sm focus:outline-none"
+        />
+        <button
+          class="bg-[#8bbf7f] text-[#0a4a4a] rounded-sm px-4 py-1 text-xs sm:text-sm hover:bg-[#7aa46f] transition-colors duration-300"
+        >
+          Recuperar Senha
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <!-- ========== RODAPÉ ========== -->
+  <footer>
+    <!-- Rodapé da página -->
+
+    <div class="rodape">
+      <!-- Container principal do rodapé -->
+
+      <div class="footer-linhas">
+        <!-- Agrupamento das 3 colunas do rodapé -->
+
+        <!-- === COLUNA 1: LINKS === -->
+        <div class="footer-coluna coluna-links">
+          <div class="links-grid">
+            <!-- Grade com três listas de links -->
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Sobre Nós</a></li>
+              <li><a href="#">Feedbacks</a></li>
+            </ul>
+            <ul>
+              <li><a href="#">Login</a></li>
+              <li><a href="#">Perfil</a></li>
+              <li><a href="#">ONGs Disponíveis</a></li>
+            </ul>
+            <ul>
+              <li><a href="#">Gerar Certificado</a></li>
+              <li><a href="#">Cadastrar</a></li>
+              <li><a href="#">Suporte</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- === COLUNA 2: LOGO === -->
+        <div class="footer-coluna centro">
+          <div class="logo-footer-fundo">
+            <!-- Fundo com forma decorativa -->
+            <div class="logo-footer">
+              <!-- Área da logo -->
+              <img
+                src="https://private-user-images.githubusercontent.com/124811095/432440376-b6bf4b90-3f05-44a8-a8ca-937538dc8265.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDcxNDY2NDksIm5iZiI6MTc0NzE0NjM0OSwicGF0aCI6Ii8xMjQ4MTEwOTUvNDMyNDQwMzc2LWI2YmY0YjkwLTNmMDUtNDRhOC1hOGNhLTkzNzUzOGRjODI2NS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNTEzJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDUxM1QxNDI1NDlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mOWRkZGU3YjZkNzM3ZTk5ZDMzOGM5ODg4ZmI0YmFkM2ZhOWM1YWQwZTVhOWQwMGZjYTI2YTRmYmRhMDdiNmI1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.Qi9joPfLXvIWCF8lkBlSVyGg0bwk-R_DfdZQhjqZLYM"
+                alt="Logo Help and Hours"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- === COLUNA 3: REDES SOCIAIS === -->
+        <div class="footer-coluna direita">
+          <h4>Nossas redes sociais</h4>
+          <div class="icones-sociais">
+            <!-- Links com ícones para redes sociais -->
+            <a href="#">
+              <img src="insta.png" alt="Instagram" />
+              Instagram
+            </a>
+            <a href="#">
+              <img src="face.png" alt="Facebook" />
+              Facebook
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Frase motivacional final -->
+      <center><p class="frase-final">
+        ”O voluntariado é uma jornada de aprendizado, amor e generosidade.”
+      </p></center>
+
+      <!-- Linha decorativa com losangos -->
+      <div class="divisor-footer">
+        <span class="losango-footer"></span>
+        <div class="linha-footer"></div>
+        <span class="losango-footer"></span>
+      </div>
+
+      <!-- Texto de copyright -->
+      <center><p class="copyright">Copyright 2025</p></center>
+    </div>
+  </footer>
+</body>
+</html>

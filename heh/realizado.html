@@ -1,0 +1,393 @@
+<html class="scroll-smooth" lang="pt-BR">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Cadastro Help and Hours
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: "Open Sans", sans-serif;
+    }
+     /* Footer */
+     footer {
+      background-color: #0c6c6c;
+      color: white;
+      padding: 40px 20px 20px 20px;
+      font-family: 'Jost', Helvetica, Arial, sans-serif;
+      position: relative;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .footer-linhas {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-coluna {
+      flex: 1 1 200px;
+      text-align: center;
+    }
+    .links-grid {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+    .links-grid ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+    }
+    .links-grid li {
+      margin: 6px 0;
+    }
+    .links-grid a {
+      color: white;
+      text-decoration: none;
+      font-size: 14px;
+      display: block;
+      padding: 2px 0;
+      transition: text-decoration 0.3s ease;
+    }
+    .links-grid a:hover {
+      text-decoration: underline;
+    }
+    .direita h4 {
+      margin-bottom: 10px;
+      font-size: 25px;
+      font-weight: 100;
+      line-height: normal;
+    }
+    .icones-sociais {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .icones-sociais a {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: white;
+      font-size: 16px;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .icones-sociais a img {
+      height: 30px;
+      width: 30px;
+      object-fit: contain;
+    }
+    .icones-sociais a:hover {
+      color: #f28d41;
+    }
+.logo-footer-fundo {
+  background-color: #0c6c6c;
+  height: 260px; /* aumentou */
+  width: 200px;  /* aumentou */
+  border-radius: 69% / 59%;
+  margin: -140px auto 15px auto;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-footer {
+  background-color: #efeae4;
+  padding: 20px;
+  border-radius: 60% / 40%;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  height: 250px;
+  width: 180px;
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-footer img {
+  height: 230px;
+  width: 230px;
+  object-fit: contain;
+}
+
+    .divisor-footer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0rem;
+      width: 90%;
+      margin: 2px auto 10px;
+    }
+    .linha-footer {
+      flex: 1;
+      height: 1px;
+      background-color: #efeae4;
+    }
+    .losango-footer {
+      width: 6px;
+      height: 6px;
+      background-color: #efeae4;
+      transform: rotate(45deg);
+    }
+    .frase-final {
+      color: #f5f5f5;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: normal;
+      text-align: center;
+      margin: 0 auto 10px;
+      max-width: 600px;
+      font-style: normal;
+    }
+    .copyright {
+      color: #fffded;
+      text-align: center;
+      font-family: 'Jost', Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      line-height: normal;
+      margin-bottom: 0;
+    }
+
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+      border-radius: 10px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background-color: #0c6c6c;
+      border-radius: 10px;
+      border: 2px solid #f0f0f0;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background-color: #0c6c6c;
+    }
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #0c6c6c #f0f0f0;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        margin: 20px 10px;
+        padding: 0 10px;
+      }
+      .form-box {
+        width: 100%;
+        padding: 20px;
+      }
+      .row {
+        flex-direction: column;
+      }
+      .row input {
+        min-width: 100%;
+      }
+      .footer-linhas {
+        flex-direction: column;
+        gap: 30px;
+      }
+      .footer-coluna {
+        min-width: 100%;
+        text-align: center;
+      }
+      .logo-footer-fundo {
+        margin: -80px auto 15px auto;
+        height: 180px;
+        width: 140px;
+      }
+      .logo-footer {
+        height: 160px;
+        width: 110px;
+        padding: 20px;
+      }
+      .logo-footer img {
+        height: 150px;
+        width: 150px;
+      }
+      .frase-final {
+        font-size: 14px;
+        max-width: 90%;
+        
+      }
+    }
+  </style>
+ </head>
+ <body class="bg-[#b3b0a9] m-0 p-0 min-h-screen flex flex-col justify-between">
+  <!-- Top Nav -->
+  <nav class="bg-[#005050] text-[#c9d9d9] text-sm sm:text-base w-full">
+   <ul class="max-w-7xl mx-auto flex justify-between px-4 sm:px-8 py-1">
+    <li class="cursor-pointer">
+     Home
+    </li>
+    <li class="cursor-pointer">
+     Sobre nós
+    </li>
+    <li class="cursor-pointer">
+     ONGs Disponíveis
+    </li>
+    <li class="cursor-pointer">
+     Feedbacks
+    </li>
+    <li class="cursor-pointer">
+     Login
+    </li>
+   </ul>
+  </nav>
+  <!-- Main Content -->
+  <main class="flex-grow flex justify-center items-center px-4 py-10">
+   <section aria-label="Formulário de cadastro" class="bg-[#005050] rounded-md shadow-md p-8 w-full max-w-2xl relative">
+    <h2 class="text-[#c9d9d9] text-center text-lg sm:text-xl font-normal mb-6 relative after:block after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-24 after:h-[1.5px] after:bg-[#c9d9d9]">
+     Cadastrar
+    </h2>
+    <form class="flex flex-col gap-3">
+     <input class="rounded text-xs sm:text-sm px-2 py-1 text-[#7a7a7a]" placeholder="Nome completo" type="text"/>
+     <input class="rounded text-xs sm:text-sm px-2 py-1 text-[#7a7a7a]" placeholder="Endereço" type="text"/>
+     <input class="rounded text-xs sm:text-sm px-2 py-1 text-[#7a7a7a]" placeholder="(ddd)00000-0000" type="text"/>
+     <input class="rounded text-xs sm:text-sm px-2 py-1 text-[#7a7a7a]" placeholder="Nome da mãe" type="text"/>
+     <input class="rounded text-xs sm:text-sm px-2 py-1 text-[#7a7a7a]" placeholder="Senha" type="password"/>
+    </form>
+    <div class="flex justify-between items-center mt-4">
+     <div class="bg-[#c9d9d9] rounded-md w-28 h-28 flex justify-center items-center">
+      <img alt="Ícone de usuário genérico em fundo cinza claro" class="w-28 h-28 object-contain" height="112" src="https://storage.googleapis.com/a1aa/image/59098310-57d5-447c-49c0-974828c5a34f.jpg" width="112"/>
+     </div>
+     <div class="text-xs text-[#c9d9d9] max-w-xs text-right">
+      <p>
+       Data de nascimento
+      </p>
+      <a class="text-[#7a7a7a] underline hover:text-[#c9d9d9]" href="#">
+       Termos de uso
+      </a>
+     </div>
+    </div>
+    <button class="mt-6 bg-[#7a9a7a] text-[#c9d9d9] rounded px-4 py-1 mx-auto block text-sm" type="button">
+     Cadastrar-se
+    </button>
+    <!-- Modal -->
+    <div aria-describedby="modal-desc" aria-labelledby="modal-title" aria-modal="true" class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#005050] rounded-md shadow-lg p-6 w-[360px] sm:w-[400px] text-[#c9d9d9] z-10" role="alertdialog">
+     <h3 class="text-center text-base sm:text-lg font-normal mb-3" id="modal-title">
+      Cadastro realizado com sucesso!
+     </h3>
+     <p class="text-xs sm:text-sm text-center mb-4 leading-relaxed" id="modal-desc">
+      Agora você faz parte da Help and Hours.
+      <br/>
+      <br/>
+      Explore as oportunidades de voluntariado próximas de você,
+          contribua com causas que fazem a diferença e ainda conquiste suas
+          horas complementares.
+      <br/>
+      <br/>
+      Estamos felizes em ter você com a gente!
+      <span>
+       💙
+      </span>
+     </p>
+     <div class="flex justify-center gap-4">
+      <button class="bg-[#f68b3f] text-[#c9d9d9] rounded px-4 py-1 text-sm" type="button">
+       Ir para Home
+      </button>
+      <button class="bg-[#7a9a7a] text-[#c9d9d9] rounded px-4 py-1 text-sm" type="button">
+       Fazer Login
+      </button>
+     </div>
+    </div>
+   </section>
+  </main>
+  <!-- Footer -->
+  <!-- ========== RODAPÉ ========== -->
+  <footer>
+    <!-- Rodapé da página -->
+
+    <div class="rodape">
+      <!-- Container principal do rodapé -->
+
+      <div class="footer-linhas">
+        <!-- Agrupamento das 3 colunas do rodapé -->
+
+        <!-- === COLUNA 1: LINKS === -->
+        <div class="footer-coluna coluna-links">
+          <div class="links-grid">
+            <!-- Grade com três listas de links -->
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Sobre Nós</a></li>
+              <li><a href="#">Feedbacks</a></li>
+            </ul>
+            <ul>
+              <li><a href="#">Login</a></li>
+              <li><a href="#">Perfil</a></li>
+              <li><a href="#">ONGs Disponíveis</a></li>
+            </ul>
+            <ul>
+              <li><a href="#">Gerar Certificado</a></li>
+              <li><a href="#">Cadastrar</a></li>
+              <li><a href="#">Suporte</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- === COLUNA 2: LOGO === -->
+        <div class="footer-coluna centro">
+          <div class="logo-footer-fundo">
+            <!-- Fundo com forma decorativa -->
+            <div class="logo-footer">
+              <!-- Área da logo -->
+              <img
+                src="https://private-user-images.githubusercontent.com/124811095/432440376-b6bf4b90-3f05-44a8-a8ca-937538dc8265.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NDcxNDY2NDksIm5iZiI6MTc0NzE0NjM0OSwicGF0aCI6Ii8xMjQ4MTEwOTUvNDMyNDQwMzc2LWI2YmY0YjkwLTNmMDUtNDRhOC1hOGNhLTkzNzUzOGRjODI2NS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNTEzJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDUxM1QxNDI1NDlaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mOWRkZGU3YjZkNzM3ZTk5ZDMzOGM5ODg4ZmI0YmFkM2ZhOWM1YWQwZTVhOWQwMGZjYTI2YTRmYmRhMDdiNmI1JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.Qi9joPfLXvIWCF8lkBlSVyGg0bwk-R_DfdZQhjqZLYM"
+                alt="Logo Help and Hours"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- === COLUNA 3: REDES SOCIAIS === -->
+        <div class="footer-coluna direita">
+          <h4>Nossas redes sociais</h4>
+          <div class="icones-sociais">
+            <!-- Links com ícones para redes sociais -->
+            <a href="#">
+              <img src="insta.png" alt="Instagram" />
+              Instagram
+            </a>
+            <a href="#">
+              <img src="face.png" alt="Facebook" />
+              Facebook
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Frase motivacional final -->
+      <center><p class="frase-final">
+        ”O voluntariado é uma jornada de aprendizado, amor e generosidade.”
+      </p></center>
+
+      <!-- Linha decorativa com losangos -->
+      <div class="divisor-footer">
+        <span class="losango-footer"></span>
+        <div class="linha-footer"></div>
+        <span class="losango-footer"></span>
+      </div>
+
+      <!-- Texto de copyright -->
+      <center><p class="copyright">Copyright 2025</p></center>
+    </div>
+  </footer>
+ </body>
+</html>
